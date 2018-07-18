@@ -1,0 +1,49 @@
+<div (focusout)="lostFocus($event)">
+    <div [formGroup]="config.parentFormGroup">
+      <div class="load-icon" *ngIf="!config.loadIcon">
+        <span class="wbx-spinner">
+          <i class="fa fa-search"></i>
+        </span>
+      </div>
+      <div class="load-icon" *ngIf="config.loadIcon">
+        <span class="wbx-spinner">
+          <i class="fa fa-lg fa-spinner fa-spin"></i>
+        </span>
+      </div>
+      <input
+          name="{{config.controlName}}"
+          [ngClass]="{'is-invalid': formValidation()}"
+          type="text"
+          class="form-control validate"
+          placeholder="{{config.placeHolder}}"
+          [formControlName]="config.controlName"
+          autocomplete="off"
+          (focus)="onFocus($event)"
+          (keyup)="keyUp($event)"
+          (keydown)="keyDown($event)">
+    </div>
+    <div class="suggestions" *ngIf="config.searchList.length > 0">
+      <ul>
+        <li *ngFor="let item of config.searchList; let indexId = index" [class.complete-selected]="indexId === selectedIndex" (click)="select(item);">
+          <div>
+            <div>
+              <b>{{displayContent(item,0)}}</b>
+            </div>
+            <div *ngIf="config.displayFields[1]">{{displayContent(item,1)}}</div>
+            <div *ngIf="config.displayFields[2]">{{displayContent(item,2)}}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="suggestions" *ngIf="config.searchList.length == 0">
+      <ul>
+        <li>
+          <div>
+            <div>
+              <b>No results found</b>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>

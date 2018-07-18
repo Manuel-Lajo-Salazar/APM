@@ -1,0 +1,138 @@
+<div class="container pt-3">
+    <h3>Nuevo Transporte</h3>
+</div>
+<div class="container" [formGroup]="form">
+    <div class="card-deck pt-3 pb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="vehiculo">Vehículo</label>
+                        <app-auto-complete
+                            class="auto-complete"
+                            id="vehiculo"
+                            [config]="configVehiculo"
+                            (selected)="setVehiculo($event)"
+                            (filteredInput)="getVehiculos($event)">
+                        </app-auto-complete>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label style="margin-top: 2.5rem; font-weight: 700; width: 200px;">Nº de Transporte:</label>
+                        <span>T-002</span>
+                    </div>
+                </div>
+                <div style="border: 1px solid black" class="mt-3 p-2" *ngIf="vehiculo !== undefined">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span>El vehículo con placa {{vehiculo.placa}} tiene:</span>
+                            <br/>
+                            <span>- Capacidad de carga de {{vehiculo.carga}}</span>
+                            <br/>
+                            <span>- Capacidad volumetrica de Alto: {{vehiculo.alto}} Ancho: {{vehiculo.ancho}} Largo: {{vehiculo.largo}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-deck pt-3 pb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <label for="sucSalida">Sucursal de Salida</label>
+                        <app-auto-complete
+                            class="auto-complete"
+                            id="sucSalida"
+                            [config]="configSucursalSalida"
+                            (selected)="setSucursalSalida($event)"
+                            (filteredInput)="getSucursalesSalida($event)">
+                        </app-auto-complete>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label for="fecSalida">Fecha - Hora Salida</label>
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="fecSalida" placeholder="" bsDatepicker formControlName="fechaSalida" />
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <label for="sucLlegada">Sucursal de Llegada</label>
+                        <app-auto-complete
+                            class="auto-complete"
+                            id="sucLlegada"
+                            [config]="configSucursalLlegada"
+                            (selected)="setSucursalLlegada($event)"
+                            (filteredInput)="getSucursalesLlegada($event)">
+                        </app-auto-complete>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label for="fecLlegada">Fecha - Hora Llegada</label>
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="fecLlegada" placeholder="" bsDatepicker formControlName="fechaLlegada" />
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <label for="chofer">Chofer</label>
+                        <app-auto-complete
+                            class="auto-complete"
+                            id="chofer"
+                            [config]="configChofer"
+                            (selected)="setChofer($event)"
+                            (filteredInput)="getChoferes($event)">
+                        </app-auto-complete>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <label for="auxiliar">Auxiliar</label>
+                        <app-auto-complete
+                            class="auto-complete"
+                            id="auxiliar"
+                            [config]="configAuxiliar"
+                            (selected)="setAuxiliar($event)"
+                            (filteredInput)="getAuxiliares($event)">
+                        </app-auto-complete>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <label for="tipoTransporte">Tipo Transporte</label>
+                        <select class="form-control" formControlName="tipoTransporte" [ngClass]="{'is-invalid': formValidation('tipoTransporte')}">
+                            <option value="" selected></option>
+                            <option *ngFor="let tipoTransporte of tiposTransporte" [value]="tipoTransporte.id">{{tipoTransporte.nombre}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div style="margin-top: 2.5rem">
+                            <input type="checkbox" name="activo" formControlName="activo">
+                            <label for="activo" class="pl-2">Está Activo</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-sm-12 mb-3">
+            <button type="button" class="btn btn-danger">Eliminar</button>
+        </div>
+        <div class="col-md-4 col-sm-12 mb-3">
+            <button type="button" class="btn btn-secondary mr-3" (click)="testButtonAction()">Grabar y añadir otro</button>
+            <button type="button" class="btn btn-primary" (click)="create()">Grabar</button>
+        </div>
+    </div>
+</div>

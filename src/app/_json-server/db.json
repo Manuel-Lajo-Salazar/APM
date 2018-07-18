@@ -1,0 +1,118 @@
+{
+    "vehiculos": [
+      {
+        "id": 1,
+        "placa": "PE - 1234",
+        "tipo": "Camión",
+        "marca": "Toyota",
+        "carga": "1,200 Kg.",
+        "alto": "3,30 m",
+        "ancho": "2,50 m",
+        "largo": "15,00 m"
+      },
+      {
+        "id": 2,
+        "placa": "PE - 9999",
+        "tipo": "Camioneta",
+        "marca": "Nissan",
+        "carga": "400 Kg.",
+        "alto": "1,90 m",
+        "ancho": "1,50 m",
+        "largo": "6,00 m"
+      }
+    ],
+    "sucursales": [
+      {
+        "id": 1,
+        "nombre": "Lima"
+      },
+      {
+        "id": 2,
+        "nombre": "Ica"
+      },
+      {
+        "id": 3,
+        "nombre": "Puno"
+      }
+    ],
+    "choferes": [
+      {
+        "id": 1,
+        "nombre": "Juan Perez",
+        "dni": "41678914"
+      },
+      {
+        "id": 2,
+        "nombre": "Daniel Valdivia",
+        "dni": "12659144"
+      }
+    ],
+    "auxiliares": [
+      {
+        "id": 1,
+        "nombre": "Auxiliar A",
+        "dni": "52558189"
+      },
+      {
+        "id": 2,
+        "nombre": "Auxiliar B",
+        "dni": "34728354"
+      }
+    ],
+    "tiposTransporte": [
+      {
+        "id": 1,
+        "nombre": "Tipo 1"
+      },
+      {
+        "id": 2,
+        "nombre": "Tipo 2"
+      },
+      {
+        "id": 3,
+        "nombre": "Tipo 3"
+      }
+    ],
+    "transportes": [
+      {
+        "id": 9,
+        "numero": "T-009",
+        "activo": true,
+        "fechaSalida": "2018-06-22T20:48:50.000Z",
+        "fechaLlegada": "2018-06-28T20:48:50.000Z",
+        "sucursalSalidaId": 1,
+        "sucursalSalidaNombre": "Lima",
+        "sucursalLlegadaId": 3,
+        "sucursalLlegadaNombre": "Puno",
+        "choferId": 2,
+        "choferNombre": "Daniel Valdivia",
+        "auxiliarId": 1,
+        "auxiliarNombre": "Auxiliar A",
+        "vehiculoId": 1,
+        "placa": "PE - 1234",
+        "carga": "1,200 Kg.",
+        "volumetria": "3,30 m",
+        "tipoTransporte": 1
+      },
+      {
+        "id": 8,
+        "numero": "T-008",
+        "activo": true,
+        "fechaSalida": "2018-07-01T20:48:50.000Z",
+        "fechaLlegada": "2018-07-07T20:48:50.000Z",
+        "sucursalSalidaId": 2,
+        "sucursalSalidaNombre": "Ica",
+        "sucursalLlegadaId": 1,
+        "sucursalLlegadaNombre": "Lima",
+        "choferId": 1,
+        "choferNombre": "Juan Perez",
+        "auxiliarId": 2,
+        "auxiliarNombre": "Auxiliar B",
+        "vehiculoId": 2,
+        "placa": "PE - 9999",
+        "carga": "400 Kg.",
+        "volumetria": "1,90 m",
+        "tipoTransporte": 2
+      }
+    ]
+  }

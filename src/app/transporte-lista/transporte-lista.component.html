@@ -1,0 +1,162 @@
+<div class="container pt-3">
+    <h3>Listado de Transportes</h3>
+</div>
+<div class="container" [formGroup]="form">
+    <div class="card-deck pt-3 pb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="row pt-3">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="transporte">Nro. de Transporte</label>
+                        <app-auto-complete
+                            class="auto-complete"
+                            id="transporte"
+                            [config]="configTransporte"
+                            (selected)="setTransporte($event)"
+                            (filteredInput)="getTransportes($event)">
+                        </app-auto-complete>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="vehiculo">Vehículo</label>
+                        <app-auto-complete
+                            class="auto-complete"
+                            id="vehiculo"
+                            [config]="configVehiculo"
+                            (selected)="setVehiculo($event)"
+                            (filteredInput)="getVehiculos($event)">
+                        </app-auto-complete>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="fecSalida">Fecha Salida</label>
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="fecSalida" placeholder="" bsDatepicker formControlName="fechaSalida" />
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="fecLlegada">Fecha Llegada</label>
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="fecLlegada" placeholder="" bsDatepicker formControlName="fechaLlegada" />
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <label for="sucSalida">Sucursal de Salida</label>
+                        <app-auto-complete
+                            class="auto-complete"
+                            id="sucSalida"
+                            [config]="configSucursalSalida"
+                            (selected)="setSucursalSalida($event)"
+                            (filteredInput)="getSucursalesSalida($event)">
+                        </app-auto-complete>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <label for="sucLlegada">Sucursal de Llegada</label>
+                        <app-auto-complete
+                            class="auto-complete"
+                            id="sucLlegada"
+                            [config]="configSucursalLlegada"
+                            (selected)="setSucursalLlegada($event)"
+                            (filteredInput)="getSucursalesLlegada($event)">
+                        </app-auto-complete>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-md-10 col-sm-12 mb-3"></div>
+                    <div class="col-md-2 col-sm-12 mb-3">
+                        <button type="button" class="btn btn-primary" (click)="search()">Buscar Transporte</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" class="transporte-lista__tabla">
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">Nro.Transp.</th>
+                        <th scope="col" class="text-center">Placa</th>
+                        <th scope="col" class="text-center">Cap.Carga</th>
+                        <th scope="col" class="text-center">Cap.Volum.</th>
+                        <th scope="col" class="text-center">Chofer</th>
+                        <th scope="col" class="text-center">Auxiliar</th>
+                        <th scope="col" class="text-center">Suc.Salida</th>
+                        <th scope="col" class="text-center">Suc.Lleg.</th>
+                        <th scope="col" class="text-center">Fec.Salida</th>
+                        <th scope="col" class="text-center">Fec.Lleg.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr scope="row" *ngFor="let transporte of resultados">
+                        <td class="text-center">
+                            <a [routerLink]="['/transporte', transporte.id]">{{transporte.numero}}</a>
+                        </td>
+                        <td>{{transporte.placa}}</td>
+                        <td>{{transporte.carga}}</td>
+                        <td>{{transporte.volumetria}}</td>
+                        <td>{{transporte.choferNombre}}</td>
+                        <td>{{transporte.auxiliarNombre}}</td>
+                        <td>{{transporte.sucursalSalidaNombre}}</td>
+                        <td>{{transporte.sucursalLlegadaNombre}}</td>
+                        <td>{{transporte.fechaSalida | date:'dd/MM/yyyy'}}</td>
+                        <td>{{transporte.fechaLlegada | date:'dd/MM/yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-deck transporte-lista__cards pt-2" *ngFor="let transporte of resultados">
+        <div class="card">
+            <div class="card-body">
+                <div class="row pt-2">
+                    <div class="col-sm-12">
+                        <span class="font-weight-bold">Nro. Transporte: </span><a [routerLink]="['/transporte', transporte.id]">{{transporte.numero}}</a>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-sm-12">
+                        <span class="font-weight-bold">Placa del Vehículo: </span>{{transporte.placa}}
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-sm-12">
+                        <span class="font-weight-bold">Chofer: </span>{{transporte.choferNombre}}
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-sm-12">
+                        <span class="font-weight-bold">Sucursal de Salida: </span>{{transporte.sucursalSalidaNombre}}
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-sm-12">
+                        <span class="font-weight-bold">Sucursal de Llegada: </span>{{transporte.sucursalLlegadaNombre}}
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-sm-12">
+                        <span class="font-weight-bold">Fecha de Salida: </span>{{transporte.fechaSalida | date:'dd/MM/yyyy'}}
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-sm-12">
+                        <span class="font-weight-bold">Fecha de Llegada: </span>{{transporte.fechaLlegada | date:'dd/MM/yyyy'}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
