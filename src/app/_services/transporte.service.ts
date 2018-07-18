@@ -11,23 +11,37 @@ export class TransporteService {
 
   private testUrl = `http://localhost:3000`;
 
+  private testUrlApi = `https://localhost:5001/api`;
+
   constructor(private _http: HttpClient) { }
 
 
-  getVehiculos(filter: string): Observable<any[]> {
-    return this._http.get<any[]>(`${this.testUrl}/vehiculos`);
+  getVehiculos(filter?: string): Observable<any[]> {
+    if (filter == null || filter === '') {
+      return this._http.get<any[]>(`${this.testUrlApi}/vehiculos`);
+    }
+    return this._http.get<any[]>(`${this.testUrlApi}/vehiculos/criterio/` + filter);
   }
 
-  getSucursales(filter: string): Observable<any[]> {
-    return this._http.get<any[]>(`${this.testUrl}/sucursales`);
+  getSucursales(filter?: string): Observable<any[]> {
+    if (filter == null || filter === '') {
+      return this._http.get<any[]>(`${this.testUrlApi}/sucursales`);
+    }
+    return this._http.get<any[]>(`${this.testUrlApi}/sucursales/criterio/` + filter);
   }
 
   getChoferes(filter: string): Observable<any[]> {
-    return this._http.get<any[]>(`${this.testUrl}/choferes`);
+    if (filter == null || filter === '') {
+      return this._http.get<any[]>(`${this.testUrlApi}/colaboradores/tipo/1`);
+    }
+    return this._http.get<any[]>(`${this.testUrlApi}/colaboradores/criterio/` + filter);
   }
 
   getAuxiliares(filter: string): Observable<any[]> {
-    return this._http.get<any[]>(`${this.testUrl}/auxiliares`);
+    if (filter == null || filter === '') {
+      return this._http.get<any[]>(`${this.testUrlApi}/colaboradores/tipo/2`);
+    }
+    return this._http.get<any[]>(`${this.testUrlApi}/colaboradores/criterio/` + filter);
   }
 
   getTiposTransporte(): Observable<any[]> {
