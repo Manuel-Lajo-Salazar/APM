@@ -81,7 +81,7 @@ export class TransporteListaComponent implements OnInit {
 
   getTransportes(filter: string) {
     this.configTransporte.loadIcon = true;
-    this.transporteService.getTransportes(filter)
+    this.transporteService.getTransportes()
       .subscribe(transportes => {
         this.configTransporte.searchList = transportes;
         this.configTransporte.loadIcon = false;
@@ -200,7 +200,6 @@ export class TransporteListaComponent implements OnInit {
     // temporalmente se usa el modelo Transporte como modelo de búsqueda
     this.model = new Transporte(
       this.transporte ? this.transporte.id : 0,
-      this.transporte ? this.transporte.numero : null,
       true,
       this.form.get('fechaSalida').value,
       this.form.get('fechaLlegada').value,

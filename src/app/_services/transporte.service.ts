@@ -43,12 +43,22 @@ export class TransporteService {
     return this._http.post<any>(`${this.testUrl}/transportes`, transporte, httpOptions);
   }
 
-  getTransporte(id: any): Observable<any> {
+  // no funciona con json-server
+  updateTransporte(transporte: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    return this._http.post<any>(`${this.testUrl}/transportes`, transporte, httpOptions);
+  }
+
+  getTransporte(id: Number): Observable<any> {
     return this._http.get<any>(`${this.testUrl}/transportes/${id}`);
   }
 
-  // para el autocomplete
-  getTransportes(filter: string): Observable<any[]> {
+  // temporal: para obtener nuevo id, basado en el mayor id + 1
+  getTransportes(): Observable<any[]> {
     return this._http.get<any[]>(`${this.testUrl}/transportes`);
   }
 
