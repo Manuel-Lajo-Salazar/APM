@@ -2,7 +2,7 @@
 import { TransporteService } from '../_services/transporte.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { Transporte } from './../_models/Transporte';
+import { TransporteForListDto } from './../_models/TransporteForListDto';
 import { AutoComplete } from '../_models/AutoComplete';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -13,8 +13,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class TransporteListaComponent implements OnInit {
-  resultados: Transporte[] = [];
-  model: Transporte;
+  resultados: TransporteForListDto[] = [];
+  model: any;
   form: FormGroup;
 
   loadIcon: boolean;
@@ -81,7 +81,7 @@ export class TransporteListaComponent implements OnInit {
 
   getTransportes(filter: string) {
     this.configTransporte.loadIcon = true;
-    this.transporteService.getTransportes(filter)
+    this.transporteService.getTransportes()
       .subscribe(transportes => {
         this.configTransporte.searchList = transportes;
         this.configTransporte.loadIcon = false;
@@ -197,28 +197,13 @@ export class TransporteListaComponent implements OnInit {
   }
 
   search() {
-    // temporalmente se usa el modelo Transporte como modelo de búsqueda
-    this.model = new Transporte(
-      this.transporte ? this.transporte.id : 0,
-      this.transporte ? this.transporte.numero : null,
-      true,
-      this.form.get('fechaSalida').value,
-      this.form.get('fechaLlegada').value,
-      Number(this.sucursalSalida ? this.sucursalSalida.id : 0),
-      this.sucursalSalida ? this.sucursalSalida.nombre : null,
-      Number(this.sucursalLlegada ? this.sucursalLlegada.id : 0),
-      this.sucursalLlegada ? this.sucursalLlegada.nombre : null,
-      null,
-      null,
-      null,
-      null,
-      Number(this.vehiculo ? this.vehiculo.id : 0),
-      this.vehiculo ? this.vehiculo.placa : null,
-      this.vehiculo ? this.vehiculo.carga : null,
-      this.vehiculo ? this.vehiculo.alto : null,
-      null
-    );
-    console.log(this.model);
+    this.model = {
+      FechaSalida: null,
+      FechaLlegada: null,
+      SucursalSalidaId: null,
+      SucursalLlegadaId: null,
+      VehiculoPlaca: null,
+    };
     this.transporteService.searchTransportes(this.model)
       .subscribe(response => {
         console.log(response);

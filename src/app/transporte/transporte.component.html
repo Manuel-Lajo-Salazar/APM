@@ -1,9 +1,9 @@
-<div class="container pt-3">
+<div class="container pt-3 transporte-titulo">
     <h3>Nuevo Transporte</h3>
 </div>
 <div class="container" [formGroup]="form">
     <div class="card-deck pt-3 pb-3">
-        <div class="card">
+        <div class="card transporte-card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -37,7 +37,7 @@
     </div>
 
     <div class="card-deck pt-3 pb-3">
-        <div class="card">
+        <div class="card transporte-card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-12 mb-3">
@@ -50,15 +50,16 @@
                             (filteredInput)="getSucursalesSalida($event)">
                         </app-auto-complete>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-6 col-sm-12 mb-3">
                         <label for="fecSalida">Fecha - Hora Salida</label>
-                        <div class="input-group date">
-                            <input type="text" class="form-control" id="fecSalida" placeholder="" bsDatepicker formControlName="fechaSalida" />
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                            </div>
+                        <div>
+                            <p-calendar formControlName="fechaSalida"
+                                dateFormat="dd/mm/yy"
+                                showTime="true"
+                                hourFormat="12"
+                                showIcon="true"
+                                inputStyleClass="col-sm-12">
+                            </p-calendar>
                         </div>
                     </div>
                 </div>
@@ -73,15 +74,16 @@
                             (filteredInput)="getSucursalesLlegada($event)">
                         </app-auto-complete>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-6 col-sm-12 mb-3">
                         <label for="fecLlegada">Fecha - Hora Llegada</label>
-                        <div class="input-group date">
-                            <input type="text" class="form-control" id="fecLlegada" placeholder="" bsDatepicker formControlName="fechaLlegada" />
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                            </div>
+                        <div>
+                            <p-calendar formControlName="fechaLlegada"
+                                dateFormat="dd/mm/yy"
+                                showTime="true"
+                                hourFormat="12"
+                                showIcon="true"
+                                inputStyleClass="col-sm-12">
+                            </p-calendar>
                         </div>
                     </div>
                 </div>
@@ -128,11 +130,11 @@
 
     <div class="row">
         <div class="col-md-8 col-sm-12 mb-3">
-            <button type="button" class="btn btn-danger">Eliminar</button>
+            <button type="button" class="btn btn-dark">Eliminar</button>
         </div>
         <div class="col-md-4 col-sm-12 mb-3">
-            <button type="button" class="btn btn-secondary mr-3" (click)="testButtonAction()">Grabar y añadir otro</button>
-            <button type="button" class="btn btn-primary" (click)="create()">Grabar</button>
+            <button type="button" class="btn btn-primary mr-3" (click)="saveAndNew()">Grabar y añadir otro</button>
+            <button type="button" class="btn btn-primary" (click)="saveOnly()">Grabar</button>
         </div>
     </div>
 </div>

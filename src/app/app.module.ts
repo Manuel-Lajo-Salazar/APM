@@ -12,7 +12,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TransporteComponent } from './transporte/transporte.component';
 import { TransporteListaComponent } from './transporte-lista/transporte-lista.component';
 import { TransporteService } from './_services/transporte.service';
-
+import {CalendarModule} from 'primeng/calendar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { TransporteService } from './_services/transporte.service';
     ReactiveFormsModule,
     APP_ROUTING,
     HttpClientModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    CalendarModule,
+    BrowserAnimationsModule
   ],
   providers: [
     TransporteService

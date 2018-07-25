@@ -57,18 +57,33 @@ export class TransporteService {
     return this._http.post<any>(`${this.testUrl}/transportes`, transporte, httpOptions);
   }
 
-  getTransporte(id: any): Observable<any> {
-    return this._http.get<any>(`${this.testUrl}/transportes/${id}`);
+  // no funciona con json-server
+  updateTransporte(transporte: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    return this._http.post<any>(`${this.testUrl}/transportes`, transporte, httpOptions);
   }
 
-  // para el autocomplete
-  getTransportes(filter: string): Observable<any[]> {
+  getTransporte(id: Number): Observable<any> {
+    return this._http.get<any>(`${this.testUrlApi}/transportes/${id}`);
+  }
+
+  // temporal: para obtener nuevo id, basado en el mayor id + 1
+  getTransportes(): Observable<any[]> {
     return this._http.get<any[]>(`${this.testUrl}/transportes`);
   }
 
   // para la búsqueda de Lista de Transportes
   searchTransportes(transporte: any): Observable<any[]> {
-    return this._http.get<any[]>(`${this.testUrl}/transportes`);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    return this._http.post<any[]>(`${this.testUrlApi}/transportes/criterio`, transporte, httpOptions);
   }
 
 }
