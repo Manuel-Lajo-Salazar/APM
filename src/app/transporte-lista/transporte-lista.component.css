@@ -18,3 +18,16 @@
         display: none;
     }
 }
+
+.transporte-titulo {
+    color: rgba(0,0,0,.6);
+}
+
+.transporte-card {
+    color: white;
+    border-width: 1px;
+    border-color: black;
+    /* background-color: #C3E8E2; */
+    /* background-color: gray; */
+    background-color: rgba(51, 51, 51, 0.75);
+}

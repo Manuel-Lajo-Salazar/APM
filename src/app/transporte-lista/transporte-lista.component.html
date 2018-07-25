@@ -3,7 +3,7 @@
 </div>
 <div class="container" [formGroup]="form">
     <div class="card-deck pt-3 pb-3">
-        <div class="card">
+        <div class="card transporte-card">
             <div class="card-body">
                 <div class="row pt-3">
                     <div class="col-md-6 col-sm-12">
@@ -82,44 +82,50 @@
             </div>
         </div>
     </div>
-    <div class="row" class="transporte-lista__tabla">
-        <div class="col-sm-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-center">Nro.Transp.</th>
-                        <th scope="col" class="text-center">Placa</th>
-                        <th scope="col" class="text-center">Cap.Carga</th>
-                        <th scope="col" class="text-center">Cap.Volum.</th>
-                        <th scope="col" class="text-center">Chofer</th>
-                        <th scope="col" class="text-center">Auxiliar</th>
-                        <th scope="col" class="text-center">Suc.Salida</th>
-                        <th scope="col" class="text-center">Suc.Lleg.</th>
-                        <th scope="col" class="text-center">Fec.Salida</th>
-                        <th scope="col" class="text-center">Fec.Lleg.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr scope="row" *ngFor="let transporte of resultados">
-                        <td class="text-center">
-                            <a [routerLink]="['/transporte', transporte.id]">{{transporte.numero}}</a>
-                        </td>
-                        <td>{{transporte.placa}}</td>
-                        <td>{{transporte.carga}}</td>
-                        <td>{{transporte.volumetria}}</td>
-                        <td>{{transporte.choferNombre}}</td>
-                        <td>{{transporte.auxiliarNombre}}</td>
-                        <td>{{transporte.sucursalSalidaNombre}}</td>
-                        <td>{{transporte.sucursalLlegadaNombre}}</td>
-                        <td>{{transporte.fechaSalida | date:'dd/MM/yyyy'}}</td>
-                        <td>{{transporte.fechaLlegada | date:'dd/MM/yyyy'}}</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="card-deck pt-3 pb-3">
+        <div class="card transporte-card">
+            <div class="card-body">
+                <div class="row" class="transporte-lista__tabla">
+                    <div class="col-sm-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-center">Nro.Transp.</th>
+                                    <th scope="col" class="text-center">Placa</th>
+                                    <th scope="col" class="text-center">Cap.Carga</th>
+                                    <th scope="col" class="text-center">Cap.Volum.</th>
+                                    <th scope="col" class="text-center">Chofer</th>
+                                    <th scope="col" class="text-center">Auxiliar</th>
+                                    <th scope="col" class="text-center">Suc.Salida</th>
+                                    <th scope="col" class="text-center">Suc.Lleg.</th>
+                                    <th scope="col" class="text-center">Fec.Salida</th>
+                                    <th scope="col" class="text-center">Fec.Lleg.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr scope="row" *ngFor="let transporte of resultados">
+                                    <td class="text-center">
+                                        <a [routerLink]="['/transporte', transporte.id]">{{transporte.numero}}</a>
+                                    </td>
+                                    <td>{{transporte.placa}}</td>
+                                    <td>{{transporte.carga}}</td>
+                                    <td>{{transporte.volumetria}}</td>
+                                    <td>{{transporte.choferNombre}}</td>
+                                    <td>{{transporte.auxiliarNombre}}</td>
+                                    <td>{{transporte.sucursalSalidaNombre}}</td>
+                                    <td>{{transporte.sucursalLlegadaNombre}}</td>
+                                    <td>{{transporte.fechaSalida | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{transporte.fechaLlegada | date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card-deck transporte-lista__cards pt-2" *ngFor="let transporte of resultados">
-        <div class="card">
+        <div class="card transporte-card">
             <div class="card-body">
                 <div class="row pt-2">
                     <div class="col-sm-12">
