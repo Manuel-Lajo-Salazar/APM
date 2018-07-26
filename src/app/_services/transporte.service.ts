@@ -54,6 +54,7 @@ export class TransporteService {
   }
 
 
+  // requests para Transporte
 
   createTransporte(transporte: any): Observable<any> {
     const httpOptions = {
@@ -84,13 +85,14 @@ export class TransporteService {
   }
 
   // para la búsqueda de Lista de Transportes
-  searchTransportes(transporte: any): Observable<any[]> {
+  searchTransportes(transporteCriteria: any): Observable<any[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
       })
     };
-    return this._http.post<any[]>(`${this.testUrlApi}/transportes/criterio`, transporte, httpOptions);
+    // return this._http.post<any[]>(`${this.testUrlApi}/transportes/criterio`, transporteCriteria, httpOptions);
+    return this._http.get<any[]>(`${this.testUrlApi}/transportes`);
   }
 
 }

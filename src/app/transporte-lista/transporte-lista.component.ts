@@ -4,7 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TransporteForListDto } from '../_models/TransporteForListDto';
 import { AutoComplete } from '../_models/AutoComplete';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Vehiculo } from '../_models/Vehiculo';
+import { Sucursal } from '../_models/Sucursal';
+import { TransporteCriteria } from '../_models/TransporteCriteria';
 
 @Component({
   templateUrl: './transporte-lista.component.html',
@@ -13,47 +15,37 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 export class TransporteListaComponent implements OnInit {
   resultados: TransporteForListDto[] = [];
-  model: any;
+  model: TransporteCriteria;
   form: FormGroup;
 
   loadIcon: boolean;
   errorMessage;
 
-  configTransporte: AutoComplete;
-  transporte: any;
-  transportes = [];
-
   configVehiculo: AutoComplete;
-  vehiculo: any;
-  vehiculos = [];
+  vehiculo: Vehiculo;
+  vehiculos: Vehiculo[] = [];
 
   configSucursalSalida: AutoComplete;
-  sucursalSalida: any;
-  sucursalesSalida = [];
+  sucursalSalida: Sucursal;
+  sucursalesSalida: Sucursal[] = [];
 
   configSucursalLlegada: AutoComplete;
-  sucursalLlegada: any;
-  sucursalesLlegada = [];
-
-  today: number = Date.now();
+  sucursalLlegada: Sucursal;
+  sucursalesLlegada: Sucursal[] = [];
 
   constructor(
     private transporteService: TransporteService,
-    private formBuilder: FormBuilder,
-    private _route: ActivatedRoute,
-    private _router: Router) { }
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.createForm();
     this.setConfigVehiculo();
-    this.setConfigTransporte();
     this.setConfigSucursalSalida();
     this.setConfigSucursalLlegada();
   }
 
   createForm() {
     this.form = this.formBuilder.group({
-      transporte: ['', []],
       vehiculo: ['', []],
       sucursalSalida: ['', []],
       sucursalLlegada: ['', []],
@@ -62,50 +54,37 @@ export class TransporteListaComponent implements OnInit {
     });
   }
 
-
-  private setConfigTransporte() {
-    this.configTransporte = new AutoComplete(
-      'transporte',
-      this.form,
-      ['numero'],
-      this.transportes,
-      false,
-      this.loadIcon,
-      'Buscar Transportes',
-      'id',
-      ['numero', 'placa,tipo,marca', 'chofer'],
-      []
+  search() {
+    this.model = new TransporteCriteria(
+      this.form.get('fechaSalida').value ? this.form.get('fechaSalida').value : null,
+      this.form.get('fechaLlegada').value ? this.form.get('fechaLlegada').value : null,
+      this.sucursalSalida ? this.sucursalSalida.id : null,
+      this.sucursalLlegada ? this.sucursalLlegada.id : null,
+      this.vehiculo ? this.vehiculo.placa : null,
     );
-  }
-
-  getTransportes(filter: string) {
-    this.configTransporte.loadIcon = true;
-    this.transporteService.getTransportes()
-      .subscribe(transportes => {
-        this.configTransporte.searchList = transportes;
-        this.configTransporte.loadIcon = false;
+    this.transporteService.searchTransportes(this.model)
+      .subscribe(response => {
+        console.log(response);
+        this.resultados = response;
       }, error => {
-        this.errorMessage = <any>error;
-        this.configTransporte.loadIcon = false;
+        console.log(error);
       });
   }
 
-  setTransporte(selectedItem: any) {
-    this.transporte = selectedItem;
-  }
 
-
+  // configuration section
+  
   private setConfigVehiculo() {
     this.configVehiculo = new AutoComplete(
       'vehiculo',
       this.form,
-      ['placa', 'tipo', 'marca'],
+      ['placa', 'marca'],
       this.vehiculos,
       false,
       this.loadIcon,
       'Buscar Vehículo',
       'id',
-      ['placa', 'tipo,marca', 'carga'],
+      ['placa', 'marca', 'carga'],
       []
     );
   }
@@ -122,7 +101,7 @@ export class TransporteListaComponent implements OnInit {
       });
   }
 
-  setVehiculo(selectedItem: any) {
+  setVehiculo(selectedItem: Vehiculo) {
     this.vehiculo = selectedItem;
   }
 
@@ -131,13 +110,13 @@ export class TransporteListaComponent implements OnInit {
     this.configSucursalSalida = new AutoComplete(
       'sucursalSalida',
       this.form,
-      ['nombre'],
+      ['nombre', 'departamento', 'direccion'],
       this.sucursalesSalida,
       false,
       this.loadIcon,
       'Buscar Sucursal de salida',
       'id',
-      ['nombre'],
+      ['nombre', 'departamento', 'direccion'],
       []
     );
   }
@@ -154,7 +133,7 @@ export class TransporteListaComponent implements OnInit {
       });
   }
 
-  setSucursalSalida(selectedItem: any) {
+  setSucursalSalida(selectedItem: Sucursal) {
     this.sucursalSalida = selectedItem;
   }
 
@@ -163,13 +142,13 @@ export class TransporteListaComponent implements OnInit {
     this.configSucursalLlegada = new AutoComplete(
       'sucursalLlegada',
       this.form,
-      ['nombre'],
+      ['nombre', 'departamento', 'direccion'],
       this.sucursalesLlegada,
       false,
       this.loadIcon,
       'Buscar Sucursal de llegada',
       'id',
-      ['nombre'],
+      ['nombre', 'departamento', 'direccion'],
       []
     );
   }
@@ -186,30 +165,13 @@ export class TransporteListaComponent implements OnInit {
       });
   }
 
-  setSucursalLlegada(selectedItem: any) {
+  setSucursalLlegada(selectedItem: Sucursal) {
     this.sucursalLlegada = selectedItem;
   }
 
 
   formValidation(controlName: string): boolean {
     return false;
-  }
-
-  search() {
-    this.model = {
-      FechaSalida: null,
-      FechaLlegada: null,
-      SucursalSalidaId: null,
-      SucursalLlegadaId: null,
-      VehiculoPlaca: null,
-    };
-    this.transporteService.searchTransportes(this.model)
-      .subscribe(response => {
-        console.log(response);
-        this.resultados = response;
-      }, error => {
-        console.log(error);
-      });
   }
 
 }

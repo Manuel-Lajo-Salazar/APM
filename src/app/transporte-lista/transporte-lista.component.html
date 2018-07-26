@@ -7,16 +7,6 @@
             <div class="card-body">
                 <div class="row pt-3">
                     <div class="col-md-6 col-sm-12">
-                        <label for="transporte">Nro. de Transporte</label>
-                        <pm-auto-complete
-                            class="auto-complete"
-                            id="transporte"
-                            [config]="configTransporte"
-                            (selected)="setTransporte($event)"
-                            (filteredInput)="getTransportes($event)">
-                        </pm-auto-complete>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
                         <label for="vehiculo">Vehículo</label>
                         <pm-auto-complete
                             class="auto-complete"
@@ -26,29 +16,7 @@
                             (filteredInput)="getVehiculos($event)">
                         </pm-auto-complete>
                     </div>
-                </div>
-                <div class="row pt-3">
                     <div class="col-md-6 col-sm-12">
-                        <label for="fecSalida">Fecha Salida</label>
-                        <div class="input-group date">
-                            <input type="text" class="form-control" id="fecSalida" placeholder="" bsDatepicker formControlName="fechaSalida" />
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label for="fecLlegada">Fecha Llegada</label>
-                        <div class="input-group date">
-                            <input type="text" class="form-control" id="fecLlegada" placeholder="" bsDatepicker formControlName="fechaLlegada" />
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="row pt-3">
@@ -71,6 +39,28 @@
                             (selected)="setSucursalLlegada($event)"
                             (filteredInput)="getSucursalesLlegada($event)">
                         </pm-auto-complete>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="fecSalida">Fecha Salida</label>
+                        <div>
+                            <p-calendar formControlName="fechaSalida"
+                                dateFormat="dd/mm/yy"
+                                showIcon="true"
+                                inputStyleClass="col-sm-12">
+                            </p-calendar>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="fecLlegada">Fecha Llegada</label>
+                        <div>
+                            <p-calendar formControlName="fechaLlegada"
+                                dateFormat="dd/mm/yy"
+                                showIcon="true"
+                                inputStyleClass="col-sm-12">
+                            </p-calendar>
+                        </div>
                     </div>
                 </div>
                 <div class="row pt-3">
@@ -105,7 +95,7 @@
                             <tbody>
                                 <tr scope="row" *ngFor="let transporte of resultados">
                                     <td class="text-center">
-                                        <a [routerLink]="['/transporte', transporte.id]">{{transporte.id}}</a>
+                                        <a [routerLink]="['/transporte', transporte.id]">T-00{{transporte.id}}</a>
                                     </td>
                                     <td>{{transporte.vehiculoPlaca}}</td>
                                     <td>{{transporte.vehiculoCarga}}</td>
@@ -129,17 +119,17 @@
             <div class="card-body">
                 <div class="row pt-2">
                     <div class="col-sm-12">
-                        <span class="font-weight-bold">Nro. Transporte: </span><a [routerLink]="['/transporte', transporte.id]">{{transporte.numero}}</a>
+                        <span class="font-weight-bold">Nro. Transporte: </span><a [routerLink]="['/transporte', transporte.id]">T-00{{transporte.id}}</a>
                     </div>
                 </div>
                 <div class="row pt-2">
                     <div class="col-sm-12">
-                        <span class="font-weight-bold">Placa del Vehículo: </span>{{transporte.placa}}
+                        <span class="font-weight-bold">Placa del Vehículo: </span>{{transporte.vehiculoPlaca}}
                     </div>
                 </div>
                 <div class="row pt-2">
                     <div class="col-sm-12">
-                        <span class="font-weight-bold">Chofer: </span>{{transporte.choferNombre}}
+                        <span class="font-weight-bold">Chofer: </span>{{transporte.colaboradorChoferNombre}}
                     </div>
                 </div>
                 <div class="row pt-2">

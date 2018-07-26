@@ -126,14 +126,14 @@ export class TransporteComponent implements OnInit {
       nroLicencia: transporte.colaboradorAuxiliarNroLicencia,
       tipo: null // verificar si es necesario tener este valor
     };
-    this.form.get('vehiculo').setValue(transporte.vehiculoPlaca); /**/
-    this.form.get('sucursalSalida').setValue(transporte.sucursalSalidaNombre); /**/
+    this.form.get('vehiculo').setValue(transporte.vehiculoPlaca + ', ' + transporte.vehiculoMarca);
+    this.form.get('sucursalSalida').setValue(transporte.sucursalSalidaNombre + ', ' + transporte.sucursalSalidaDepartamento + ', ' + transporte.sucursalSalidaDireccion);
     this.form.get('fechaSalida').setValue(new Date(transporte.fechaSalida));
-    this.form.get('sucursalLlegada').setValue(transporte.sucursalLlegadaNombre);
+    this.form.get('sucursalLlegada').setValue(transporte.sucursalLlegadaNombre + ', ' + transporte.sucursalLlegadaDepartamento + ', ' + transporte.sucursalLlegadaDireccion);
     this.form.get('fechaLlegada').setValue(new Date(transporte.fechaLlegada));
-    this.form.get('chofer').setValue(transporte.colaboradorChoferNombre);
-    this.form.get('auxiliar').setValue(transporte.colaboradorAuxiliarNombre);
-    this.form.get('tipoTransporte').setValue(transporte.tipo.nombre);
+    this.form.get('chofer').setValue(transporte.colaboradorChoferNombre + ', ' + transporte.colaboradorChoferNroDocumento + ', ' + transporte.colaboradorChoferNroLicencia);
+    this.form.get('auxiliar').setValue(transporte.colaboradorAuxiliarNombre + ', ' + transporte.colaboradorAuxiliarNroDocumento + ', ' + transporte.colaboradorAuxiliarNroLicencia);
+    this.form.get('tipoTransporte').setValue(transporte.tipo.id);
     this.form.get('activo').setValue(transporte.activo);
   }
 
@@ -163,7 +163,8 @@ export class TransporteComponent implements OnInit {
   }
 
   update(type: string) {
-    this.transporteService.updateTransporte(this.model)
+    // this.transporteService.updateTransporte(this.model)
+    this.transporteService.updateTransporte(this.modelForCreate)
       .subscribe(response => {
         console.log(response);
         if (type === 'only') {
@@ -179,8 +180,9 @@ export class TransporteComponent implements OnInit {
 
   create(type: string) {
     // change to create new ID for Transporte
-    this.model.id = 6;
-    this.transporteService.createTransporte(this.model)
+    // this.model.id = 6;
+    // this.transporteService.createTransporte(this.model)
+    this.transporteService.createTransporte(this.modelForCreate)
       .subscribe(response => {
         console.log(response);
         if (type === 'only') {
@@ -206,38 +208,51 @@ export class TransporteComponent implements OnInit {
   }
 
   loadTransporteModelForSave() {
-    this.model = new Transporte(
-      this.model ? this.model.id : undefined,
+    this.modelForCreate = new TransporteForCreate(
+      this.model ? this.model.id : null,
       Boolean(this.form.get('activo').value),
       this.form.get('fechaSalida').value,
       this.form.get('fechaLlegada').value,
-      null,
+      { id: Number(this.form.get('tipoTransporte').value), nombre: null }, // verificar si corresponde al modelo
       Number(this.sucursalSalida.id),
-      this.sucursalSalida.nombre,
-      this.sucursalSalida.departamento,
-      this.sucursalSalida.direccion,
       Number(this.sucursalLlegada.id),
-      this.sucursalLlegada.nombre,
-      this.sucursalLlegada.departamento,
-      this.sucursalLlegada.direccion,
       Number(this.chofer.id),
-      this.chofer.nombre,
-      this.chofer.tipoDocumento,
-      this.chofer.nroDocumento,
-      this.chofer.nroLicencia,
       Number(this.auxiliar.id),
-      this.auxiliar.nombre,
-      this.auxiliar.tipoDocumento,
-      this.auxiliar.nroDocumento,
-      this.auxiliar.nroLicencia,
-      Number(this.vehiculo.id),
-      this.vehiculo.placa,
-      this.vehiculo.carga,
-      this.vehiculo.volumetria,
-      this.vehiculo.codConfiguracion,
-      this.vehiculo.nroInscripcion,
-      this.vehiculo.marca
+      Number(this.vehiculo.id)
     );
+    // MODELO para grabar en json-server
+    // this.model = new Transporte(
+    //   this.model ? this.model.id : null,
+    //   Boolean(this.form.get('activo').value),
+    //   this.form.get('fechaSalida').value,
+    //   this.form.get('fechaLlegada').value,
+    //   { id: Number(this.form.get('tipoTransporte').value), nombre: null }, // verificar si corresponde al modelo
+    //   Number(this.sucursalSalida.id),
+    //   this.sucursalSalida.nombre,
+    //   this.sucursalSalida.departamento,
+    //   this.sucursalSalida.direccion,
+    //   Number(this.sucursalLlegada.id),
+    //   this.sucursalLlegada.nombre,
+    //   this.sucursalLlegada.departamento,
+    //   this.sucursalLlegada.direccion,
+    //   Number(this.chofer.id),
+    //   this.chofer.nombre,
+    //   this.chofer.tipoDocumento,
+    //   this.chofer.nroDocumento,
+    //   this.chofer.nroLicencia,
+    //   Number(this.auxiliar.id),
+    //   this.auxiliar.nombre,
+    //   this.auxiliar.tipoDocumento,
+    //   this.auxiliar.nroDocumento,
+    //   this.auxiliar.nroLicencia,
+    //   Number(this.vehiculo.id),
+    //   this.vehiculo.placa,
+    //   this.vehiculo.carga,
+    //   this.vehiculo.volumetria,
+    //   this.vehiculo.codConfiguracion,
+    //   this.vehiculo.nroInscripcion,
+    //   this.vehiculo.marca
+    // );
   }
 
 
@@ -406,6 +421,7 @@ export class TransporteComponent implements OnInit {
   getTiposTransporte() {
     this.transporteService.getTiposTransporte()
       .subscribe(tiposTransporte => {
+        console.log(tiposTransporte);
         this.tiposTransporte = tiposTransporte;
       }, error => {
         this.errorMessage = <any>error;
