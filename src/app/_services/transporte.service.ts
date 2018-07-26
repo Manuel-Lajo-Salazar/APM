@@ -1,7 +1,11 @@
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Vehiculo } from '../_models/Vehiculo';
+import { Sucursal } from '../_models/Sucursal';
+import { TipoTransporte } from '../_models/TipoTransporte';
+import { Colaborador } from '../_models/Colaborador';
 
 @Injectable({
   providedIn: 'root'
@@ -9,44 +13,47 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class TransporteService {
   baseUrl = environment.apiUrl;
 
-  private testUrl = `http://localhost:3000`;
-
-  private testUrlApi = `https://localhost:5001/api`;
+  // private testUrlApi = `https://localhost:5001/api`;
+  private testUrlApi = `http://localhost:3000`;
 
   constructor(private _http: HttpClient) { }
 
 
-  getVehiculos(filter?: string): Observable<any[]> {
+  getVehiculos(filter?: string): Observable<Vehiculo[]> {
     if (filter == null || filter === '') {
-      return this._http.get<any[]>(`${this.testUrlApi}/vehiculos`);
+      return this._http.get<Vehiculo[]>(`${this.testUrlApi}/vehiculos`);
     }
-    return this._http.get<any[]>(`${this.testUrlApi}/vehiculos/criterio/` + filter);
+    return this._http.get<Vehiculo[]>(`${this.testUrlApi}/vehiculos/criterio/` + filter);
   }
 
-  getSucursales(filter?: string): Observable<any[]> {
+  getSucursales(filter?: string): Observable<Sucursal[]> {
     if (filter == null || filter === '') {
-      return this._http.get<any[]>(`${this.testUrlApi}/sucursales`);
+      return this._http.get<Sucursal[]>(`${this.testUrlApi}/sucursales`);
     }
-    return this._http.get<any[]>(`${this.testUrlApi}/sucursales/criterio/` + filter);
+    return this._http.get<Sucursal[]>(`${this.testUrlApi}/sucursales/criterio/` + filter);
   }
 
-  getChoferes(filter: string): Observable<any[]> {
+  getChoferes(filter: string): Observable<Colaborador[]> {
     if (filter == null || filter === '') {
-      return this._http.get<any[]>(`${this.testUrlApi}/colaboradores/tipo/1`);
+      // return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/tipo/1`);
+    return this._http.get<Colaborador[]>(`${this.testUrlApi}/choferes` + filter);
     }
-    return this._http.get<any[]>(`${this.testUrlApi}/colaboradores/criterio/` + filter);
+    return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/criterio/` + filter);
   }
 
-  getAuxiliares(filter: string): Observable<any[]> {
+  getAuxiliares(filter: string): Observable<Colaborador[]> {
     if (filter == null || filter === '') {
-      return this._http.get<any[]>(`${this.testUrlApi}/colaboradores/tipo/2`);
+      // return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/tipo/2`);
+      return this._http.get<Colaborador[]>(`${this.testUrlApi}/auxiliares` + filter);
     }
-    return this._http.get<any[]>(`${this.testUrlApi}/colaboradores/criterio/` + filter);
+    return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/criterio/` + filter);
   }
 
-  getTiposTransporte(): Observable<any[]> {
-    return this._http.get<any[]>(`${this.testUrl}/tiposTransporte`);
+  getTiposTransporte(): Observable<TipoTransporte[]> {
+    return this._http.get<TipoTransporte[]>(`${this.testUrlApi}/tiposTransporte`);
   }
+
+
 
   createTransporte(transporte: any): Observable<any> {
     const httpOptions = {
@@ -54,7 +61,7 @@ export class TransporteService {
         'Content-Type':  'application/json'
       })
     };
-    return this._http.post<any>(`${this.testUrl}/transportes`, transporte, httpOptions);
+    return this._http.post<any>(`${this.testUrlApi}/transportes`, transporte, httpOptions);
   }
 
   // no funciona con json-server
@@ -64,7 +71,7 @@ export class TransporteService {
         'Content-Type':  'application/json'
       })
     };
-    return this._http.post<any>(`${this.testUrl}/transportes`, transporte, httpOptions);
+    return this._http.post<any>(`${this.testUrlApi}/transportes`, transporte, httpOptions);
   }
 
   getTransporte(id: Number): Observable<any> {
@@ -73,7 +80,7 @@ export class TransporteService {
 
   // temporal: para obtener nuevo id, basado en el mayor id + 1
   getTransportes(): Observable<any[]> {
-    return this._http.get<any[]>(`${this.testUrl}/transportes`);
+    return this._http.get<any[]>(`${this.testUrlApi}/transportes`);
   }
 
   // para la búsqueda de Lista de Transportes

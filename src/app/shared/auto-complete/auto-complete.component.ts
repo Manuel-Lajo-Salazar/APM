@@ -4,7 +4,7 @@ import { debounceTime } from 'rxjs/operators';
 import { AutoComplete } from '../../_models/AutoComplete';
 
 @Component({
-  selector: 'app-auto-complete',
+  selector: 'pm-auto-complete',
   host: {
     '(document:click)': 'handleClick($event)',
   },

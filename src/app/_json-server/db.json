@@ -3,60 +3,76 @@
     {
       "id": 1,
       "placa": "PE - 1234",
-      "tipo": "Camión",
-      "marca": "Toyota",
       "carga": "1,200 Kg.",
-      "alto": "3,30 m",
-      "ancho": "2,50 m",
-      "largo": "15,00 m"
+      "volumetria": "3,30 m - 2,50 m - 15,00 m",
+      "codConfiguracion": "001",
+      "nroInscripcion": "000001",
+      "marca": "Toyota"
     },
     {
       "id": 2,
       "placa": "PE - 9999",
-      "tipo": "Camioneta",
-      "marca": "Nissan",
       "carga": "400 Kg.",
-      "alto": "1,90 m",
-      "ancho": "1,50 m",
-      "largo": "6,00 m"
+      "volumetria": "1,90 m - 1,50 m - 6,00 m",
+      "codConfiguracion": "002",
+      "nroInscripcion": "000002",
+      "marca": "Nissan"
     }
   ],
   "sucursales": [
     {
       "id": 1,
-      "nombre": "Lima"
+      "nombre": "Lima",
+      "departamento": "Chosica",
+      "direccion": "Av. Principal Nro. 1174"
     },
     {
       "id": 2,
-      "nombre": "Ica"
+      "nombre": "Ica",
+      "departamento": "Ica",
+      "direccion": "Jr. Los Fresnos 812A"
     },
     {
       "id": 3,
-      "nombre": "Puno"
+      "nombre": "Puno",
+      "departamento": "Puno",
+      "direccion": "Calle Cipreses N. 125"
     }
   ],
   "choferes": [
     {
       "id": 1,
       "nombre": "Juan Perez",
-      "dni": "41678914"
+      "tipoDocumento": "DNI",
+      "nroDocumento": "41678914",
+      "nroLicencia": "000123912391",
+      "tipo": "1"
     },
     {
       "id": 2,
       "nombre": "Daniel Valdivia",
-      "dni": "12659144"
+      "tipoDocumento": "DNI",
+      "nroDocumento": "12659144",
+      "nroLicencia": "000129999934",
+      "tipo": "1"
     }
   ],
   "auxiliares": [
     {
       "id": 1,
       "nombre": "Auxiliar A",
-      "dni": "52558189"
+      "tipoDocumento": "DNI",
+      "nroDocumento": "52558189",
+      "nroLicencia": "000132423123",
+      "tipo": "2"
     },
     {
       "id": 2,
       "nombre": "Auxiliar B",
-      "dni": "34728354"
+      "tipoDocumento": "DNI",
+      "nroDocumento": "34728354",
+      "nroLicencia": "0001374374359",
+      "tipo": "2"
     }
   ],
   "tiposTransporte": [

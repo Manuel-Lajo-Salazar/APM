@@ -2,12 +2,11 @@
 import { TransporteService } from '../_services/transporte.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { TransporteForListDto } from './../_models/TransporteForListDto';
+import { TransporteForListDto } from '../_models/TransporteForListDto';
 import { AutoComplete } from '../_models/AutoComplete';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-transporte-lista',
   templateUrl: './transporte-lista.component.html',
   styleUrls: ['./transporte-lista.component.css']
 })

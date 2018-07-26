@@ -8,23 +8,23 @@
                 <div class="row pt-3">
                     <div class="col-md-6 col-sm-12">
                         <label for="transporte">Nro. de Transporte</label>
-                        <app-auto-complete
+                        <pm-auto-complete
                             class="auto-complete"
                             id="transporte"
                             [config]="configTransporte"
                             (selected)="setTransporte($event)"
                             (filteredInput)="getTransportes($event)">
-                        </app-auto-complete>
+                        </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label for="vehiculo">Vehículo</label>
-                        <app-auto-complete
+                        <pm-auto-complete
                             class="auto-complete"
                             id="vehiculo"
                             [config]="configVehiculo"
                             (selected)="setVehiculo($event)"
                             (filteredInput)="getVehiculos($event)">
-                        </app-auto-complete>
+                        </pm-auto-complete>
                     </div>
                 </div>
                 <div class="row pt-3">
@@ -54,23 +54,23 @@
                 <div class="row pt-3">
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="sucSalida">Sucursal de Salida</label>
-                        <app-auto-complete
+                        <pm-auto-complete
                             class="auto-complete"
                             id="sucSalida"
                             [config]="configSucursalSalida"
                             (selected)="setSucursalSalida($event)"
                             (filteredInput)="getSucursalesSalida($event)">
-                        </app-auto-complete>
+                        </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="sucLlegada">Sucursal de Llegada</label>
-                        <app-auto-complete
+                        <pm-auto-complete
                             class="auto-complete"
                             id="sucLlegada"
                             [config]="configSucursalLlegada"
                             (selected)="setSucursalLlegada($event)"
                             (filteredInput)="getSucursalesLlegada($event)">
-                        </app-auto-complete>
+                        </pm-auto-complete>
                     </div>
                 </div>
                 <div class="row pt-3">

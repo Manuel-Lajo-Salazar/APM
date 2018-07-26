@@ -8,17 +8,17 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <label for="vehiculo">Vehículo</label>
-                        <app-auto-complete
+                        <pm-auto-complete
                             class="auto-complete"
                             id="vehiculo"
                             [config]="configVehiculo"
                             (selected)="setVehiculo($event)"
                             (filteredInput)="getVehiculos($event)">
-                        </app-auto-complete>
+                        </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label style="margin-top: 2.5rem; font-weight: 700; width: 200px;">Nº de Transporte:</label>
-                        <span>T-002</span>
+                        <span>T-00{{model ? model.id : 'X'}}</span>
                     </div>
                 </div>
                 <div style="border: 1px solid black" class="mt-3 p-2" *ngIf="vehiculo !== undefined">
@@ -28,7 +28,7 @@
                             <br/>
                             <span>- Capacidad de carga de {{vehiculo.carga}}</span>
                             <br/>
-                            <span>- Capacidad volumetrica de Alto: {{vehiculo.alto}} Ancho: {{vehiculo.ancho}} Largo: {{vehiculo.largo}}</span>
+                            <span>- Capacidad volumetrica de: {{vehiculo.volumetria}}</span>
                         </div>
                     </div>
                 </div>
@@ -42,13 +42,13 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="sucSalida">Sucursal de Salida</label>
-                        <app-auto-complete
+                        <pm-auto-complete
                             class="auto-complete"
                             id="sucSalida"
                             [config]="configSucursalSalida"
                             (selected)="setSucursalSalida($event)"
                             (filteredInput)="getSucursalesSalida($event)">
-                        </app-auto-complete>
+                        </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="fecSalida">Fecha - Hora Salida</label>
@@ -66,13 +66,13 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="sucLlegada">Sucursal de Llegada</label>
-                        <app-auto-complete
+                        <pm-auto-complete
                             class="auto-complete"
                             id="sucLlegada"
                             [config]="configSucursalLlegada"
                             (selected)="setSucursalLlegada($event)"
                             (filteredInput)="getSucursalesLlegada($event)">
-                        </app-auto-complete>
+                        </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="fecLlegada">Fecha - Hora Llegada</label>
@@ -90,23 +90,23 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="chofer">Chofer</label>
-                        <app-auto-complete
+                        <pm-auto-complete
                             class="auto-complete"
                             id="chofer"
                             [config]="configChofer"
                             (selected)="setChofer($event)"
                             (filteredInput)="getChoferes($event)">
-                        </app-auto-complete>
+                        </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="auxiliar">Auxiliar</label>
-                        <app-auto-complete
+                        <pm-auto-complete
                             class="auto-complete"
                             id="auxiliar"
                             [config]="configAuxiliar"
                             (selected)="setAuxiliar($event)"
                             (filteredInput)="getAuxiliares($event)">
-                        </app-auto-complete>
+                        </pm-auto-complete>
                     </div>
                 </div>
                 <div class="row">

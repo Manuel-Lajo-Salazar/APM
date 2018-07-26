@@ -1,43 +1,48 @@
-import { TransporteService } from './../_services/transporte.service';
+import { TransporteService } from '../_services/transporte.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Transporte } from './../_models/Transporte';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Transporte } from '../_models/Transporte';
+import { TransporteForCreate } from '../_models/TransporteForCreate';
+import { Vehiculo } from '../_models/Vehiculo';
+import { Sucursal } from '../_models/Sucursal';
+import { Colaborador } from '../_models/Colaborador';
+import { TipoTransporte } from '../_models/TipoTransporte';
 import { AutoComplete } from '../_models/AutoComplete';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-transporte',
   templateUrl: './transporte.component.html',
   styleUrls: ['./transporte.component.css']
 })
 export class TransporteComponent implements OnInit {
   model: Transporte;
+  modelForCreate: TransporteForCreate;
   form: FormGroup;
 
   loadIcon: boolean;
   errorMessage;
 
   configVehiculo: AutoComplete;
-  vehiculo: any;
-  vehiculos = [];
+  vehiculo: Vehiculo;
+  vehiculos: Vehiculo[] = [];
 
   configSucursalSalida: AutoComplete;
-  sucursalSalida: any;
-  sucursalesSalida = [];
+  sucursalSalida: Sucursal;
+  sucursalesSalida: Sucursal[] = [];
 
   configSucursalLlegada: AutoComplete;
-  sucursalLlegada: any;
-  sucursalesLlegada = [];
+  sucursalLlegada: Sucursal;
+  sucursalesLlegada: Sucursal[] = [];
 
   configChofer: AutoComplete;
-  chofer: any;
-  choferes = [];
+  chofer: Colaborador;
+  choferes: Colaborador[] = [];
 
   configAuxiliar: AutoComplete;
-  auxiliar: any;
-  auxiliares = [];
+  auxiliar: Colaborador;
+  auxiliares: Colaborador[] = [];
 
-  tiposTransporte = [];
+  tiposTransporte: TipoTransporte[] = [];
 
   constructor(
     private transporteService: TransporteService,
@@ -84,19 +89,51 @@ export class TransporteComponent implements OnInit {
 
   loadTransporteForDisplay(transporte: Transporte) {
     this.model = transporte;
-    this.vehiculo = { id: transporte.vehiculoId, placa: transporte.placa, carga: transporte.carga, alto: transporte.volumetria };
-    this.sucursalSalida = { id: transporte.sucursalSalidaId, nombre: transporte.sucursalSalidaNombre };
-    this.sucursalLlegada = { id: transporte.sucursalLlegadaId, nombre: transporte.sucursalLlegadaNombre };
-    this.chofer = { id: transporte.choferId, nombre: transporte.choferNombre };
-    this.auxiliar = { id: transporte.auxiliarId, nombre: transporte.auxiliarNombre };    
-    this.form.get('vehiculo').setValue(transporte.placa);
-    this.form.get('sucursalSalida').setValue(transporte.sucursalSalidaNombre);
+    this.vehiculo = {
+      id: transporte.vehiculoId,
+      placa: transporte.vehiculoPlaca,
+      carga: transporte.vehiculoCarga,
+      volumetria: transporte.vehiculoVolumetria,
+      codConfiguracion: transporte.vehiculoCodConfiguracion,
+      nroInscripcion: transporte.vehiculoNroInscripcion,
+      marca: transporte.vehiculoMarca
+    };
+    this.sucursalSalida = {
+      id: transporte.sucursalSalidaId,
+      nombre: transporte.sucursalSalidaNombre,
+      departamento: transporte.sucursalSalidaDepartamento,
+      direccion: transporte.sucursalSalidaDireccion
+    };
+    this.sucursalLlegada = {
+      id: transporte.sucursalLlegadaId,
+      nombre: transporte.sucursalLlegadaNombre,
+      departamento: transporte.sucursalLlegadaDepartamento,
+      direccion: transporte.sucursalLlegadaDireccion
+    };
+    this.chofer = {
+      id: transporte.colaboradorChoferId,
+      nombre: transporte.colaboradorChoferNombre,
+      tipoDocumento: transporte.colaboradorChoferTipoDocumento,
+      nroDocumento: transporte.colaboradorChoferNroDocumento,
+      nroLicencia: transporte.colaboradorChoferNroLicencia,
+      tipo: null // verificar si es necesario tener este valor
+    };
+    this.auxiliar = {
+      id: transporte.colaboradorAuxiliarId,
+      nombre: transporte.colaboradorAuxiliarNombre,
+      tipoDocumento: transporte.colaboradorAuxiliarTipoDocumento,
+      nroDocumento: transporte.colaboradorAuxiliarNroDocumento,
+      nroLicencia: transporte.colaboradorAuxiliarNroLicencia,
+      tipo: null // verificar si es necesario tener este valor
+    };
+    this.form.get('vehiculo').setValue(transporte.vehiculoPlaca); /**/
+    this.form.get('sucursalSalida').setValue(transporte.sucursalSalidaNombre); /**/
     this.form.get('fechaSalida').setValue(new Date(transporte.fechaSalida));
     this.form.get('sucursalLlegada').setValue(transporte.sucursalLlegadaNombre);
     this.form.get('fechaLlegada').setValue(new Date(transporte.fechaLlegada));
-    this.form.get('chofer').setValue(transporte.choferNombre);
-    this.form.get('auxiliar').setValue(transporte.auxiliarNombre);
-    this.form.get('tipoTransporte').setValue(transporte.tipoTransporte);
+    this.form.get('chofer').setValue(transporte.colaboradorChoferNombre);
+    this.form.get('auxiliar').setValue(transporte.colaboradorAuxiliarNombre);
+    this.form.get('tipoTransporte').setValue(transporte.tipo.nombre);
     this.form.get('activo').setValue(transporte.activo);
   }
 
@@ -174,19 +211,32 @@ export class TransporteComponent implements OnInit {
       Boolean(this.form.get('activo').value),
       this.form.get('fechaSalida').value,
       this.form.get('fechaLlegada').value,
+      null,
       Number(this.sucursalSalida.id),
       this.sucursalSalida.nombre,
+      this.sucursalSalida.departamento,
+      this.sucursalSalida.direccion,
       Number(this.sucursalLlegada.id),
       this.sucursalLlegada.nombre,
+      this.sucursalLlegada.departamento,
+      this.sucursalLlegada.direccion,
       Number(this.chofer.id),
       this.chofer.nombre,
+      this.chofer.tipoDocumento,
+      this.chofer.nroDocumento,
+      this.chofer.nroLicencia,
       Number(this.auxiliar.id),
       this.auxiliar.nombre,
+      this.auxiliar.tipoDocumento,
+      this.auxiliar.nroDocumento,
+      this.auxiliar.nroLicencia,
       Number(this.vehiculo.id),
       this.vehiculo.placa,
       this.vehiculo.carga,
-      this.vehiculo.alto,
-      Number(this.form.get('tipoTransporte').value)
+      this.vehiculo.volumetria,
+      this.vehiculo.codConfiguracion,
+      this.vehiculo.nroInscripcion,
+      this.vehiculo.marca
     );
   }
 
@@ -197,13 +247,13 @@ export class TransporteComponent implements OnInit {
     this.configVehiculo = new AutoComplete(
       'vehiculo',
       this.form,
-      ['placa', 'tipo', 'marca'],
+      ['placa', 'marca'],
       this.vehiculos,
       false,
       this.loadIcon,
       'Buscar Vehículo',
       'id',
-      ['placa', 'tipo,marca', 'carga'],
+      ['placa', 'marca', 'carga'],
       []
     );
   }
@@ -220,7 +270,7 @@ export class TransporteComponent implements OnInit {
       });
   }
 
-  setVehiculo(selectedItem: any) {
+  setVehiculo(selectedItem: Vehiculo) {
     this.vehiculo = selectedItem;
   }
 
@@ -229,13 +279,13 @@ export class TransporteComponent implements OnInit {
     this.configSucursalSalida = new AutoComplete(
       'sucursalSalida',
       this.form,
-      ['nombre'],
+      ['nombre', 'departamento', 'direccion'],
       this.sucursalesSalida,
       false,
       this.loadIcon,
       'Buscar Sucursal de salida',
       'id',
-      ['nombre'],
+      ['nombre', 'departamento', 'direccion'],
       []
     );
   }
@@ -252,7 +302,7 @@ export class TransporteComponent implements OnInit {
       });
   }
 
-  setSucursalSalida(selectedItem: any) {
+  setSucursalSalida(selectedItem: Sucursal) {
     this.sucursalSalida = selectedItem;
   }
 
@@ -261,13 +311,13 @@ export class TransporteComponent implements OnInit {
     this.configSucursalLlegada = new AutoComplete(
       'sucursalLlegada',
       this.form,
-      ['nombre'],
+      ['nombre', 'departamento', 'direccion'],
       this.sucursalesLlegada,
       false,
       this.loadIcon,
       'Buscar Sucursal de llegada',
       'id',
-      ['nombre'],
+      ['nombre', 'departamento', 'direccion'],
       []
     );
   }
@@ -284,7 +334,7 @@ export class TransporteComponent implements OnInit {
       });
   }
 
-  setSucursalLlegada(selectedItem: any) {
+  setSucursalLlegada(selectedItem: Sucursal) {
     this.sucursalLlegada = selectedItem;
   }
 
@@ -293,13 +343,13 @@ export class TransporteComponent implements OnInit {
     this.configChofer = new AutoComplete(
       'chofer',
       this.form,
-      ['nombre', 'dni'],
+      ['nombre', 'nroDocumento', 'nroLicencia'],
       this.choferes,
       false,
       this.loadIcon,
       'Buscar Chofer',
       'id',
-      ['nombre', 'dni'],
+      ['nombre', 'nroDocumento', 'nroLicencia'],
       []
     );
   }
@@ -316,7 +366,7 @@ export class TransporteComponent implements OnInit {
       });
   }
 
-  setChofer(selectedItem: any) {
+  setChofer(selectedItem: Colaborador) {
     this.chofer = selectedItem;
   }
 
@@ -325,13 +375,13 @@ export class TransporteComponent implements OnInit {
     this.configAuxiliar = new AutoComplete(
       'auxiliar',
       this.form,
-      ['nombre', 'dni'],
+      ['nombre', 'nroDocumento', 'nroLicencia'],
       this.auxiliares,
       false,
       this.loadIcon,
       'Buscar Auxiliar',
       'id',
-      ['nombre', 'dni'],
+      ['nombre', 'nroDocumento', 'nroLicencia'],
       []
     );
   }
@@ -348,7 +398,7 @@ export class TransporteComponent implements OnInit {
       });
   }
 
-  setAuxiliar(selectedItem: any) {
+  setAuxiliar(selectedItem: Colaborador) {
     this.auxiliar = selectedItem;
   }
 
