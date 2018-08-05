@@ -9,7 +9,7 @@ import { AutoComplete } from '../../_models/AutoComplete';
     '(document:click)': 'handleClick($event)',
   },
   templateUrl: './auto-complete.component.html',
-  styleUrls: ['./auto-complete.component.css']
+  styleUrls: ['./auto-complete.component.scss']
 })
 
 export class AutoCompleteComponent implements OnInit {

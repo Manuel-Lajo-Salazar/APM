@@ -29,7 +29,7 @@
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/omega/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.js"
@@ -131,5 +131,10 @@
       }
     }
   },
-  "defaultProject": "APM"
+  "defaultProject": "APM",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

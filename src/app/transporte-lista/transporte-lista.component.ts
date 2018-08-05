@@ -10,7 +10,7 @@ import { TransporteCriteria } from '../_models/TransporteCriteria';
 
 @Component({
   templateUrl: './transporte-lista.component.html',
-  styleUrls: ['./transporte-lista.component.css']
+  styleUrls: ['./transporte-lista.component.scss']
 })
 
 export class TransporteListaComponent implements OnInit {

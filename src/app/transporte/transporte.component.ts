@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './transporte.component.html',
-  styleUrls: ['./transporte.component.css']
+  styleUrls: ['./transporte.component.scss']
 })
 export class TransporteComponent implements OnInit {
   model: Transporte;

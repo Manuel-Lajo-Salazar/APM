@@ -56,6 +56,7 @@ export class TransporteService {
 
   // requests para Transporte
 
+
   createTransporte(transporte: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -75,16 +76,17 @@ export class TransporteService {
     return this._http.post<any>(`${this.testUrlApi}/transportes`, transporte, httpOptions);
   }
 
+  // para recuperar un Transporte específico según su id
   getTransporte(id: Number): Observable<any> {
     return this._http.get<any>(`${this.testUrlApi}/transportes/${id}`);
   }
 
   // temporal: para obtener nuevo id, basado en el mayor id + 1
-  getTransportes(): Observable<any[]> {
-    return this._http.get<any[]>(`${this.testUrlApi}/transportes`);
-  }
+  // getTransportes(): Observable<any[]> {
+  //   return this._http.get<any[]>(`${this.testUrlApi}/transportes`);
+  // }
 
-  // para la búsqueda de Lista de Transportes
+  // para los resultados de Busqueda en Lista de Transportes
   searchTransportes(transporteCriteria: any): Observable<any[]> {
     const httpOptions = {
       headers: new HttpHeaders({
