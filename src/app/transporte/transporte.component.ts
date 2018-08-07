@@ -127,13 +127,17 @@ export class TransporteComponent implements OnInit {
       tipo: null // verificar si es necesario tener este valor
     };
     this.form.get('vehiculo').setValue(transporte.vehiculoPlaca + ', ' + transporte.vehiculoMarca);
-    this.form.get('sucursalSalida').setValue(transporte.sucursalSalidaNombre + ', ' + transporte.sucursalSalidaDepartamento + ', ' + transporte.sucursalSalidaDireccion);
+    this.form.get('sucursalSalida').setValue(transporte.sucursalSalidaNombre + ', ' + transporte.sucursalSalidaDepartamento
+                  + ', ' + transporte.sucursalSalidaDireccion);
     this.form.get('fechaSalida').setValue(new Date(transporte.fechaSalida));
-    this.form.get('sucursalLlegada').setValue(transporte.sucursalLlegadaNombre + ', ' + transporte.sucursalLlegadaDepartamento + ', ' + transporte.sucursalLlegadaDireccion);
+    this.form.get('sucursalLlegada').setValue(transporte.sucursalLlegadaNombre + ', ' + transporte.sucursalLlegadaDepartamento
+                  + ', ' + transporte.sucursalLlegadaDireccion);
     this.form.get('fechaLlegada').setValue(new Date(transporte.fechaLlegada));
-    this.form.get('chofer').setValue(transporte.colaboradorChoferNombre + ', ' + transporte.colaboradorChoferNroDocumento + ', ' + transporte.colaboradorChoferNroLicencia);
-    this.form.get('auxiliar').setValue(transporte.colaboradorAuxiliarNombre + ', ' + transporte.colaboradorAuxiliarNroDocumento + ', ' + transporte.colaboradorAuxiliarNroLicencia);
-    this.form.get('tipoTransporte').setValue(transporte.tipo.id);
+    this.form.get('chofer').setValue(transporte.colaboradorChoferNombre + ', ' + transporte.colaboradorChoferNroDocumento
+                  + ', ' + transporte.colaboradorChoferNroLicencia);
+    this.form.get('auxiliar').setValue(transporte.colaboradorAuxiliarNombre + ', ' + transporte.colaboradorAuxiliarNroDocumento
+                  + ', ' + transporte.colaboradorAuxiliarNroLicencia);
+    this.form.get('tipoTransporte').setValue(transporte.tipo);
     this.form.get('activo').setValue(transporte.activo);
   }
 
@@ -155,7 +159,7 @@ export class TransporteComponent implements OnInit {
 
   save(type: string): any {
     this.loadTransporteModelForSave();
-    if (this.model.id) {
+    if (this.model) {
       this.update(type);
     } else {
       this.create(type);
@@ -209,11 +213,11 @@ export class TransporteComponent implements OnInit {
 
   loadTransporteModelForSave() {
     this.modelForCreate = new TransporteForCreate(
-      this.model ? this.model.id : null,
+      this.model ? this.model.id : 0,
       Boolean(this.form.get('activo').value),
       this.form.get('fechaSalida').value,
       this.form.get('fechaLlegada').value,
-      { id: Number(this.form.get('tipoTransporte').value), nombre: null }, // verificar si corresponde al modelo
+      Number(this.form.get('tipoTransporte').value),
       Number(this.sucursalSalida.id),
       Number(this.sucursalLlegada.id),
       Number(this.chofer.id),
@@ -419,13 +423,11 @@ export class TransporteComponent implements OnInit {
 
 
   getTiposTransporte() {
-    this.transporteService.getTiposTransporte()
-      .subscribe(tiposTransporte => {
-        console.log(tiposTransporte);
-        this.tiposTransporte = tiposTransporte;
-      }, error => {
-        this.errorMessage = <any>error;
-      });
+    this.tiposTransporte = [
+      { id: 1, nombre: 'Recojo' },
+      { id: 2, nombre: 'Transferencia' },
+      { id: 3, nombre: 'Ditribucion' }
+    ];
   }
 
 
