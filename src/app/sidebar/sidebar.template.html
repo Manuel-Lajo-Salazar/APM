@@ -1,0 +1,35 @@
+<div class="js-sidebar-content">
+    <header class="logo d-none d-md-block">
+        <a href="#">App Name</a>
+    </header>
+    <!-- every .sidebar-nav may have a title -->
+    <h5 class="sidebar-nav-title">Opciones
+    </h5>
+    <ul class="sidebar-nav">
+        <li>
+            <a class="collapsed" data-target="#sidebar-dashboard" data-toggle="collapse" data-parent="#sidebar">
+                <span class="icon">
+                    <i class="fi flaticon-home"></i>
+                </span>
+                Transportes
+                <i class="toggle fa fa-angle-down"></i>
+            </a>
+            <ul id="sidebar-dashboard" class="collapse">
+                <li>
+                    <a [routerLink]="['/transporte']">Ingresar</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/transporteLista']">Buscar</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a [routerLink]=" ['charts'] ">
+                <span class="icon">
+                <i class="fi flaticon-controls"></i>
+                </span>
+                Charts
+            </a>
+        </li>
+    </ul>
+</div>
