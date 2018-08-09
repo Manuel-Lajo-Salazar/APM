@@ -73,7 +73,7 @@ export class TransporteListaComponent implements OnInit {
 
 
   // configuration section
-  
+
   private setConfigVehiculo() {
     this.configVehiculo = new AutoComplete(
       'vehiculo',
