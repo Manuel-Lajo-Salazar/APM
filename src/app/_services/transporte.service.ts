@@ -13,8 +13,8 @@ import { Colaborador } from '../_models/Colaborador';
 export class TransporteService {
   baseUrl = environment.apiUrl;
 
-  // private testUrlApi = `https://localhost:5001/api`;
-  private testUrlApi = `http://localhost:3000`;
+   private testUrlApi = `https://localhost:5001/api`;
+  // private testUrlApi = `http://localhost:3000`;
 
   constructor(private _http: HttpClient) { }
 
@@ -35,35 +35,30 @@ export class TransporteService {
 
   getChoferes(filter: string): Observable<Colaborador[]> {
     if (filter == null || filter === '') {
-      // return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/tipo/1`);
-    return this._http.get<Colaborador[]>(`${this.testUrlApi}/choferes` + filter);
+       return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/tipo/1`);
+    // return this._http.get<Colaborador[]>(`${this.testUrlApi}/choferes` + filter);
     }
     return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/criterio/` + filter);
   }
 
   getAuxiliares(filter: string): Observable<Colaborador[]> {
     if (filter == null || filter === '') {
-      // return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/tipo/2`);
-      return this._http.get<Colaborador[]>(`${this.testUrlApi}/auxiliares` + filter);
+       return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/tipo/2`);
+      // return this._http.get<Colaborador[]>(`${this.testUrlApi}/auxiliares` + filter);
     }
     return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/criterio/` + filter);
   }
 
-  getTiposTransporte(): Observable<TipoTransporte[]> {
-    return this._http.get<TipoTransporte[]>(`${this.testUrlApi}/tiposTransporte`);
-  }
-
-
   // requests para Transporte
 
 
-  createTransporte(transporte: any): Observable<any> {
+  createTransporte(transporteForDtos: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
       })
     };
-    return this._http.post<any>(`${this.testUrlApi}/transportes`, transporte, httpOptions);
+    return this._http.post<any>(`${this.testUrlApi}/transportes/create`, transporteForDtos, httpOptions);
   }
 
   // no funciona con json-server
@@ -73,7 +68,7 @@ export class TransporteService {
         'Content-Type':  'application/json'
       })
     };
-    return this._http.post<any>(`${this.testUrlApi}/transportes`, transporte, httpOptions);
+    return this._http.put<any>(`${this.testUrlApi}/transportes/update`, transporte, httpOptions);
   }
 
   // para recuperar un Transporte específico según su id
@@ -93,8 +88,8 @@ export class TransporteService {
         'Content-Type':  'application/json'
       })
     };
-    // return this._http.post<any[]>(`${this.testUrlApi}/transportes/criterio`, transporteCriteria, httpOptions);
-    return this._http.get<any[]>(`${this.testUrlApi}/transportes`);
+    return this._http.post<any[]>(`${this.testUrlApi}/transportes/criterio`, transporteCriteria, httpOptions);
+    // return this._http.get<any[]>(`${this.testUrlApi}/transportes`);
   }
 
 }

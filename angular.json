@@ -31,6 +31,7 @@
               "node_modules/primeng/resources/primeng.min.css",
               "src/scss/application.scss"
             ],
+<<<<<<< HEAD
             "scripts": [
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/popper.js/dist/umd/popper.js",
@@ -44,6 +45,9 @@
               "./node_modules/jquery-flot/jquery.flot.js",
               "./node_modules/jquery-flot/jquery.flot.time.js"
             ]
+=======
+            "scripts": []
+>>>>>>> a6ca6f9259b653f025f20d6edaed36b1efae4bbd
           },
           "configurations": {
             "production": {
