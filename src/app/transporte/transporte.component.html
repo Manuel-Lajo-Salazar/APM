@@ -1,5 +1,5 @@
 <div class="container pt-3 transporte-titulo">
-    <h3>Nuevo Transporte</h3>
+    <h3>Transporte</h3>
 </div>
 <div class="container" [formGroup]="form">
     <div class="card-deck pt-3 pb-3">
@@ -52,14 +52,21 @@
                     </div>
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="fecSalida">Fecha - Hora Salida</label>
-                        <div>
-                            <p-calendar formControlName="fechaSalida"
-                                dateFormat="dd/mm/yy"
-                                showTime="true"
-                                hourFormat="12"
-                                showIcon="true"
-                                inputStyleClass="col-sm-12">
-                            </p-calendar>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 mb-3">
+                                <p-calendar formControlName="fechaSalida"
+                                    dateFormat="dd/mm/yy"
+                                    showIcon="true"
+                                    inputStyleClass="col-sm-12">
+                                </p-calendar>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <p-calendar formControlName="horaSalida"
+                                    timeOnly="true"
+                                    hourFormat="12"
+                                    inputStyleClass="col-sm-12">
+                                </p-calendar>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,14 +83,21 @@
                     </div>
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="fecLlegada">Fecha - Hora Llegada</label>
-                        <div>
-                            <p-calendar formControlName="fechaLlegada"
-                                dateFormat="dd/mm/yy"
-                                showTime="true"
-                                hourFormat="12"
-                                showIcon="true"
-                                inputStyleClass="col-sm-12">
-                            </p-calendar>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 mb-3">
+                                <p-calendar formControlName="fechaLlegada"
+                                    dateFormat="dd/mm/yy"
+                                    showIcon="true"
+                                    inputStyleClass="col-sm-12">
+                                </p-calendar>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <p-calendar formControlName="horaLlegada"
+                                    timeOnly="true"
+                                    hourFormat="12"
+                                    inputStyleClass="col-sm-12">
+                                </p-calendar>
+                            </div>
                         </div>
                     </div>
                 </div>

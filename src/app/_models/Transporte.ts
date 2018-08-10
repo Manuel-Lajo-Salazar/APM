@@ -6,8 +6,7 @@ export class Transporte {
         public fechaSalida: Date = null,
         public fechaLlegada: Date = null,
 
-        // revisar si debe ser un tipo específico
-        public tipo: any = null,
+        public tipo: number = null,
 
         public sucursalSalidaId: number = null,
         public sucursalSalidaNombre: string = null,

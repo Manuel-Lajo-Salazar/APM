@@ -1,7 +1,9 @@
-
+/**/
 import { TransporteService } from '../_services/transporte.service';
+// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { TransporteForListDto } from '../_models/TransporteForListDto';
 import { AutoComplete } from '../_models/AutoComplete';
 import { Vehiculo } from '../_models/Vehiculo';
@@ -62,6 +64,7 @@ export class TransporteListaComponent implements OnInit {
       this.sucursalLlegada ? this.sucursalLlegada.id : null,
       this.vehiculo ? this.vehiculo.placa : null,
     );
+    /**/
     this.transporteService.searchTransportes(this.model)
       .subscribe(response => {
         console.log(response);
@@ -168,7 +171,6 @@ export class TransporteListaComponent implements OnInit {
   setSucursalLlegada(selectedItem: Sucursal) {
     this.sucursalLlegada = selectedItem;
   }
-
 
   formValidation(controlName: string): boolean {
     return false;

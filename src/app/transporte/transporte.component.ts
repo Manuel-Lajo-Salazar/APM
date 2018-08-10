@@ -1,4 +1,7 @@
+/**/
 import { TransporteService } from '../_services/transporte.service';
+// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Transporte } from '../_models/Transporte';
@@ -58,7 +61,8 @@ export class TransporteComponent implements OnInit {
     this.setConfigChofer();
     this.setConfigAuxiliar();
     this.getTiposTransporte();
-    this.getTransporte(Number(this._route.snapshot.paramMap.get('id')));
+    const id: Number = Number(this._route.snapshot.paramMap.get('id'));
+    if (id) { this.getTransporte(id); }
   }
 
   createForm() {
@@ -66,8 +70,10 @@ export class TransporteComponent implements OnInit {
       vehiculo: ['', Validators.required],
       sucursalSalida: ['', Validators.required],
       fechaSalida: [new Date(), Validators.required],
+      horaSalida: [new Date(), Validators.required],
       sucursalLlegada: ['', Validators.required],
       fechaLlegada: [new Date(), Validators.required],
+      horaLlegada: [new Date(), Validators.required],
       chofer: ['', Validators.required],
       auxiliar: ['', Validators.required],
       tipoTransporte: ['', Validators.required],
@@ -76,15 +82,14 @@ export class TransporteComponent implements OnInit {
   }
 
   getTransporte(id: Number) {
-    if (id) {
-      this.transporteService.getTransporte(id)
-        .subscribe(response => {
-          console.log(response);
-          this.loadTransporteForDisplay(response);
-        }, error => {
-          console.log(error);
-        });
-    }
+    /**/
+    this.transporteService.getTransporte(id)
+      .subscribe(response => {
+        console.log(response);
+        this.loadTransporteForDisplay(response);
+      }, error => {
+        console.log(error);
+      });
   }
 
   loadTransporteForDisplay(transporte: Transporte) {
@@ -130,9 +135,11 @@ export class TransporteComponent implements OnInit {
     this.form.get('sucursalSalida').setValue(transporte.sucursalSalidaNombre + ', ' + transporte.sucursalSalidaDepartamento
                   + ', ' + transporte.sucursalSalidaDireccion);
     this.form.get('fechaSalida').setValue(new Date(transporte.fechaSalida));
+    this.form.get('horaSalida').setValue(new Date(transporte.fechaSalida));
     this.form.get('sucursalLlegada').setValue(transporte.sucursalLlegadaNombre + ', ' + transporte.sucursalLlegadaDepartamento
                   + ', ' + transporte.sucursalLlegadaDireccion);
     this.form.get('fechaLlegada').setValue(new Date(transporte.fechaLlegada));
+    this.form.get('horaLlegada').setValue(new Date(transporte.fechaLlegada));
     this.form.get('chofer').setValue(transporte.colaboradorChoferNombre + ', ' + transporte.colaboradorChoferNroDocumento
                   + ', ' + transporte.colaboradorChoferNroLicencia);
     this.form.get('auxiliar').setValue(transporte.colaboradorAuxiliarNombre + ', ' + transporte.colaboradorAuxiliarNroDocumento
@@ -167,6 +174,7 @@ export class TransporteComponent implements OnInit {
   }
 
   update(type: string) {
+    /**/
     // this.transporteService.updateTransporte(this.model)
     this.transporteService.updateTransporte(this.modelForCreate)
       .subscribe(response => {
@@ -183,6 +191,7 @@ export class TransporteComponent implements OnInit {
   }
 
   create(type: string) {
+    /**/
     // change to create new ID for Transporte
     // this.model.id = 6;
     // this.transporteService.createTransporte(this.model)
@@ -204,19 +213,26 @@ export class TransporteComponent implements OnInit {
     this.form.get('vehiculo').markAsDirty();
     this.form.get('sucursalSalida').markAsDirty();
     this.form.get('fechaSalida').markAsDirty();
+    this.form.get('horaSalida').markAsDirty();
     this.form.get('sucursalLlegada').markAsDirty();
     this.form.get('fechaLlegada').markAsDirty();
+    this.form.get('horaLlegada').markAsDirty();
     this.form.get('chofer').markAsDirty();
     this.form.get('auxiliar').markAsDirty();
     this.form.get('tipoTransporte').markAsDirty();
   }
 
   loadTransporteModelForSave() {
+    const fSalida: Date = this.form.get('fechaSalida').value;
+    const hSalida: Date = this.form.get('horaSalida').value;
+    const fLlegada: Date = this.form.get('fechaLlegada').value;
+    const hLlegada: Date = this.form.get('horaLlegada').value;
+
     this.modelForCreate = new TransporteForCreate(
       this.model ? this.model.id : 0,
       Boolean(this.form.get('activo').value),
-      this.form.get('fechaSalida').value,
-      this.form.get('fechaLlegada').value,
+      new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
+      new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
       Number(this.form.get('tipoTransporte').value),
       Number(this.sucursalSalida.id),
       Number(this.sucursalLlegada.id),
@@ -224,39 +240,40 @@ export class TransporteComponent implements OnInit {
       Number(this.auxiliar.id),
       Number(this.vehiculo.id)
     );
+
     // MODELO para grabar en json-server
-    // this.model = new Transporte(
-    //   this.model ? this.model.id : null,
-    //   Boolean(this.form.get('activo').value),
-    //   this.form.get('fechaSalida').value,
-    //   this.form.get('fechaLlegada').value,
-    //   { id: Number(this.form.get('tipoTransporte').value), nombre: null }, // verificar si corresponde al modelo
-    //   Number(this.sucursalSalida.id),
-    //   this.sucursalSalida.nombre,
-    //   this.sucursalSalida.departamento,
-    //   this.sucursalSalida.direccion,
-    //   Number(this.sucursalLlegada.id),
-    //   this.sucursalLlegada.nombre,
-    //   this.sucursalLlegada.departamento,
-    //   this.sucursalLlegada.direccion,
-    //   Number(this.chofer.id),
-    //   this.chofer.nombre,
-    //   this.chofer.tipoDocumento,
-    //   this.chofer.nroDocumento,
-    //   this.chofer.nroLicencia,
-    //   Number(this.auxiliar.id),
-    //   this.auxiliar.nombre,
-    //   this.auxiliar.tipoDocumento,
-    //   this.auxiliar.nroDocumento,
-    //   this.auxiliar.nroLicencia,
-    //   Number(this.vehiculo.id),
-    //   this.vehiculo.placa,
-    //   this.vehiculo.carga,
-    //   this.vehiculo.volumetria,
-    //   this.vehiculo.codConfiguracion,
-    //   this.vehiculo.nroInscripcion,
-    //   this.vehiculo.marca
-    // );
+    this.model = new Transporte(
+      this.model ? this.model.id : null,
+      Boolean(this.form.get('activo').value),
+      new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
+      new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
+      Number(this.form.get('tipoTransporte').value),
+      Number(this.sucursalSalida.id),
+      this.sucursalSalida.nombre,
+      this.sucursalSalida.departamento,
+      this.sucursalSalida.direccion,
+      Number(this.sucursalLlegada.id),
+      this.sucursalLlegada.nombre,
+      this.sucursalLlegada.departamento,
+      this.sucursalLlegada.direccion,
+      Number(this.chofer.id),
+      this.chofer.nombre,
+      this.chofer.tipoDocumento,
+      this.chofer.nroDocumento,
+      this.chofer.nroLicencia,
+      Number(this.auxiliar.id),
+      this.auxiliar.nombre,
+      this.auxiliar.tipoDocumento,
+      this.auxiliar.nroDocumento,
+      this.auxiliar.nroLicencia,
+      Number(this.vehiculo.id),
+      this.vehiculo.placa,
+      this.vehiculo.carga,
+      this.vehiculo.volumetria,
+      this.vehiculo.codConfiguracion,
+      this.vehiculo.nroInscripcion,
+      this.vehiculo.marca
+    );
   }
 
 
