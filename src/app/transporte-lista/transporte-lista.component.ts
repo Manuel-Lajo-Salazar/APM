@@ -10,6 +10,8 @@ import { Vehiculo } from '../_models/Vehiculo';
 import { Sucursal } from '../_models/Sucursal';
 import { TransporteCriteria } from '../_models/TransporteCriteria';
 
+declare let jQuery: any;
+
 @Component({
   templateUrl: './transporte-lista.component.html',
   styleUrls: ['./transporte-lista.component.scss']
@@ -21,7 +23,6 @@ export class TransporteListaComponent implements OnInit {
   form: FormGroup;
 
   loadIcon: boolean;
-  errorMessage;
 
   configVehiculo: AutoComplete;
   vehiculo: Vehiculo;
@@ -40,6 +41,8 @@ export class TransporteListaComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    jQuery('.prime-sidebar').show();
+    jQuery('.navbar-dashboard').show();
     this.createForm();
     this.setConfigVehiculo();
     this.setConfigSucursalSalida();
@@ -74,6 +77,10 @@ export class TransporteListaComponent implements OnInit {
       });
   }
 
+  reset() {
+    this.form.reset();
+  }
+
 
   // configuration section
 
@@ -97,9 +104,6 @@ export class TransporteListaComponent implements OnInit {
     this.transporteService.getVehiculos(filter)
       .subscribe(vehiculos => {
         this.configVehiculo.searchList = vehiculos;
-        this.configVehiculo.loadIcon = false;
-      }, error => {
-        this.errorMessage = <any>error;
         this.configVehiculo.loadIcon = false;
       });
   }
@@ -130,9 +134,6 @@ export class TransporteListaComponent implements OnInit {
       .subscribe(sucursales => {
         this.configSucursalSalida.searchList = sucursales;
         this.configSucursalSalida.loadIcon = false;
-      }, error => {
-        this.errorMessage = <any>error;
-        this.configSucursalSalida.loadIcon = false;
       });
   }
 
@@ -161,9 +162,6 @@ export class TransporteListaComponent implements OnInit {
     this.transporteService.getSucursales(filter)
       .subscribe(sucursales => {
         this.configSucursalLlegada.searchList = sucursales;
-        this.configSucursalLlegada.loadIcon = false;
-      }, error => {
-        this.errorMessage = <any>error;
         this.configSucursalLlegada.loadIcon = false;
       });
   }

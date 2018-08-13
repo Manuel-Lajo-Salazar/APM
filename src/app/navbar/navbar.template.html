@@ -5,9 +5,10 @@
         </ng-template> -->
         <!-- whether to automatically collapse sidebar on mouseleave. If activated acts more like usual admin templates -->
         <!-- <a (click)="toggleSidebar('static')"  class="nav-link d-none ml-3 d-lg-flex" [tooltip]="sidebarToggleTooltip" placement="bottom"> -->
-        <a (click)="toggleSidebar('static')"  class="nav-link d-none ml-3 d-lg-flex" placement="bottom">
+        <!-- <a (click)="toggleSidebar('static')"  class="nav-link d-none ml-3 d-lg-flex" placement="bottom">
             <i class="fa fa-bars fa-lg"></i>
-        </a>
+        </a> -->
+
         <!-- shown on xs & sm screen. collapses and expands navigation -->
         <a (click)="toggleSidebar('collapse')" class="d-lg-none nav-link" href="#" data-html="true" title="Show/hide<br>sidebar" data-placement="bottom">
             <span class="rounded rounded-lg bg-gray text-white d-md-none"><i class="fa fa-bars fa-lg"></i></span>
@@ -15,7 +16,13 @@
         </a>
     </li>
 </ul>
+<ul class="navbar-nav flex-row" (click)="$event.preventDefault()">
+    <li class="nav-item">
+        <a class="btn btn-inverse text-white btn-xs mr-3 mt-3" [routerLink]="['/login']">Salir</a>
+    </li>
+</ul>
 
+<!-- 
 <ul class="navbar-nav mr-3 d-none d-md-flex flex-row" (click)="$event.preventDefault()">
     <li class="nav-item dropdown" dropdown placement="bottom right">
         <a href="#" class="nav-link dropdown-toggle" dropdownToggle>
@@ -25,5 +32,4 @@
             <li><a class="dropdown-item" [routerLink]=" ['/login'] "><i class="fa fa-sign-out"></i> &nbsp; Log Out</a></li>
         </ul>
     </li>
-</ul>
-      
+</ul> -->

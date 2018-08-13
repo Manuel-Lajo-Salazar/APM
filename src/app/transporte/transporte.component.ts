@@ -1,6 +1,6 @@
 /**/
-// import { TransporteService } from '../_services/transporte.service';
-import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+import { TransporteService } from '../_services/transporte.service';
+// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -13,6 +13,8 @@ import { TipoTransporte } from '../_models/TipoTransporte';
 import { AutoComplete } from '../_models/AutoComplete';
 import { Router, ActivatedRoute } from '@angular/router';
 
+declare let jQuery: any;
+
 @Component({
   templateUrl: './transporte.component.html',
   styleUrls: ['./transporte.component.scss']
@@ -24,6 +26,8 @@ export class TransporteComponent implements OnInit {
 
   mostrarMensajeExito: boolean;
   mensajeExito: string;
+  mostrarMensajeError: boolean;
+  mensajeError: string;
 
   loadIcon: boolean;
 
@@ -56,6 +60,8 @@ export class TransporteComponent implements OnInit {
     private _router: Router) { }
 
   ngOnInit() {
+    jQuery('.prime-sidebar').show();
+    jQuery('.navbar-dashboard').show();
     this.createForm();
     this.setConfigVehiculo();
     this.setConfigSucursalSalida();
@@ -65,9 +71,6 @@ export class TransporteComponent implements OnInit {
     this.getTiposTransporte();
     const id: Number = Number(this._route.snapshot.paramMap.get('id'));
     if (id) { this.getTransporte(id); }
-
-    this.mostrarMensajeExito = false;
-    this.mensajeExito = '';
   }
 
   createForm() {
@@ -153,65 +156,51 @@ export class TransporteComponent implements OnInit {
     this.form.get('activo').setValue(transporte.activo);
   }
 
-  saveAndNew(): any {
+  save(): any {
     if (!this.form.valid) {
       this.markInputsAsDirty();
     } else {
-      this.save('andNew');
+      this.loadTransporteModelForSave();
+      if (this.model) {
+        this.update();
+      } else {
+        this.create();
+      }
+      /**/
+      // this.create();
     }
   }
 
-  saveOnly(): any {
-    if (!this.form.valid) {
-      this.markInputsAsDirty();
-    } else {
-      this.save('only');
-    }
+  create() {
+    /**/
+    // this.transporteService.createTransporte(this.model)
+    this.transporteService.createTransporte(this.modelForCreate)
+      .subscribe(response => {
+        console.log(response);
+        this.mostrarMensajeExito = true;
+        this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Transporte T-00${response.id}.</span>` +
+          `<a class="btn btn-default btn-xs float-right mr-5" href="/transporte/${response.id}">Ver</a>` +
+          `<a class="btn btn-default btn-xs float-right mr-5" href="/transporte">Grabar otro</a>`;
+      }, error => {
+        console.log(error);
+        this.mostrarMensajeError = true;
+        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error}.</span>`;
+      });
   }
 
-  save(type: string): any {
-    this.loadTransporteModelForSave();
-    // if (this.model) {
-    //   this.update(type);
-    // } else {
-    //   this.create(type);
-    // }
-    this.create(type);
-  }
-
-  update(type: string) {
+  update() {
     /**/
     // this.transporteService.updateTransporte(this.model)
     this.transporteService.updateTransporte(this.modelForCreate)
       .subscribe(response => {
         console.log(response);
-        if (type === 'only') {
-          this._router.navigate(['/transporte', response.id]);
-        }
-        if (type === 'andNew') {
-          this._router.navigate(['/transporte']);
-        }
-      }, error => {
-        console.log(error);
-      });
-  }
-
-  create(type: string) {
-    /**/
-    this.transporteService.createTransporte(this.model)
-    // this.transporteService.createTransporte(this.modelForCreate)
-      .subscribe(response => {
-        console.log(response);
-        // if (type === 'only') {
-        //   this._router.navigate(['/transporte', response.id]);
-        // }
-        // if (type === 'andNew') {
-        //   this._router.navigate(['/transporte']);
-        // }
         this.mostrarMensajeExito = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Transporte T-00${response.id}.</span>`;
+        this.mensajeExito = `<span class="fw-semi-bold">Se actualizó exitosamente el Nro de Transporte T-00${response.id}.</span>` +
+          `<a class="btn btn-default btn-xs float-right mr-5" href="/transporte">Grabar otro</a>`;
       }, error => {
         console.log(error);
+        this.mostrarMensajeError = true;
+        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error}.</span>`;
       });
   }
 
@@ -234,53 +223,53 @@ export class TransporteComponent implements OnInit {
     const fLlegada: Date = this.form.get('fechaLlegada').value;
     const hLlegada: Date = this.form.get('horaLlegada').value;
 
-    // this.modelForCreate = new TransporteForCreate(
-    //   this.model ? this.model.id : 0,
-    //   Boolean(this.form.get('activo').value),
-    //   new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
-    //   new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
-    //   Number(this.form.get('tipoTransporte').value),
-    //   Number(this.sucursalSalida.id),
-    //   Number(this.sucursalLlegada.id),
-    //   Number(this.chofer.id),
-    //   Number(this.auxiliar.id),
-    //   Number(this.vehiculo.id)
-    // );
-
-    // MODELO para grabar en json-server
-    const id = 6;
-    this.model = new Transporte(
-      this.model ? this.model.id : id,
+    this.modelForCreate = new TransporteForCreate(
+      this.model ? this.model.id : 0,
       Boolean(this.form.get('activo').value),
       new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
       new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
       Number(this.form.get('tipoTransporte').value),
       Number(this.sucursalSalida.id),
-      this.sucursalSalida.nombre,
-      this.sucursalSalida.departamento,
-      this.sucursalSalida.direccion,
       Number(this.sucursalLlegada.id),
-      this.sucursalLlegada.nombre,
-      this.sucursalLlegada.departamento,
-      this.sucursalLlegada.direccion,
       Number(this.chofer.id),
-      this.chofer.nombre,
-      this.chofer.tipoDocumento,
-      this.chofer.nroDocumento,
-      this.chofer.nroLicencia,
       Number(this.auxiliar.id),
-      this.auxiliar.nombre,
-      this.auxiliar.tipoDocumento,
-      this.auxiliar.nroDocumento,
-      this.auxiliar.nroLicencia,
-      Number(this.vehiculo.id),
-      this.vehiculo.placa,
-      this.vehiculo.carga,
-      this.vehiculo.volumetria,
-      this.vehiculo.codConfiguracion,
-      this.vehiculo.nroInscripcion,
-      this.vehiculo.marca
+      Number(this.vehiculo.id)
     );
+
+    // // MODELO para grabar en json-server
+    // const id = 6;
+    // this.model = new Transporte(
+    //   this.model ? this.model.id : id,
+    //   Boolean(this.form.get('activo').value),
+    //   new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
+    //   new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
+    //   Number(this.form.get('tipoTransporte').value),
+    //   Number(this.sucursalSalida.id),
+    //   this.sucursalSalida.nombre,
+    //   this.sucursalSalida.departamento,
+    //   this.sucursalSalida.direccion,
+    //   Number(this.sucursalLlegada.id),
+    //   this.sucursalLlegada.nombre,
+    //   this.sucursalLlegada.departamento,
+    //   this.sucursalLlegada.direccion,
+    //   Number(this.chofer.id),
+    //   this.chofer.nombre,
+    //   this.chofer.tipoDocumento,
+    //   this.chofer.nroDocumento,
+    //   this.chofer.nroLicencia,
+    //   Number(this.auxiliar.id),
+    //   this.auxiliar.nombre,
+    //   this.auxiliar.tipoDocumento,
+    //   this.auxiliar.nroDocumento,
+    //   this.auxiliar.nroLicencia,
+    //   Number(this.vehiculo.id),
+    //   this.vehiculo.placa,
+    //   this.vehiculo.carga,
+    //   this.vehiculo.volumetria,
+    //   this.vehiculo.codConfiguracion,
+    //   this.vehiculo.nroInscripcion,
+    //   this.vehiculo.marca
+    // );
   }
 
 

@@ -1,9 +1,10 @@
 import { Component, ViewEncapsulation, ElementRef, Renderer2, NgZone, ViewChild, HostBinding, OnInit } from '@angular/core';
-import { Router, Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+// import { Router, Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { Router, Event as RouterEvent, ActivatedRoute } from '@angular/router';
 import { AppConfig } from './app.config';
 
 declare let jQuery: any;
-declare let Hammer: any;
+// declare let Hammer: any;
 // declare let Raphael: any;
 
 @Component({
@@ -24,8 +25,11 @@ export class AppComponent implements OnInit {
   @ViewChild('spinnerElement') spinnerElement: ElementRef;
   @ViewChild('routerComponent') routerComponent: ElementRef;
 
+  mostrarSidebar: boolean;
+
   constructor(config: AppConfig,
               el: ElementRef,
+              private _route: ActivatedRoute,
               router: Router,
               private renderer: Renderer2,
               private ngZone: NgZone) {
@@ -37,28 +41,13 @@ export class AppComponent implements OnInit {
   }
 
   toggleSidebarListener(state): void {
-    const toggleNavigation = state === 'static'
-      ? this.toggleNavigationState
-      : this.toggleNavigationCollapseState;
-    toggleNavigation.apply(this);
-    localStorage.setItem('nav-static', JSON.stringify(this.navStatic));
+    // const toggleNavigation = state === 'static'
+    //   ? this.toggleNavigationState
+    //   : this.toggleNavigationCollapseState;
+    // toggleNavigation.apply(this);
+    // localStorage.setItem('nav-static', JSON.stringify(this.navStatic));
+    this.mostrarSidebar = !this.mostrarSidebar;
   }
-
-  // toggleChatListener(): void {
-  //   jQuery(this.el.nativeElement).find('.chat-notification-sing').remove();
-  //   this.chatOpened = !this.chatOpened;
-
-  //   setTimeout(() => {
-  //     // demo: add class & badge to indicate incoming messages from contact
-  //     // .js-notification-added ensures notification added only once
-  //     jQuery('.chat-sidebar-user-group:first-of-type ' +
-  //       '.list-group-item:first-child:not(.js-notification-added)')
-  //       .addClass('active js-notification-added')
-  //       .find('.fa-circle')
-  //       .before('<span class="badge badge-danger badge-pill ' +
-  //         'float-right animated bounceInDown">3</span>');
-  //   }, 1000);
-  // }
 
   toggleNavigationState(): void {
     this.navStatic = !this.navStatic;
@@ -130,28 +119,28 @@ export class AppComponent implements OnInit {
   }
 
   enableSwipeCollapsing(): void {
-    const swipe = new Hammer(document.getElementById('content-wrap'));
-    const d = this;
+    // const swipe = new Hammer(document.getElementById('content-wrap'));
+    // const d = this;
 
-    swipe.on('swipeleft', () => {
-      setTimeout(() => {
-        if (d.configFn.isScreen('md')) { return; }
+    // swipe.on('swipeleft', () => {
+    //   setTimeout(() => {
+    //     if (d.configFn.isScreen('md')) { return; }
 
-        if (!jQuery('app-layout').is('.nav-collapsed')) {
-          d.collapseNavigation();
-        }
-      });
-    });
+    //     if (!jQuery('app-layout').is('.nav-collapsed')) {
+    //       d.collapseNavigation();
+    //     }
+    //   });
+    // });
 
-    swipe.on('swiperight', () => {
-      if (d.configFn.isScreen('md')) { return; }
+    // swipe.on('swiperight', () => {
+    //   if (d.configFn.isScreen('md')) { return; }
 
-      if (jQuery('app-layout').is('.chat-sidebar-opened')) { return; }
+    //   if (jQuery('app-layout').is('.chat-sidebar-opened')) { return; }
 
-      if (jQuery('app-layout').is('.nav-collapsed')) {
-        d.expandNavigation();
-      }
-    });
+    //   if (jQuery('app-layout').is('.nav-collapsed')) {
+    //     d.expandNavigation();
+    //   }
+    // });
   }
 
   collapseNavIfSmallScreen(): void {
@@ -162,6 +151,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    jQuery('.prime-sidebar').hide();
+    jQuery('.navbar-dashboard').hide();
+
     if (localStorage.getItem('nav-static') === 'true') {
       this.navStatic = true;
     }

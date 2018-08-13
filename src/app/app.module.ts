@@ -13,6 +13,7 @@ import { AutoCompleteComponent } from './shared/auto-complete/auto-complete.comp
 // import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TransporteComponent } from './transporte/transporte.component';
 import { TransporteListaComponent } from './transporte-lista/transporte-lista.component';
+import { LoginComponent } from './login/login.component';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -33,6 +34,7 @@ import 'jquery-slimscroll';
     AutoCompleteComponent,
     TransporteComponent,
     TransporteListaComponent,
+    LoginComponent,
     SidebarComponent,
     NavbarComponent
 ],

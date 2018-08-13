@@ -1,9 +1,6 @@
-<!-- <app-nav></app-nav>
-<router-outlet></router-outlet> -->
-
-<pm-sidebar id="sidebar" role="navigation" class="sidebar"></pm-sidebar>
-<pm-navbar (toggleSidebarEvent)="toggleSidebarListener($event)" class="page-controls navbar navbar-dashboard"></pm-navbar>
-<div class="content-wrap" id="content-wrap">
+<pm-sidebar id="sidebar" role="navigation" class="sidebar prime-sidebar" [class.show-element]="mostrarSidebar"></pm-sidebar>
+<pm-navbar (toggleSidebarEvent)="toggleSidebarListener($event)" class="page-controls navbar navbar-dashboard" style="left: 0px; right: 0px;"></pm-navbar>
+<div class="content-wrap" id="content-wrap" [class.content-wrap-fix]="!mostrarSidebar">
     <main id="content" class="content" role="main">
         <!-- <div class="router-component" #routerComponent> -->
         <div class="router-component">

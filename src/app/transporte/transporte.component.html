@@ -50,30 +50,24 @@
                             (filteredInput)="getSucursalesSalida($event)">
                         </pm-auto-complete>
                     </div>
-                    <div class="col-md-6 col-sm-12 mb-3">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12 mb-3">
-                                <label for="fecSalida">Fecha Salida</label>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <label for="fecSalida">Hora Salida</label>
-                            </div>
+                    <div class="col-md-3 col-sm-12 mb-3">
+                        <label>Fecha Salida</label>
+                        <div>
+                            <p-calendar
+                                formControlName="fechaSalida"
+                                dateFormat="dd/mm/yy"
+                                showIcon="true">
+                            </p-calendar>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12 mb-3">
-                                <p-calendar formControlName="fechaSalida"
-                                    dateFormat="dd/mm/yy"
-                                    showIcon="true"
-                                    inputStyleClass="col-sm-12">
-                                </p-calendar>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <p-calendar formControlName="horaSalida"
-                                    timeOnly="true"
-                                    hourFormat="12"
-                                    inputStyleClass="col-sm-12">
-                                </p-calendar>
-                            </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 mb-3">
+                        <label>Hora Salida</label>
+                        <div>
+                            <p-calendar
+                                formControlName="horaSalida"
+                                timeOnly="true"
+                                hourFormat="12">
+                            </p-calendar>
                         </div>
                     </div>
                 </div>
@@ -88,30 +82,24 @@
                             (filteredInput)="getSucursalesLlegada($event)">
                         </pm-auto-complete>
                     </div>
-                    <div class="col-md-6 col-sm-12 mb-3">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12 mb-3">
-                                <label for="fecSalida">Fecha Llegada</label>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <label for="fecSalida">Hora Llegada</label>
-                            </div>
+                    <div class="col-md-3 col-sm-12 mb-3">
+                        <label>Fecha Llegada</label>
+                        <div>
+                            <p-calendar
+                                formControlName="fechaLlegada"
+                                dateFormat="dd/mm/yy"
+                                showIcon="true">
+                            </p-calendar>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12 mb-3">
-                                <p-calendar formControlName="fechaLlegada"
-                                    dateFormat="dd/mm/yy"
-                                    showIcon="true"
-                                    inputStyleClass="col-sm-12">
-                                </p-calendar>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <p-calendar formControlName="horaLlegada"
-                                    timeOnly="true"
-                                    hourFormat="12"
-                                    inputStyleClass="col-sm-12">
-                                </p-calendar>
-                            </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 mb-3">
+                        <label>Hora Llegada</label>
+                        <div>
+                            <p-calendar
+                                formControlName="horaLlegada"
+                                timeOnly="true"
+                                hourFormat="12">
+                            </p-calendar>
                         </div>
                     </div>
                 </div>
@@ -163,13 +151,21 @@
         </div>
     </div>
 
+    <div class="row" *ngIf="mostrarMensajeError">
+        <div class="col-md-12 col-sm-12 mb-3">
+            <alert type="danger">
+                <div [innerHTML]="mensajeError"></div>
+            </alert>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-8 col-sm-12 mb-3">
             <button type="button" class="btn btn-dark">Eliminar</button>
         </div>
         <div class="col-md-4 col-sm-12 mb-3">
-            <button type="button" class="btn btn-primary mr-3" (click)="saveAndNew()">Grabar y añadir otro</button>
-            <button type="button" class="btn btn-primary" (click)="saveOnly()">Grabar</button>
+            <!-- <button type="button" class="btn btn-primary mr-3" (click)="saveAndNew()">Grabar y añadir otro</button> -->
+            <button type="button" class="btn btn-primary" (click)="save()">Grabar</button>
         </div>
     </div>
 </div>
