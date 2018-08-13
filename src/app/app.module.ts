@@ -10,7 +10,7 @@ import { AppConfig } from './app.config';
 
 import { NavComponent } from './nav/nav.component';
 import { AutoCompleteComponent } from './shared/auto-complete/auto-complete.component';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+// import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TransporteComponent } from './transporte/transporte.component';
 import { TransporteListaComponent } from './transporte-lista/transporte-lista.component';
 
@@ -21,6 +21,8 @@ import { TransporteService } from './_services/transporte.service';
 import { TransporteMockService } from './_services/transporte-mock.service';
 import { CalendarModule } from 'primeng/calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AlertModule } from 'ngx-bootstrap';
 
 import 'jquery-slimscroll';
 
@@ -41,7 +43,8 @@ import 'jquery-slimscroll';
     ReactiveFormsModule,
     APP_ROUTING,
     HttpClientModule,
-    BsDatepickerModule.forRoot(),
+    // BsDatepickerModule.forRoot(),
+    AlertModule.forRoot(),
     CalendarModule,
     BrowserAnimationsModule
   ],

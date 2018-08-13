@@ -171,6 +171,38 @@
       "vehiculoCodConfiguracion": "001",
       "vehiculoNroInscripcion": "000001",
       "vehiculoMarca": "Toyota"
+    },
+    {
+      "id": 6,
+      "activo": true,
+      "fechaSalida": "2018-08-12T10:45:00.000Z",
+      "fechaLlegada": "2018-08-15T01:50:00.000Z",
+      "tipo": 3,
+      "sucursalSalidaId": 1,
+      "sucursalSalidaNombre": "Lima",
+      "sucursalSalidaDepartamento": "Chosica",
+      "sucursalSalidaDireccion": "Av. Principal Nro. 1174",
+      "sucursalLlegadaId": 3,
+      "sucursalLlegadaNombre": "Puno",
+      "sucursalLlegadaDepartamento": "Puno",
+      "sucursalLlegadaDireccion": "Calle Cipreses N. 125",
+      "colaboradorChoferId": 1,
+      "colaboradorChoferNombre": "Juan Perez",
+      "colaboradorChoferTipoDocumento": "DNI",
+      "colaboradorChoferNroDocumento": "41678914",
+      "colaboradorChoferNroLicencia": "000123912391",
+      "colaboradorAuxiliarId": 1,
+      "colaboradorAuxiliarNombre": "Auxiliar A",
+      "colaboradorAuxiliarTipoDocumento": "DNI",
+      "colaboradorAuxiliarNroDocumento": "52558189",
+      "colaboradorAuxiliarNroLicencia": "000132423123",
+      "vehiculoId": 1,
+      "vehiculoPlaca": "PE - 1234",
+      "vehiculoCarga": "1,200 Kg.",
+      "vehiculoVolumetria": "3,30 m - 2,50 m - 15,00 m",
+      "vehiculoCodConfiguracion": "001",
+      "vehiculoNroInscripcion": "000001",
+      "vehiculoMarca": "Toyota"
     }
   ]
 }

@@ -1,6 +1,6 @@
 /**/
-import { TransporteService } from '../_services/transporte.service';
-// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+// import { TransporteService } from '../_services/transporte.service';
+import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -22,8 +22,10 @@ export class TransporteComponent implements OnInit {
   modelForCreate: TransporteForCreate;
   form: FormGroup;
 
+  mostrarMensajeExito: boolean;
+  mensajeExito: string;
+
   loadIcon: boolean;
-  errorMessage;
 
   configVehiculo: AutoComplete;
   vehiculo: Vehiculo;
@@ -63,6 +65,9 @@ export class TransporteComponent implements OnInit {
     this.getTiposTransporte();
     const id: Number = Number(this._route.snapshot.paramMap.get('id'));
     if (id) { this.getTransporte(id); }
+
+    this.mostrarMensajeExito = false;
+    this.mensajeExito = '';
   }
 
   createForm() {
@@ -76,7 +81,7 @@ export class TransporteComponent implements OnInit {
       horaLlegada: [new Date(), Validators.required],
       chofer: ['', Validators.required],
       auxiliar: ['', Validators.required],
-      tipoTransporte: ['', Validators.required],
+      tipoTransporte: ['1', Validators.required],
       activo: [true, []]
     });
   }
@@ -166,11 +171,12 @@ export class TransporteComponent implements OnInit {
 
   save(type: string): any {
     this.loadTransporteModelForSave();
-    if (this.model) {
-      this.update(type);
-    } else {
-      this.create(type);
-    }
+    // if (this.model) {
+    //   this.update(type);
+    // } else {
+    //   this.create(type);
+    // }
+    this.create(type);
   }
 
   update(type: string) {
@@ -192,18 +198,18 @@ export class TransporteComponent implements OnInit {
 
   create(type: string) {
     /**/
-    // change to create new ID for Transporte
-    // this.model.id = 6;
-    // this.transporteService.createTransporte(this.model)
-    this.transporteService.createTransporte(this.modelForCreate)
+    this.transporteService.createTransporte(this.model)
+    // this.transporteService.createTransporte(this.modelForCreate)
       .subscribe(response => {
         console.log(response);
-        if (type === 'only') {
-          this._router.navigate(['/transporte', response.id]);
-        }
-        if (type === 'andNew') {
-          this._router.navigate(['/transporte']);
-        }
+        // if (type === 'only') {
+        //   this._router.navigate(['/transporte', response.id]);
+        // }
+        // if (type === 'andNew') {
+        //   this._router.navigate(['/transporte']);
+        // }
+        this.mostrarMensajeExito = true;
+        this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Transporte T-00${response.id}.</span>`;
       }, error => {
         console.log(error);
       });
@@ -228,22 +234,23 @@ export class TransporteComponent implements OnInit {
     const fLlegada: Date = this.form.get('fechaLlegada').value;
     const hLlegada: Date = this.form.get('horaLlegada').value;
 
-    this.modelForCreate = new TransporteForCreate(
-      this.model ? this.model.id : 0,
-      Boolean(this.form.get('activo').value),
-      new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
-      new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
-      Number(this.form.get('tipoTransporte').value),
-      Number(this.sucursalSalida.id),
-      Number(this.sucursalLlegada.id),
-      Number(this.chofer.id),
-      Number(this.auxiliar.id),
-      Number(this.vehiculo.id)
-    );
+    // this.modelForCreate = new TransporteForCreate(
+    //   this.model ? this.model.id : 0,
+    //   Boolean(this.form.get('activo').value),
+    //   new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
+    //   new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
+    //   Number(this.form.get('tipoTransporte').value),
+    //   Number(this.sucursalSalida.id),
+    //   Number(this.sucursalLlegada.id),
+    //   Number(this.chofer.id),
+    //   Number(this.auxiliar.id),
+    //   Number(this.vehiculo.id)
+    // );
 
     // MODELO para grabar en json-server
+    const id = 6;
     this.model = new Transporte(
-      this.model ? this.model.id : null,
+      this.model ? this.model.id : id,
       Boolean(this.form.get('activo').value),
       new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
       new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
@@ -300,9 +307,6 @@ export class TransporteComponent implements OnInit {
       .subscribe(vehiculos => {
         this.configVehiculo.searchList = vehiculos;
         this.configVehiculo.loadIcon = false;
-      }, error => {
-        this.errorMessage = <any>error;
-        this.configVehiculo.loadIcon = false;
       });
   }
 
@@ -331,9 +335,6 @@ export class TransporteComponent implements OnInit {
     this.transporteService.getSucursales(filter)
       .subscribe(sucursales => {
         this.configSucursalSalida.searchList = sucursales;
-        this.configSucursalSalida.loadIcon = false;
-      }, error => {
-        this.errorMessage = <any>error;
         this.configSucursalSalida.loadIcon = false;
       });
   }
@@ -364,9 +365,6 @@ export class TransporteComponent implements OnInit {
       .subscribe(sucursales => {
         this.configSucursalLlegada.searchList = sucursales;
         this.configSucursalLlegada.loadIcon = false;
-      }, error => {
-        this.errorMessage = <any>error;
-        this.configSucursalLlegada.loadIcon = false;
       });
   }
 
@@ -396,9 +394,6 @@ export class TransporteComponent implements OnInit {
       .subscribe(choferes => {
         this.configChofer.searchList = choferes;
         this.configChofer.loadIcon = false;
-      }, error => {
-        this.errorMessage = <any>error;
-        this.configChofer.loadIcon = false;
       });
   }
 
@@ -427,9 +422,6 @@ export class TransporteComponent implements OnInit {
     this.transporteService.getAuxiliares(filter)
       .subscribe(auxiliares => {
         this.configAuxiliar.searchList = auxiliares;
-        this.configAuxiliar.loadIcon = false;
-      }, error => {
-        this.errorMessage = <any>error;
         this.configAuxiliar.loadIcon = false;
       });
   }

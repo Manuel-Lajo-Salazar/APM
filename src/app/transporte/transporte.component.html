@@ -1,5 +1,5 @@
 <div class="container pt-3 transporte-titulo">
-    <h3>Transporte</h3>
+    <h3>Registrar Transporte</h3>
 </div>
 <div class="container" [formGroup]="form">
     <div class="card-deck pt-3 pb-3">
@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label style="margin-top: 2.5rem; font-weight: 700; width: 200px;">Nº de Transporte:</label>
-                        <span>T-{{model ? '00' + model.id : ''}}</span>
+                        <span>{{model ? 'T-00' + model.id : ''}}</span>
                     </div>
                 </div>
                 <div style="border: 1px solid black" class="mt-3 p-2" *ngIf="vehiculo !== undefined">
@@ -51,7 +51,14 @@
                         </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12 mb-3">
-                        <label for="fecSalida">Fecha - Hora Salida</label>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 mb-3">
+                                <label for="fecSalida">Fecha Salida</label>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label for="fecSalida">Hora Salida</label>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6 col-sm-12 mb-3">
                                 <p-calendar formControlName="fechaSalida"
@@ -82,7 +89,14 @@
                         </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12 mb-3">
-                        <label for="fecLlegada">Fecha - Hora Llegada</label>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 mb-3">
+                                <label for="fecSalida">Fecha Llegada</label>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label for="fecSalida">Hora Llegada</label>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6 col-sm-12 mb-3">
                                 <p-calendar formControlName="fechaLlegada"
@@ -127,7 +141,6 @@
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label for="tipoTransporte">Tipo Transporte</label>
                         <select class="form-control" formControlName="tipoTransporte" [ngClass]="{'is-invalid': formValidation('tipoTransporte')}">
-                            <option value="" selected></option>
                             <option *ngFor="let tipoTransporte of tiposTransporte" [value]="tipoTransporte.id">{{tipoTransporte.nombre}}</option>
                         </select>
                     </div>
@@ -139,6 +152,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="mostrarMensajeExito">
+        <div class="col-md-12 col-sm-12 mb-3">
+            <alert type="success">
+                <div [innerHTML]="mensajeExito"></div>
+            </alert>
         </div>
     </div>
 
