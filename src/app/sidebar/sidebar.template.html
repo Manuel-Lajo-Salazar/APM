@@ -6,7 +6,7 @@
     <h5 class="sidebar-nav-title" style="font-weight: 800; margin-top: 5rem;">Opciones
     </h5>
     <ul class="sidebar-nav">
-        <li>
+        <li class="prime-sidebar__menu-item">
             <a class="collapsed" data-target="#sidebar-dashboard" data-toggle="collapse" data-parent="#sidebar">
                 <span class="icon">
                     <i class="fi flaticon-home"></i>
@@ -14,16 +14,16 @@
                 Transportes
                 <i class="toggle fa fa-angle-down"></i>
             </a>
-            <ul id="sidebar-dashboard" class="collapse">
-                <li>
+            <ul id="sidebar-dashboard" class="collapse prime-sidebar__submenu-item">
+                <li class="">
                     <a [routerLink]="['/transporte']">Registrar</a>
                 </li>
-                <li>
+                <li class="">
                     <a [routerLink]="['/transporteLista']">Buscar</a>
                 </li>
             </ul>
         </li>
-        <li>
+        <li class="prime-sidebar__menu-item">
             <a [routerLink]="['']">
                 <span class="icon">
                     <i class="fi flaticon-controls"></i>

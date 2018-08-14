@@ -159,6 +159,8 @@ export class TransporteComponent implements OnInit {
   save(): any {
     if (!this.form.valid) {
       this.markInputsAsDirty();
+    } else if (this.validarFechas()) {
+      return;
     } else {
       this.loadTransporteModelForSave();
       if (this.model) {
@@ -222,12 +224,16 @@ export class TransporteComponent implements OnInit {
     const hSalida: Date = this.form.get('horaSalida').value;
     const fLlegada: Date = this.form.get('fechaLlegada').value;
     const hLlegada: Date = this.form.get('horaLlegada').value;
+    const salida = new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes());
+    const llegada = new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes());
+    salida.setHours(salida.getHours() - 5);
+    llegada.setHours(llegada.getHours() - 5);
 
     this.modelForCreate = new TransporteForCreate(
       this.model ? this.model.id : 0,
       Boolean(this.form.get('activo').value),
-      new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
-      new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
+      salida,
+      llegada,
       Number(this.form.get('tipoTransporte').value),
       Number(this.sucursalSalida.id),
       Number(this.sucursalLlegada.id),
@@ -432,6 +438,22 @@ export class TransporteComponent implements OnInit {
   formValidation(controlName: string): boolean {
     const control = this.form.get(controlName);
     return (control.dirty && control.errors) ? true : false;
+  }
+
+  validarFechas(): boolean {
+    const fSalida: Date = this.form.get('fechaSalida').value;
+    const hSalida: Date = this.form.get('horaSalida').value;
+    const fLlegada: Date = this.form.get('fechaLlegada').value;
+    const hLlegada: Date = this.form.get('horaLlegada').value;
+
+    if (!fSalida || !hSalida || !fLlegada || !hLlegada) {
+      return false;
+    }
+
+    const salida = new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes());
+    const llegada = new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes());
+
+    return (salida > llegada);
   }
 
 }

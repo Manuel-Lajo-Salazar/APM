@@ -1,6 +1,7 @@
 
 .prime-sidebar {
     display: none;
+    background-color: #002040;
 }
 
 @media (min-width: 992px) {
@@ -8,6 +9,16 @@
         display: block;
         z-index: 5;
     }
+}
+
+.prime-sidebar__menu-item {
+    &:hover {
+        background-color: #002040;
+    }
+}
+
+.prime-sidebar__submenu-item {
+    background-color: #080a0cb3 !important;
 }
 
 .show-element {

@@ -59,6 +59,9 @@
                                 showIcon="true">
                             </p-calendar>
                         </div>
+                        <div style="color: red;" *ngIf="validarFechas()">
+                            La fecha de salida debe ser menor a la fecha de llegada
+                        </div>
                     </div>
                     <div class="col-md-3 col-sm-12 mb-3">
                         <label>Hora Salida</label>

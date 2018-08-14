@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
   { path: 'transporte/:id', component: TransporteComponent },
   { path: 'transporte', component: TransporteComponent },
   { path: 'transporteLista', component: TransporteListaComponent },
-  { path: '**', pathMatch: 'full', redirectTo: 'transporte' }
+  { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
 
 export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES);
