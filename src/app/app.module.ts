@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from 'ngx-bootstrap';
 
 import 'jquery-slimscroll';
+import { EntregaComponent } from './entrega/entrega.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import 'jquery-slimscroll';
     TransporteListaComponent,
     LoginComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    EntregaComponent
 ],
   imports: [
     BrowserModule,
