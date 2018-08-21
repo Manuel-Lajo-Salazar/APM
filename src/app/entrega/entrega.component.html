@@ -1,3 +1,184 @@
-<p>
-  entrega works!
-</p>
+<div class="container pt-3 transporte-titulo">
+  <h3>Registrar Entrega</h3>
+</div>
+<div class="container" [formGroup]="form">
+  <h5>Transporte</h5>
+  <div class="card-deck pt-3 pb-3">
+      <div class="card transporte-card">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                      <pm-auto-complete
+                          class="auto-complete"
+                          id="transporte"
+                          [config]="configTransporte"
+                          (selected)="setTransporte($event)"
+                          (filteredInput)="getTransportes($event)">
+                      </pm-auto-complete>
+                  </div>
+              </div>
+              <div class="row pt-2">
+                  <div class="col-md-6 col-sm-12">
+                      <span class="font-weight-bold">Nro. Transporte: </span>{{transporte ? 'T-00' + transporte.id : ''}}
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                      <span class="font-weight-bold">Placa del Vehículo: </span>{{transporte ? transporte.vehiculoPlaca : ''}}
+                  </div>
+              </div>
+              <div style="border: 1px solid black" class="mt-3 p-2" *ngIf="transporte !== undefined">
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <span>El vehículo con placa {{transporte.vehiculoPlaca}} tiene:</span>
+                          <br/>
+                          <span>- Capacidad de carga de {{transporte.vehiculoCarga}}</span>
+                          <br/>
+                          <span>- Capacidad volumetrica de: {{transporte.vehiculoVolumetria}}</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="row pt-2">
+                  <div class="col-md-6 col-sm-12">
+                      <span class="font-weight-bold">Sucursal Salida: </span>{{transporte ? transporte.sucursalSalidaNombre + ' - ' + transporte.sucursalSalidaDepartamento : ''}}
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                      <span class="font-weight-bold">Fecha - Hora Salida: </span>{{transporte ? transporte.fechaSalida : ''}}
+                  </div>
+              </div>
+              <div class="row pt-2">
+                  <div class="col-md-6 col-sm-12">
+                      <span class="font-weight-bold">Sucursal Llegada: </span>{{transporte ? transporte.sucursalLlegadaNombre + ' - ' + transporte.sucursalLlegadaDepartamento : ''}}
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                      <span class="font-weight-bold">Fecha - Hora Llegada: </span>{{transporte ? transporte.fechaLlegada : ''}}
+                  </div>
+              </div>
+              <div class="row pt-2">
+                  <div class="col-md-6 col-sm-12">
+                      <span class="font-weight-bold">Chofer Vehículo: </span>{{transporte ? transporte.colaboradorChoferNombre : ''}}
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                      <span class="font-weight-bold">Auxiliar Vehículo: </span>{{transporte ? transporte.colaboradorAuxiliarNombre : ''}}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <h5>Clientes</h5>
+  <div class="card-deck pt-3 pb-3">
+      <div class="card transporte-card">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-6 col-sm-12 mb-3">
+                      <label for="remitente">Remitente</label>
+                      <pm-auto-complete
+                          class="auto-complete"
+                          id="remitente"
+                          [config]="configRemitente"
+                          (selected)="setRemitente($event)"
+                          (filteredInput)="getRemitentes($event)">
+                      </pm-auto-complete>
+                  </div>
+                  <div class="col-md-6 col-sm-12 mb-3">
+                      <label for="destinatario">Destinatario</label>
+                      <pm-auto-complete
+                          class="auto-complete"
+                          id="destinatario"
+                          [config]="configDestinatario"
+                          (selected)="setDestinatario($event)"
+                          (filteredInput)="getDestinatarios($event)">
+                      </pm-auto-complete>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <h5>Entrega</h5>
+  <div class="card-deck pt-3 pb-3">
+      <div class="card transporte-card">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-6 col-sm-12 mb-3">
+                      <label for="origen">Sucursal Origen</label>
+                      <pm-auto-complete
+                          class="auto-complete"
+                          id="origen"
+                          [config]="configSucursalOrigen"
+                          (selected)="setSucursalOrigen($event)"
+                          (filteredInput)="getSucursalesOrigen($event)">
+                      </pm-auto-complete>
+                  </div>
+                  <div class="col-md-6 col-sm-12 mb-3">
+                      <label for="destino">Sucursal Destino</label>
+                      <pm-auto-complete
+                          class="auto-complete"
+                          id="destino"
+                          [config]="configSucursalDestino"
+                          (selected)="setSucursalDestino($event)"
+                          (filteredInput)="getSucursalesDestino($event)">
+                      </pm-auto-complete>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-3 col-sm-12 mb-3">
+                      <label>Fecha Entrega</label>
+                      <div>
+                          <p-calendar
+                              formControlName="fechaEntrega"
+                              dateFormat="dd/mm/yy"
+                              showIcon="true">
+                          </p-calendar>
+                      </div>
+                  </div>
+                  <div class="col-md-3 col-sm-12 mb-3">
+                      <label>Hora Entrega</label>
+                      <div>
+                          <p-calendar
+                              formControlName="horaEntrega"
+                              timeOnly="true"
+                              hourFormat="12">
+                          </p-calendar>
+                      </div>
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                  <div class="col-md-6 col-sm-12 mb-3">
+                      <label for="numeroGuia">Nro. de Guía</label>
+                      <input type="text" formControlName="numeroGuia" id="numeroGuia">
+                  </div>
+                  <div class="col-md-6 col-sm-12 mb-3">
+                      <label for="numeroBultos">Nro. de Bultos</label>
+                      <input type="number" formControlName="numeroBultos" id="numeroBultos">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row" *ngIf="mostrarMensajeExito">
+      <div class="col-md-12 col-sm-12 mb-3">
+          <alert type="success">
+              <div [innerHTML]="mensajeExito"></div>
+          </alert>
+      </div>
+  </div>
+
+  <div class="row" *ngIf="mostrarMensajeError">
+      <div class="col-md-12 col-sm-12 mb-3">
+          <alert type="danger">
+              <div [innerHTML]="mensajeError"></div>
+          </alert>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-8 col-sm-12 mb-3">
+          <button type="button" class="btn btn-dark">Eliminar</button>
+      </div>
+      <div class="col-md-4 col-sm-12 mb-3">
+          <button type="button" class="btn btn-primary" (click)="save()">Grabar</button>
+      </div>
+  </div>
+</div>

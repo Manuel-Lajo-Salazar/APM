@@ -75,6 +75,34 @@
       "tipo": "2"
     }
   ],
+  "remitentes": [
+    {
+      "id": 1,
+      "razonSocial": "Remitente 1",
+      "ruc": "45251587895",
+      "tipo": "1"
+    },
+    {
+      "id": 2,
+      "razonSocial": "Remitente 2",
+      "ruc": "78954525158",
+      "tipo": "1"
+    }
+  ],
+  "destinatarios": [
+    {
+      "id": 1,
+      "razonSocial": "Destinatario A",
+      "ruc": "25158789545",
+      "tipo": "2"
+    },
+    {
+      "id": 2,
+      "razonSocial": "Destinatario B",
+      "ruc": "89545251587",
+      "tipo": "2"
+    }
+  ],
   "transportes": [
     {
       "id": 9,
@@ -203,6 +231,82 @@
       "vehiculoCodConfiguracion": "001",
       "vehiculoNroInscripcion": "000001",
       "vehiculoMarca": "Toyota"
+    }
+  ],
+  "entregas": [
+    {
+      "id": 1,
+      "transporteId": 8,
+      "transporteFechaSalida": "2018-07-01T20:48:50.000Z",
+      "transporteFechaLlegada": "2018-07-07T20:48:50.000Z",
+      "transporteSucursalSalidaId": 2,
+      "transporteSucursalSalidaNombre": "Ica",
+      "transporteSucursalSalidaDepartamento": "Ica",
+      "transporteSucursalLlegadaId": 1,
+      "transporteSucursalLlegadaNombre": "Lima",
+      "transporteSucursalLlegadaDepartamento": "Chosica",
+      "transporteColaboradorChoferId": 1,
+      "transporteColaboradorChoferNombre": "Juan Perez",
+      "tranpsorteColaboradorAuxiliarId": 2,
+      "tranpsorteColaboradorAuxiliarNombre": "Auxiliar B",
+      "transporteVehiculoId": 2,
+      "transporteVehiculoPlaca": "PE - 9999",
+      "transporteVehiculoCarga": "400 Kg.",
+      "transporteVehiculoVolumetria": "1,90 m - 1,50 m - 6,00 m",
+      "clienteRemitenteId": 2,
+      "clienteRemitenteRazonSocial": "Remitente 2",
+      "clienteRemitenteRuc": "78954525158",
+      "clienteDestinatarioId": 2,
+      "clienteDestinatarioRazonSocial": "Destinatario B",
+      "clienteDestinatarioRuc": "89545251587",
+      "sucursalOrigenId": 2,
+      "sucursalOrigenNombre": "Ica",
+      "sucursalOrigenDepartamento": "Ica",
+      "sucursalOrigenDireccion": "Jr. Los Fresnos 812A",
+      "sucursalDestinoId": 3,
+      "sucursalDestinoNombre": "Puno",
+      "sucursalDestinoDepartamento": "Puno",
+      "sucursalDestinoDireccion": "Calle Cipreses N. 125",
+      "fechaEntrega": "2018-08-21T01:54:00.000Z",
+      "numeroGuia": "123123",
+      "numeroBultos": 12
+    },
+    {
+      "id": 2,
+      "transporteId": 6,
+      "transporteFechaSalida": "2018-08-12T10:45:00.000Z",
+      "transporteFechaLlegada": "2018-08-15T01:50:00.000Z",
+      "transporteSucursalSalidaId": 1,
+      "transporteSucursalSalidaNombre": "Lima",
+      "transporteSucursalSalidaDepartamento": "Chosica",
+      "transporteSucursalLlegadaId": 3,
+      "transporteSucursalLlegadaNombre": "Puno",
+      "transporteSucursalLlegadaDepartamento": "Puno",
+      "transporteColaboradorChoferId": 1,
+      "transporteColaboradorChoferNombre": "Juan Perez",
+      "tranpsorteColaboradorAuxiliarId": 1,
+      "tranpsorteColaboradorAuxiliarNombre": "Auxiliar A",
+      "transporteVehiculoId": 1,
+      "transporteVehiculoPlaca": "PE - 1234",
+      "transporteVehiculoCarga": "1,200 Kg.",
+      "transporteVehiculoVolumetria": "3,30 m - 2,50 m - 15,00 m",
+      "clienteRemitenteId": 1,
+      "clienteRemitenteRazonSocial": "Remitente 1",
+      "clienteRemitenteRuc": "45251587895",
+      "clienteDestinatarioId": 1,
+      "clienteDestinatarioRazonSocial": "Destinatario A",
+      "clienteDestinatarioRuc": "25158789545",
+      "sucursalOrigenId": 3,
+      "sucursalOrigenNombre": "Puno",
+      "sucursalOrigenDepartamento": "Puno",
+      "sucursalOrigenDireccion": "Calle Cipreses N. 125",
+      "sucursalDestinoId": 1,
+      "sucursalDestinoNombre": "Lima",
+      "sucursalDestinoDepartamento": "Chosica",
+      "sucursalDestinoDireccion": "Av. Principal Nro. 1174",
+      "fechaEntrega": "2018-08-20T11:00:00.000Z",
+      "numeroGuia": "987987",
+      "numeroBultos": 3
     }
   ]
 }

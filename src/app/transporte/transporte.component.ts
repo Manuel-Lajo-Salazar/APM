@@ -1,6 +1,6 @@
 /**/
-import { TransporteService } from '../_services/transporte.service';
-// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+// import { TransporteService } from '../_services/transporte.service';
+import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -175,8 +175,8 @@ export class TransporteComponent implements OnInit {
 
   create() {
     /**/
-    // this.transporteService.createTransporte(this.model)
-    this.transporteService.createTransporte(this.modelForCreate)
+    this.transporteService.createTransporte(this.model)
+    // this.transporteService.createTransporte(this.modelForCreate)
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
@@ -192,8 +192,8 @@ export class TransporteComponent implements OnInit {
 
   update() {
     /**/
-    // this.transporteService.updateTransporte(this.model)
-    this.transporteService.updateTransporte(this.modelForCreate)
+    this.transporteService.updateTransporte(this.model)
+    // this.transporteService.updateTransporte(this.modelForCreate)
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
@@ -229,53 +229,55 @@ export class TransporteComponent implements OnInit {
     salida.setHours(salida.getHours() - 5);
     llegada.setHours(llegada.getHours() - 5);
 
-    this.modelForCreate = new TransporteForCreate(
-      this.model ? this.model.id : 0,
-      Boolean(this.form.get('activo').value),
-      salida,
-      llegada,
-      Number(this.form.get('tipoTransporte').value),
-      Number(this.sucursalSalida.id),
-      Number(this.sucursalLlegada.id),
-      Number(this.chofer.id),
-      Number(this.auxiliar.id),
-      Number(this.vehiculo.id)
-    );
+    /**/
 
-    // // MODELO para grabar en json-server
-    // const id = 6;
-    // this.model = new Transporte(
-    //   this.model ? this.model.id : id,
+    // this.modelForCreate = new TransporteForCreate(
+    //   this.model ? this.model.id : 0,
     //   Boolean(this.form.get('activo').value),
-    //   new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
-    //   new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
+    //   salida,
+    //   llegada,
     //   Number(this.form.get('tipoTransporte').value),
     //   Number(this.sucursalSalida.id),
-    //   this.sucursalSalida.nombre,
-    //   this.sucursalSalida.departamento,
-    //   this.sucursalSalida.direccion,
     //   Number(this.sucursalLlegada.id),
-    //   this.sucursalLlegada.nombre,
-    //   this.sucursalLlegada.departamento,
-    //   this.sucursalLlegada.direccion,
     //   Number(this.chofer.id),
-    //   this.chofer.nombre,
-    //   this.chofer.tipoDocumento,
-    //   this.chofer.nroDocumento,
-    //   this.chofer.nroLicencia,
     //   Number(this.auxiliar.id),
-    //   this.auxiliar.nombre,
-    //   this.auxiliar.tipoDocumento,
-    //   this.auxiliar.nroDocumento,
-    //   this.auxiliar.nroLicencia,
-    //   Number(this.vehiculo.id),
-    //   this.vehiculo.placa,
-    //   this.vehiculo.carga,
-    //   this.vehiculo.volumetria,
-    //   this.vehiculo.codConfiguracion,
-    //   this.vehiculo.nroInscripcion,
-    //   this.vehiculo.marca
+    //   Number(this.vehiculo.id)
     // );
+
+    // MODELO para grabar en json-server
+    const id = 6;
+    this.model = new Transporte(
+      this.model ? this.model.id : id,
+      Boolean(this.form.get('activo').value),
+      new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
+      new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
+      Number(this.form.get('tipoTransporte').value),
+      Number(this.sucursalSalida.id),
+      this.sucursalSalida.nombre,
+      this.sucursalSalida.departamento,
+      this.sucursalSalida.direccion,
+      Number(this.sucursalLlegada.id),
+      this.sucursalLlegada.nombre,
+      this.sucursalLlegada.departamento,
+      this.sucursalLlegada.direccion,
+      Number(this.chofer.id),
+      this.chofer.nombre,
+      this.chofer.tipoDocumento,
+      this.chofer.nroDocumento,
+      this.chofer.nroLicencia,
+      Number(this.auxiliar.id),
+      this.auxiliar.nombre,
+      this.auxiliar.tipoDocumento,
+      this.auxiliar.nroDocumento,
+      this.auxiliar.nroLicencia,
+      Number(this.vehiculo.id),
+      this.vehiculo.placa,
+      this.vehiculo.carga,
+      this.vehiculo.volumetria,
+      this.vehiculo.codConfiguracion,
+      this.vehiculo.nroInscripcion,
+      this.vehiculo.marca
+    );
   }
 
 

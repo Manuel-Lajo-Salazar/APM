@@ -20,6 +20,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 
 import { TransporteService } from './_services/transporte.service';
 import { TransporteMockService } from './_services/transporte-mock.service';
+// import { EntregaService } from './_services/entrega.service';
+import { EntregaMockService } from './_services/entrega-mock.service';
 import { CalendarModule } from 'primeng/calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -55,7 +57,9 @@ import { EntregaComponent } from './entrega/entrega.component';
   providers: [
     AppConfig,
     TransporteService,
-    TransporteMockService
+    TransporteMockService,
+    // EntregaService,
+    EntregaMockService
   ],
   bootstrap: [AppComponent]
 } )
