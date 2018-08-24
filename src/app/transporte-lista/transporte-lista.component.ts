@@ -9,6 +9,7 @@ import { AutoComplete } from '../_models/AutoComplete';
 import { Vehiculo } from '../_models/Vehiculo';
 import { Sucursal } from '../_models/Sucursal';
 import { TransporteCriteria } from '../_models/TransporteCriteria';
+import { ActivatedRoute } from '@angular/router';
 
 declare let jQuery: any;
 
@@ -38,7 +39,8 @@ export class TransporteListaComponent implements OnInit {
 
   constructor(
     private transporteService: TransporteService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
     jQuery('.prime-sidebar').show();
@@ -47,6 +49,11 @@ export class TransporteListaComponent implements OnInit {
     this.setConfigVehiculo();
     this.setConfigSucursalSalida();
     this.setConfigSucursalLlegada();
+    const param: string = this._route.snapshot.paramMap.get('numero');
+    if (param) {
+      // this.loadTransporte(param);
+      this.search();
+    }
   }
 
   createForm() {

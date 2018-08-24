@@ -29,6 +29,7 @@ import { AlertModule } from 'ngx-bootstrap';
 
 import 'jquery-slimscroll';
 import { EntregaComponent } from './entrega/entrega.component';
+import { EntregaListaComponent } from './entrega-lista/entrega-lista.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { EntregaComponent } from './entrega/entrega.component';
     LoginComponent,
     SidebarComponent,
     NavbarComponent,
-    EntregaComponent
+    EntregaComponent,
+    EntregaListaComponent
 ],
   imports: [
     BrowserModule,

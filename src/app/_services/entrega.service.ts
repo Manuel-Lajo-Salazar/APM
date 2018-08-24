@@ -2,8 +2,6 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Transporte } from '../_models/Transporte';
-import { Sucursal } from '../_models/Sucursal';
 import { Cliente } from '../_models/Cliente';
 
 @Injectable({
@@ -14,13 +12,6 @@ export class EntregaService {
   private testUrlApi = `https://localhost:5001/api`;
 
   constructor(private _http: HttpClient) { }
-
-  getTransportes(filter?: string): Observable<Transporte[]> {
-    if (filter == null || filter === '') {
-      return this._http.get<Transporte[]>(`${this.testUrlApi}/transportes`);
-    }
-    return this._http.get<Transporte[]>(`${this.testUrlApi}/transportes/criterio/` + filter);
-  }
 
   getRemitentes(filter: string): Observable<Cliente[]> {
     if (filter == null || filter === '') {
@@ -34,13 +25,6 @@ export class EntregaService {
       return this._http.get<Cliente[]>(`${this.testUrlApi}/clientes/tipo/2`);
     }
     return this._http.get<Cliente[]>(`${this.testUrlApi}/clientes/criterio/` + filter);
-  }
-
-  getSucursales(filter?: string): Observable<Sucursal[]> {
-    if (filter == null || filter === '') {
-      return this._http.get<Sucursal[]>(`${this.testUrlApi}/sucursales`);
-    }
-    return this._http.get<Sucursal[]>(`${this.testUrlApi}/sucursales/criterio/` + filter);
   }
 
 

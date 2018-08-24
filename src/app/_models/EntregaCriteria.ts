@@ -1,10 +1,12 @@
 export class EntregaCriteria {
     constructor(
-        public NumeroTransporte: string = null,
-        public fechaEntrega: Date = null,
-        public sucursalOrigenId: number = null,
-        public sucursalDestinoId: number = null,
-        public clienteRemitenteId: number = null,
-        public clienteDestinatarioId: number = null
+        public fechaSalida: Date = null,
+        public fechaLlegada: Date = null,
+        public sucursalSalidaId: number = null,
+        public sucursalSalida: string = null,
+        public sucursalLlegadaId: number = null,
+        public sucursalLlegada: string = null,
+        public remitente: string = null,
+        public destinatario: string = null
     ) {}
 }

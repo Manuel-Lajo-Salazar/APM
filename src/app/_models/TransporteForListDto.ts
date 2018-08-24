@@ -1,6 +1,7 @@
 export class TransporteForListDto {
         constructor(
         public id: number = null,
+        public numero: string = null,
         public activo: Boolean = false,
         public fechaSalida: Date = null,
         public fechaLlegada: Date = null,

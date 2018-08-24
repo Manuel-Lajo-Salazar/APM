@@ -1,6 +1,8 @@
 /**/
 // import { EntregaService } from '../_services/entrega.service';
+// import { TransporteService } from '../_services/transporte.service';
 import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
+import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -28,6 +30,9 @@ export class EntregaComponent implements OnInit {
   mostrarMensajeError: boolean;
   mensajeError: string;
 
+  mostrarRegresar: boolean;
+  mostrarVerEntregas: boolean;
+
   loadIcon: boolean;
 
   configTransporte: AutoComplete;
@@ -42,16 +47,17 @@ export class EntregaComponent implements OnInit {
   destinatario: Cliente;
   destinatarios: Cliente[] = [];
 
-  configSucursalOrigen: AutoComplete;
-  sucursalOrigen: Sucursal;
-  sucursalesOrigen: Sucursal[] = [];
+  configSucursalSalida: AutoComplete;
+  sucursalSalida: Sucursal;
+  sucursalesSalida: Sucursal[] = [];
 
-  configSucursalDestino: AutoComplete;
-  sucursalDestino: Sucursal;
-  sucursalesDestino: Sucursal[] = [];
+  configSucursalLlegada: AutoComplete;
+  sucursalLlegada: Sucursal;
+  ucursalesLlegada: Sucursal[] = [];
 
   constructor(
     private entregaService: EntregaService,
+    private transporteService: TransporteService,
     private formBuilder: FormBuilder,
     private _route: ActivatedRoute,
     private _router: Router) { }
@@ -63,10 +69,18 @@ export class EntregaComponent implements OnInit {
     this.setConfigTransporte();
     this.setConfigRemitente();
     this.setConfigDestinatario();
-    this.setConfigSucursalOrigen();
-    this.setConfigSucursalDestino();
-    const id: Number = Number(this._route.snapshot.paramMap.get('id'));
-    if (id) { this.getEntrega(id); }
+    this.setConfigSucursalSalida();
+    this.setConfigSucursalLlegada();
+    const param: string = this._route.snapshot.paramMap.get('id');
+    if (param) {
+      if (param.indexOf('T-') > -1) {
+        this.loadTransporte(param);
+        this.mostrarRegresar = true;
+      } else {
+        this.getEntrega(Number(param));
+      }
+      this.mostrarVerEntregas = true;
+    }
   }
 
   createForm() {
@@ -74,13 +88,27 @@ export class EntregaComponent implements OnInit {
       transporte: ['', Validators.required],
       remitente: ['', Validators.required],
       destinatario: ['', Validators.required],
-      sucursalOrigen: ['', Validators.required],
-      sucursalDestino: ['', Validators.required],
+      sucursalSalida: ['', Validators.required],
+      sucursalLlegada: ['', Validators.required],
       fechaEntrega: [new Date(), Validators.required],
       horaEntrega: [new Date(), Validators.required],
-      numeroGuia: ['', Validators.required],
-      numeroBultos: ['', Validators.required],
+      guiaRemitenteNroGuia: ['', Validators.required],
+      guiaRemitenteNroBulto: ['', Validators.required],
     });
+  }
+
+  loadTransporte(numero: string) {
+    /**/
+    const id = numero.substring(4, 5);
+    this.transporteService.getTransporte(Number(id))
+    // this.transporteService.getTransportebyNumero(numero)
+      .subscribe(response => {
+        console.log(response);
+        this.transporte = response;
+        this.form.get('transporte').setValue(response.numero);
+      }, error => {
+        console.log(error);
+      });
   }
 
   getEntrega(id: Number) {
@@ -98,7 +126,9 @@ export class EntregaComponent implements OnInit {
     this.model = entrega;
     this.transporte = {
       id: entrega.transporteId,
+      numero: entrega.transporteNumero,
       activo: true,
+      vigente: true,
       fechaSalida: entrega.transporteFechaSalida,
       fechaLlegada: entrega.transporteFechaLlegada,
       tipo: null,
@@ -129,54 +159,56 @@ export class EntregaComponent implements OnInit {
       vehiculoMarca: null
     };
     this.remitente = {
-      id: entrega.clienteRemitenteId,
-      razonSocial: entrega.clienteRemitenteRazonSocial,
-      ruc: entrega.clienteRemitenteRuc,
+      id: entrega.remitenteId,
+      razonSocial: entrega.remitenteRazonSocial,
+      ruc: entrega.remitenteRuc,
+      direccion: entrega.remitenteDireccion,
       tipo: null // verificar si es necesario tener este valor
     };
     this.destinatario = {
-      id: entrega.clienteDestinatarioId,
-      razonSocial: entrega.clienteDestinatarioRazonSocial,
-      ruc: entrega.clienteDestinatarioRuc,
+      id: entrega.destinatarioId,
+      razonSocial: entrega.destinatarioRazonSocial,
+      ruc: entrega.destinatarioRuc,
+      direccion: entrega.destinatarioDireccion,
       tipo: null // verificar si es necesario tener este valor
     };
-    this.sucursalOrigen = {
-      id: entrega.sucursalOrigenId,
-      nombre: entrega.sucursalOrigenNombre,
-      departamento: entrega.sucursalOrigenDepartamento,
-      direccion: entrega.sucursalOrigenDireccion
+    this.sucursalSalida = {
+      id: entrega.sucursalSalidaId,
+      nombre: entrega.sucursalSalidaNombre,
+      departamento: entrega.sucursalSalidaDepartamento,
+      direccion: entrega.sucursalSalidaDireccion
     };
-    this.sucursalDestino = {
-      id: entrega.sucursalDestinoId,
-      nombre: entrega.sucursalDestinoNombre,
-      departamento: entrega.sucursalDestinoDepartamento,
-      direccion: entrega.sucursalDestinoDireccion
+    this.sucursalLlegada = {
+      id: entrega.sucursalLlegadaId,
+      nombre: entrega.sucursalLlegadaNombre,
+      departamento: entrega.sucursalLlegadaDepartamento,
+      direccion: entrega.sucursalLlegadaDireccion
     };
-    this.form.get('transporte').setValue(entrega.transporteId);
-    this.form.get('remitente').setValue(entrega.clienteRemitenteRazonSocial + ', ' + entrega.clienteRemitenteRuc);
-    this.form.get('destinatario').setValue(entrega.clienteDestinatarioRazonSocial + ', ' + entrega.clienteDestinatarioRuc);
-    this.form.get('sucursalOrigen').setValue(entrega.sucursalOrigenNombre + ', ' + entrega.sucursalOrigenDepartamento
-    + ', ' + entrega.sucursalOrigenDireccion);
-    this.form.get('sucursalDestino').setValue(entrega.sucursalDestinoNombre + ', ' + entrega.sucursalDestinoDepartamento
-    + ', ' + entrega.sucursalDestinoDireccion);
+    this.form.get('transporte').setValue(entrega.transporteNumero);
+    this.form.get('remitente').setValue(entrega.remitenteRazonSocial + ', ' + entrega.remitenteRuc);
+    this.form.get('destinatario').setValue(entrega.destinatarioRazonSocial + ', ' + entrega.destinatarioRuc);
+    this.form.get('sucursalSalida').setValue(entrega.sucursalSalidaNombre + ', ' + entrega.sucursalSalidaDepartamento
+    + ', ' + entrega.sucursalSalidaDireccion);
+    this.form.get('sucursalLlegada').setValue(entrega.sucursalLlegadaNombre + ', ' + entrega.sucursalLlegadaDepartamento
+    + ', ' + entrega.sucursalLlegadaDireccion);
     this.form.get('fechaEntrega').setValue(new Date(entrega.fechaEntrega));
     this.form.get('horaEntrega').setValue(new Date(entrega.fechaEntrega));
-    this.form.get('numeroGuia').setValue(entrega.numeroGuia);
-    this.form.get('numeroBultos').setValue(entrega.numeroBultos);
+    this.form.get('guiaRemitenteNroGuia').setValue(entrega.guiaRemitenteNroGuia);
+    this.form.get('guiaRemitenteNroBulto').setValue(entrega.guiaRemitenteNroBulto);
   }
 
   save(): any {
     if (!this.form.valid) {
       this.markInputsAsDirty();
     } else {
+      this.loadEntregaModelForSave();
       /**/
-      // this.loadEntregaModelForSave();
+      this.create();
       // if (this.model) {
       //   this.update();
       // } else {
       //   this.create();
       // }
-      this.create();
     }
   }
 
@@ -187,13 +219,13 @@ export class EntregaComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Entrega T-00${response.id}.</span>` +
-          `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.id}">Ver</a>` +
+        this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Entrega ${response.numero}.</span>` +
+          `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.id}">Ver/Actualizar</a>` +
           `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega">Grabar otra</a>`;
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error}.</span>`;
+        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
       });
   }
 
@@ -209,7 +241,7 @@ export class EntregaComponent implements OnInit {
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error}.</span>`;
+        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
       });
   }
 
@@ -217,12 +249,12 @@ export class EntregaComponent implements OnInit {
     this.form.get('transporte').markAsDirty();
     this.form.get('remitente').markAsDirty();
     this.form.get('destinatario').markAsDirty();
-    this.form.get('sucursalOrigen').markAsDirty();
-    this.form.get('sucursalDestino').markAsDirty();
-    this.form.get('fechaLlegada').markAsDirty();
-    this.form.get('horaLlegada').markAsDirty();
-    this.form.get('numeroGuia').markAsDirty();
-    this.form.get('numeroBultos').markAsDirty();
+    this.form.get('sucursalSalida').markAsDirty();
+    this.form.get('sucursalLlegada').markAsDirty();
+    this.form.get('fechaEntrega').markAsDirty();
+    this.form.get('horaEntrega').markAsDirty();
+    this.form.get('guiaRemitenteNroGuia').markAsDirty();
+    this.form.get('guiaRemitenteNroBulto').markAsDirty();
   }
 
   loadEntregaModelForSave() {
@@ -231,23 +263,30 @@ export class EntregaComponent implements OnInit {
     const entrega = new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes());
     entrega.setHours(entrega.getHours() - 5);
 
+    /**/
+
     // this.modelForCreate = new EntregaForCreate(
     //   this.model ? this.model.id : 0,
+    //   null,                                            // el número de entrega se creará en el backend
     //   Number(this.transporte.id),
     //   Number(this.remitente.id),
     //   Number(this.destinatario.id),
-    //   Number(this.sucursalOrigen.id),
-    //   Number(this.sucursalDestino.id),
+    //   Number(this.sucursalSalida.id),
+    //   Number(this.sucursalLlegada.id),
     //   entrega,
-    //   String(this.form.get('numeroGuia').value),
-    //   Number(this.form.get('numeroBultos').value)
+    //   String(this.form.get('guiaRemitenteNroGuia').value),
+    //   Number(this.form.get('guiaRemitenteNroBulto').value)
     // );
 
     // MODELO para grabar en json-server
-    const id = 2;
+    const id = 4;
     this.model = new Entrega(
       this.model ? this.model.id : id,
+      this.model ? this.model.numero : `E-00${id}`,
+      null, // codBarraEntrega
+      new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes()),
       Number(this.transporte.id),
+      this.transporte.numero,
       this.transporte.fechaSalida,
       this.transporte.fechaLlegada,
       this.transporte.sucursalSalidaId,
@@ -267,21 +306,34 @@ export class EntregaComponent implements OnInit {
       Number(this.remitente.id),
       this.remitente.razonSocial,
       this.remitente.ruc,
+      this.remitente.direccion,
       Number(this.destinatario.id),
       this.destinatario.razonSocial,
       this.destinatario.ruc,
-      Number(this.sucursalOrigen.id),
-      this.sucursalOrigen.nombre,
-      this.sucursalOrigen.departamento,
-      this.sucursalOrigen.direccion,
-      Number(this.sucursalDestino.id),
-      this.sucursalDestino.nombre,
-      this.sucursalDestino.departamento,
-      this.sucursalDestino.direccion,
-      new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes()),
-      String(this.form.get('numeroGuia').value),
-      Number(this.form.get('numeroBultos').value)
+      this.destinatario.direccion,
+      Number(this.sucursalSalida.id),
+      this.sucursalSalida.nombre,
+      this.sucursalSalida.departamento,
+      this.sucursalSalida.direccion,
+      Number(this.sucursalLlegada.id),
+      this.sucursalLlegada.nombre,
+      this.sucursalLlegada.departamento,
+      this.sucursalLlegada.direccion,
+      0, // guiaRemitenteId
+      null, // guiaRemitenteRutaGuia
+      String(this.form.get('guiaRemitenteNroGuia').value),
+      String(this.form.get('guiaRemitenteNroBulto').value),
+      0, // guiaEntregaId
+      null // guiaEntregaNroGuia
     );
+  }
+
+  regresar() {
+    this._router.navigate(['/transporteLista', this.transporte.numero]);
+  }
+
+  verEntregas() {
+    this._router.navigate(['/entregaLista', this.transporte.numero]);
   }
 
 
@@ -292,20 +344,20 @@ export class EntregaComponent implements OnInit {
     this.configTransporte = new AutoComplete(
       'transporte',
       this.form,
-      ['id'],
+      ['numero'],
       this.transportes,
       false,
       this.loadIcon,
       'Buscar Transporte',
       'id',
-      ['id'],
+      ['numero'],
       []
     );
   }
 
   getTransportes(filter: string) {
     this.configTransporte.loadIcon = true;
-    this.entregaService.getTransportes(filter)
+    this.transporteService.getTransportes(filter)
       .subscribe(transportes => {
         this.configTransporte.searchList = transportes;
         this.configTransporte.loadIcon = false;
@@ -375,61 +427,61 @@ export class EntregaComponent implements OnInit {
   }
 
 
-  private setConfigSucursalOrigen() {
-    this.configSucursalOrigen = new AutoComplete(
-      'sucursalOrigen',
+  private setConfigSucursalSalida() {
+    this.configSucursalSalida = new AutoComplete(
+      'sucursalSalida',
       this.form,
       ['nombre', 'departamento', 'direccion'],
-      this.sucursalesOrigen,
+      this.sucursalesSalida,
       false,
       this.loadIcon,
-      'Buscar Sucursal origen',
+      'Buscar Sucursal de salida',
       'id',
       ['nombre', 'departamento', 'direccion'],
       []
     );
   }
 
-  getSucursalesOrigen(filter: string) {
-    this.configSucursalOrigen.loadIcon = true;
-    this.entregaService.getSucursales(filter)
+  getSucursalesSalida(filter: string) {
+    this.configSucursalSalida.loadIcon = true;
+    this.transporteService.getSucursales(filter)
       .subscribe(sucursales => {
-        this.configSucursalOrigen.searchList = sucursales;
-        this.configSucursalOrigen.loadIcon = false;
+        this.configSucursalSalida.searchList = sucursales;
+        this.configSucursalSalida.loadIcon = false;
       });
   }
 
-  setSucursalOrigen(selectedItem: Sucursal) {
-    this.sucursalOrigen = selectedItem;
+  setSucursalSalida(selectedItem: Sucursal) {
+    this.sucursalSalida = selectedItem;
   }
 
 
-  private setConfigSucursalDestino() {
-    this.configSucursalDestino = new AutoComplete(
-      'sucursalDestino',
+  private setConfigSucursalLlegada() {
+    this.configSucursalLlegada = new AutoComplete(
+      'sucursalLlegada',
       this.form,
       ['nombre', 'departamento', 'direccion'],
-      this.sucursalesDestino,
+      this.ucursalesLlegada,
       false,
       this.loadIcon,
-      'Buscar Sucursal destino',
+      'Buscar Sucursal de llegada',
       'id',
       ['nombre', 'departamento', 'direccion'],
       []
     );
   }
 
-  getSucursalesDestino(filter: string) {
-    this.configSucursalDestino.loadIcon = true;
-    this.entregaService.getSucursales(filter)
+  getSucursalesLlegada(filter: string) {
+    this.configSucursalLlegada.loadIcon = true;
+    this.transporteService.getSucursales(filter)
       .subscribe(sucursales => {
-        this.configSucursalDestino.searchList = sucursales;
-        this.configSucursalDestino.loadIcon = false;
+        this.configSucursalLlegada.searchList = sucursales;
+        this.configSucursalLlegada.loadIcon = false;
       });
   }
 
-  setSucursalDestino(selectedItem: Sucursal) {
-    this.sucursalDestino = selectedItem;
+  setSucursalLlegada(selectedItem: Sucursal) {
+    this.sucursalLlegada = selectedItem;
   }
 
 

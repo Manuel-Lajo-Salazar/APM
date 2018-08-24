@@ -7,14 +7,14 @@
     </h5>
     <ul class="sidebar-nav">
         <li class="prime-sidebar__menu-item">
-            <a class="collapsed" data-target="#sidebar-dashboard" data-toggle="collapse" data-parent="#sidebar">
+            <a class="collapsed" data-target="#sidebar-dashboard-transporte" data-toggle="collapse" data-parent="#sidebar">
                 <span class="icon">
                     <i class="fi flaticon-home"></i>
                 </span>
                 Transportes
                 <i class="toggle fa fa-angle-down"></i>
             </a>
-            <ul id="sidebar-dashboard" class="collapse prime-sidebar__submenu-item">
+            <ul id="sidebar-dashboard-transporte" class="collapse prime-sidebar__submenu-item">
                 <li class="">
                     <a [routerLink]="['/transporte']">Registrar</a>
                 </li>
@@ -24,12 +24,21 @@
             </ul>
         </li>
         <li class="prime-sidebar__menu-item">
-            <a [routerLink]="['']">
+            <a class="collapsed" data-target="#sidebar-dashboard-entrega" data-toggle="collapse" data-parent="#sidebar">
                 <span class="icon">
                     <i class="fi flaticon-controls"></i>
                 </span>
-                Servicios
+                Entregas
+                <i class="toggle fa fa-angle-down"></i>
             </a>
+            <ul id="sidebar-dashboard-entrega" class="collapse prime-sidebar__submenu-item">
+                <li class="">
+                    <a [routerLink]="['/entrega']">Registrar</a>
+                </li>
+                <li class="">
+                    <a [routerLink]="['/entregaLista']">Buscar</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>

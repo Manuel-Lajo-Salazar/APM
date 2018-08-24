@@ -163,13 +163,13 @@ export class TransporteComponent implements OnInit {
       return;
     } else {
       this.loadTransporteModelForSave();
-      if (this.model) {
-        this.update();
-      } else {
-        this.create();
-      }
       /**/
-      // this.create();
+      this.create();
+      // if (this.model) {
+      //   this.update();
+      // } else {
+      //   this.create();
+      // }
     }
   }
 
@@ -180,13 +180,13 @@ export class TransporteComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Transporte T-00${response.id}.</span>` +
-          `<a class="btn btn-default btn-xs float-right mr-5" href="/transporte/${response.id}">Ver</a>` +
+        this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Transporte ${response.numero}.</span>` +
+          `<a class="btn btn-default btn-xs float-right mr-5" href="/transporte/${response.id}">Ver/Actualizar</a>` +
           `<a class="btn btn-default btn-xs float-right mr-5" href="/transporte">Grabar otro</a>`;
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error}.</span>`;
+        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
       });
   }
 
@@ -202,7 +202,7 @@ export class TransporteComponent implements OnInit {
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error}.</span>`;
+        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
       });
   }
 
@@ -233,7 +233,9 @@ export class TransporteComponent implements OnInit {
 
     // this.modelForCreate = new TransporteForCreate(
     //   this.model ? this.model.id : 0,
+    //   null,                                            // el número de transporte se creará en el backend
     //   Boolean(this.form.get('activo').value),
+    //   true,
     //   salida,
     //   llegada,
     //   Number(this.form.get('tipoTransporte').value),
@@ -245,10 +247,12 @@ export class TransporteComponent implements OnInit {
     // );
 
     // MODELO para grabar en json-server
-    const id = 6;
+    const id = 4;
     this.model = new Transporte(
       this.model ? this.model.id : id,
+      this.model ? this.model.numero : `T-00${id}`,
       Boolean(this.form.get('activo').value),
+      true,
       new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
       new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
       Number(this.form.get('tipoTransporte').value),

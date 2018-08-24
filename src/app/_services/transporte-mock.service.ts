@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Vehiculo } from '../_models/Vehiculo';
 import { Sucursal } from '../_models/Sucursal';
 import { Colaborador } from '../_models/Colaborador';
+import { Transporte } from '../_models/Transporte';
 
 // @Injectable({
 //     providedIn: 'root'
@@ -65,6 +66,10 @@ export class TransporteMockService {
     // para los resultados de Busqueda en Lista de Transportes
     searchTransportes(transporteCriteria: any): Observable<any[]> {
         return this._http.get<any[]>(`${this.testUrlApi}/transportes`);
+    }
+
+    getTransportes(filter: string): Observable<Transporte[]> {
+        return this._http.get<Transporte[]>(`${this.testUrlApi}/transportes`);
     }
 
 }

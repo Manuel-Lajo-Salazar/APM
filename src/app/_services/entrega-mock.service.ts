@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Transporte } from '../_models/Transporte';
-import { Sucursal } from '../_models/Sucursal';
 import { Cliente } from '../_models/Cliente';
 
 @Injectable()
@@ -11,10 +9,6 @@ export class EntregaMockService {
 
     constructor(private _http: HttpClient) { }
 
-    getTransportes(filter: string): Observable<Transporte[]> {
-        return this._http.get<Transporte[]>(`${this.testUrlApi}/transportes`);
-    }
-
     getRemitentes(filter: string): Observable<Cliente[]> {
         return this._http.get<Cliente[]>(`${this.testUrlApi}/remitentes`);
     }
@@ -22,11 +16,6 @@ export class EntregaMockService {
     getDestinatarios(filter: string): Observable<Cliente[]> {
         return this._http.get<Cliente[]>(`${this.testUrlApi}/destinatarios`);
     }
-
-    getSucursales(filter: string): Observable<Sucursal[]> {
-        return this._http.get<Sucursal[]>(`${this.testUrlApi}/sucursales`);
-    }
-
 
     // requests para Entrega (pendiente mapear al modelo específico de entrega)
 

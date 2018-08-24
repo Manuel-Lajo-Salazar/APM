@@ -79,4 +79,11 @@ export class TransporteService {
     return this._http.post<any[]>(`${this.testUrlApi}/transportes/criterio`, transporteCriteria, httpOptions);
   }
 
+  getTransportes(filter?: string): Observable<any[]> {
+    if (filter == null || filter === '') {
+      return this._http.get<any[]>(`${this.testUrlApi}/transportes`);
+    }
+    return this._http.get<any[]>(`${this.testUrlApi}/transportes/criterio/` + filter);
+  }
+
 }

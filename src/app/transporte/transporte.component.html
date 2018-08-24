@@ -1,5 +1,5 @@
 <div class="container pt-3 transporte-titulo">
-    <h3>Registrar Transporte</h3>
+    <h3 class="font-weight-bold">Registrar Transporte</h3>
 </div>
 <div class="container" [formGroup]="form">
     <div class="card-deck pt-3 pb-3">
@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label style="margin-top: 2.5rem; font-weight: 700; width: 200px;">Nº de Transporte:</label>
-                        <span>{{model ? 'T-00' + model.id : ''}}</span>
+                        <span>{{model ? model.numero : ''}}</span>
                     </div>
                 </div>
                 <div style="border: 1px solid black" class="mt-3 p-2" *ngIf="vehiculo !== undefined">
@@ -163,12 +163,11 @@
     </div>
 
     <div class="row">
-        <div class="col-md-8 col-sm-12 mb-3">
+        <div class="col-md-9 col-sm-12 mb-3">
             <button type="button" class="btn btn-dark">Eliminar</button>
         </div>
-        <div class="col-md-4 col-sm-12 mb-3">
-            <!-- <button type="button" class="btn btn-primary mr-3" (click)="saveAndNew()">Grabar y añadir otro</button> -->
-            <button type="button" class="btn btn-primary" (click)="save()">Grabar</button>
+        <div class="col-md-3 col-sm-12 mb-3">
+            <button type="button" class="btn btn-primary" (click)="save()" [attr.disabled]="mostrarMensajeExito">Grabar</button>
         </div>
     </div>
 </div>
