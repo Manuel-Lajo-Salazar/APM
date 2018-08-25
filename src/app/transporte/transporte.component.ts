@@ -1,6 +1,7 @@
-/**/
+/*COMENTAR-DESCOMENTAR-INICIO*/
 // import { TransporteService } from '../_services/transporte.service';
 import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+/*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -90,7 +91,6 @@ export class TransporteComponent implements OnInit {
   }
 
   getTransporte(id: Number) {
-    /**/
     this.transporteService.getTransporte(id)
       .subscribe(response => {
         console.log(response);
@@ -163,20 +163,22 @@ export class TransporteComponent implements OnInit {
       return;
     } else {
       this.loadTransporteModelForSave();
-      /**/
+      /*COMENTAR-DESCOMENTAR-INICIO*/
       this.create();
       // if (this.model) {
       //   this.update();
       // } else {
       //   this.create();
       // }
+      /*COMENTAR-DESCOMENTAR-FIN*/
     }
   }
 
   create() {
-    /**/
+    /*COMENTAR-DESCOMENTAR-INICIO*/
     this.transporteService.createTransporte(this.model)
     // this.transporteService.createTransporte(this.modelForCreate)
+    /*COMENTAR-DESCOMENTAR-FIN*/
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
@@ -191,9 +193,8 @@ export class TransporteComponent implements OnInit {
   }
 
   update() {
-    /**/
-    this.transporteService.updateTransporte(this.model)
-    // this.transporteService.updateTransporte(this.modelForCreate)
+    // this.transporteService.updateTransporte(this.model)
+    this.transporteService.updateTransporte(this.modelForCreate)
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
@@ -228,9 +229,9 @@ export class TransporteComponent implements OnInit {
     const llegada = new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes());
     salida.setHours(salida.getHours() - 5);
     llegada.setHours(llegada.getHours() - 5);
-
-    /**/
-
+    
+    /*COMENTAR-DESCOMENTAR-INICIO*/
+    
     // this.modelForCreate = new TransporteForCreate(
     //   this.model ? this.model.id : 0,
     //   null,                                            // el número de transporte se creará en el backend
@@ -246,7 +247,6 @@ export class TransporteComponent implements OnInit {
     //   Number(this.vehiculo.id)
     // );
 
-    // MODELO para grabar en json-server
     const id = 4;
     this.model = new Transporte(
       this.model ? this.model.id : id,
@@ -282,6 +282,7 @@ export class TransporteComponent implements OnInit {
       this.vehiculo.nroInscripcion,
       this.vehiculo.marca
     );
+    /*COMENTAR-DESCOMENTAR-FIN*/
   }
 
 

@@ -1,1 +1,179 @@
-<p></p>
+<div class="container pt-3">
+        <h3 class="font-weight-bold">Buscar Entregas</h3>
+    </div>
+    <div class="container" [formGroup]="form">
+        <div class="card-deck pt-3 pb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row pt-3">
+                        <div class="col-md-4 col-sm-12 mb-3">
+                            <label for="numero">Nro. de Entrega</label>
+                            <div>
+                                <input type="text" formControlName="numero" id="numero">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-md-4 col-sm-12 mb-3">
+                            <label for="numeroTransporte">Nro. de Transporte</label>
+                            <div>
+                                <input type="text" formControlName="numeroTransporte" id="numeroTransporte">
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-3">
+                            <label for="fecSalida">Fecha Salida</label>
+                            <div>
+                                <p-calendar formControlName="fechaSalida"
+                                    dateFormat="dd/mm/yy"
+                                    showIcon="true"
+                                    inputStyleClass="col-sm-12">
+                                </p-calendar>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-3">
+                            <label for="fecLlegada">Fecha Llegada</label>
+                            <div>
+                                <p-calendar formControlName="fechaLlegada"
+                                    dateFormat="dd/mm/yy"
+                                    showIcon="true"
+                                    inputStyleClass="col-sm-12">
+                                </p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-md-4 col-sm-12 mb-3">
+                            <label for="sucSalida">Sucursal de Origen</label>
+                            <pm-auto-complete
+                                class="auto-complete"
+                                id="sucSalida"
+                                [config]="configSucursalSalida"
+                                (selected)="setSucursalSalida($event)"
+                                (filteredInput)="getSucursalesSalida($event)">
+                            </pm-auto-complete>
+                        </div>
+                        <div class="col-md-8 col-sm-12 mb-3">
+                            <div style="margin-top: 1.5rem">
+                                <input type="text" formControlName="sucursalSalidaDescripcion">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-md-4 col-sm-12 mb-3">
+                            <label for="sucLlegada">Sucursal de Destino</label>
+                            <pm-auto-complete
+                                class="auto-complete"
+                                id="sucLlegada"
+                                [config]="configSucursalLlegada"
+                                (selected)="setSucursalLlegada($event)"
+                                (filteredInput)="getSucursalesLlegada($event)">
+                            </pm-auto-complete>
+                        </div>
+                        <div class="col-md-8 col-sm-12 mb-3">
+                            <div style="margin-top: 1.5rem">
+                                <input type="text" formControlName="sucursalLlegadaDescripcion">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-md-4 col-sm-12 mb-3">
+                            <label for="remitente">Remitente</label>
+                            <pm-auto-complete class="auto-complete"
+                                            id="remitente"
+                                            [config]="configRemitente"
+                                            (selected)="setRemitente($event)"
+                                            (filteredInput)="getRemitentes($event)">
+                            </pm-auto-complete>
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-3">
+                            <label for="destinatario">Destinatario</label>
+                            <pm-auto-complete class="auto-complete"
+                                            id="destinatario"
+                                            [config]="configDestinatario"
+                                            (selected)="setDestinatario($event)"
+                                            (filteredInput)="getDestinatarios($event)">
+                            </pm-auto-complete>
+                        </div>
+                        <div class="col-md-2 col-sm-6 mb-3">
+                            <button type="button" class="btn btn-primary" style="margin-top: 1.5rem" (click)="search()">Buscar</button>
+                        </div>
+                        <div class="col-md-2 col-sm-6 mb-3">
+                            <button type="button" class="btn btn-primary" style="margin-top: 1.5rem" (click)="reset()">Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-deck pt-2" *ngFor="let entrega of resultados">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row pt-2">
+                        <div class="col-xs-12 col-md-3" style="font-size: 24px;">
+                            <span class="font-weight-bold">Nro. Entrega:</span>
+                        </div>
+                        <div class="col-xs-12 col-md-3" style="font-size: 24px;">
+                            <a [routerLink]="['/entrega', entrega.id]">{{entrega.numero}}</a>
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-xs-5 col-md-3 pt-2">
+                            <span class="font-weight-bold">Nro. Transporte:</span>
+                        </div>
+                        <div class="col-xs-6 col-md-3 pt-2">
+                            {{entrega.transporteNumero}}
+                        </div>
+                        <div class="col-xs-5 col-md-3 pt-2">
+                            <span class="font-weight-bold">Nro. Bultos:</span>
+                        </div>
+                        <div class="col-xs-6 col-md-3 pt-2">
+                            {{entrega.guiaRemitenteNroBulto}}
+                        </div>
+                        <div class="col-xs-5 col-md-3 pt-2">
+                            <span class="font-weight-bold">Remitente:</span>
+                        </div>
+                        <div class="col-xs-6 col-md-3 pt-2">
+                            {{entrega.remitenteRazonSocial}}
+                        </div>
+                        <div class="col-xs-5 col-md-3 pt-2">
+                            <span class="font-weight-bold">Destinatario:</span>
+                        </div>
+                        <div class="col-xs-6 col-md-3 pt-2">
+                            {{entrega.destinatarioRazonSocial}}
+                        </div>
+                        <div class="col-xs-5 col-md-3 pt-2">
+                            <span class="font-weight-bold">Sucursal de Salida:</span>
+                        </div>
+                        <div class="col-xs-6 col-md-3 pt-2">
+                            {{entrega.sucursalSalidaNombre}}
+                        </div>
+                        <div class="col-xs-5 col-md-3 pt-2">
+                            <span class="font-weight-bold">Fecha de Salida:</span>
+                        </div>
+                        <div class="col-xs-6 col-md-3 pt-2">
+                            {{entrega.transporteFechaSalida | date:'dd/MM/yyyy'}}
+                        </div>
+                        <div class="col-xs-5 col-md-3 pt-2">
+                            <span class="font-weight-bold">Sucursal de Llegada:</span>
+                        </div>
+                        <div class="col-xs-6 col-md-3 pt-2">
+                            {{entrega.sucursalLlegadaNombre}}
+                        </div>
+                        <div class="col-xs-5 col-md-3 pt-2">
+                            <span class="font-weight-bold">Fecha de Llegada:</span>
+                        </div>
+                        <div class="col-xs-6 col-md-3 pt-2">
+                            {{entrega.transporteFechaLlegada | date:'dd/MM/yyyy'}}
+                        </div>
+                    </div>
+                    <!-- <div class="row pt-2">
+                        <div class="col-xs-12 col-md-3" style="font-size: 24px;">
+                            <button type="button" class="btn btn-primary" [routerLink]="['/entregaLista', transporte.numero]">Ver Entregas</button>
+                        </div>
+                        <div class="col-xs-12 col-md-3" style="font-size: 24px;">
+                            <button type="button" class="btn btn-primary" [routerLink]="['/entrega', transporte.numero]">Registrar Entrega</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>

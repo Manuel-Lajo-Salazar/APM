@@ -3,8 +3,16 @@
 </div>
 <div class="container" [formGroup]="form">
     <div class="card-deck pt-3 pb-3">
-        <div class="card transporte-card">
+        <div class="card">
             <div class="card-body">
+                <div class="row pt-3">
+                    <div class="col-md-4 col-sm-12 mb-3">
+                        <label for="numero">Nro. de Transporte</label>
+                        <div>
+                            <input type="text" formControlName="numero" id="numero">
+                        </div>
+                    </div>
+                </div>
                 <div class="row pt-3">
                     <div class="col-md-4 col-sm-12 mb-3">
                         <label for="vehiculo">Vehículo</label>

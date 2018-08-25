@@ -1,8 +1,9 @@
-/**/
+/*COMENTAR-DESCOMENTAR-INICIO*/
 // import { EntregaService } from '../_services/entrega.service';
 // import { TransporteService } from '../_services/transporte.service';
 import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
 import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+/*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -98,10 +99,11 @@ export class EntregaComponent implements OnInit {
   }
 
   loadTransporte(numero: string) {
-    /**/
+    /*COMENTAR-DESCOMENTAR-INICIO*/
     const id = numero.substring(4, 5);
     this.transporteService.getTransporte(Number(id))
     // this.transporteService.getTransportebyNumero(numero)
+    /*COMENTAR-DESCOMENTAR-FIN*/
       .subscribe(response => {
         console.log(response);
         this.transporte = response;
@@ -112,7 +114,6 @@ export class EntregaComponent implements OnInit {
   }
 
   getEntrega(id: Number) {
-    /**/
     this.entregaService.getEntrega(id)
       .subscribe(response => {
         console.log(response);
@@ -202,20 +203,22 @@ export class EntregaComponent implements OnInit {
       this.markInputsAsDirty();
     } else {
       this.loadEntregaModelForSave();
-      /**/
+      /*COMENTAR-DESCOMENTAR-INICIO*/
       this.create();
       // if (this.model) {
       //   this.update();
       // } else {
       //   this.create();
       // }
+      /*COMENTAR-DESCOMENTAR-FIN*/
     }
   }
 
   create() {
-    /**/
+    /*COMENTAR-DESCOMENTAR-INICIO*/
     this.entregaService.createEntrega(this.model)
     // this.entregaService.createEntrega(this.modelForCreate)
+    /*COMENTAR-DESCOMENTAR-FIN*/
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
@@ -230,9 +233,8 @@ export class EntregaComponent implements OnInit {
   }
 
   update() {
-    /**/
-    this.entregaService.updateEntrega(this.model)
-    // this.entregaService.updateEntrega(this.modelForCreate)
+    // this.entregaService.updateEntrega(this.model)
+    this.entregaService.updateEntrega(this.modelForCreate)
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
@@ -263,7 +265,7 @@ export class EntregaComponent implements OnInit {
     const entrega = new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes());
     entrega.setHours(entrega.getHours() - 5);
 
-    /**/
+    /*COMENTAR-DESCOMENTAR-INICIO*/
 
     // this.modelForCreate = new EntregaForCreate(
     //   this.model ? this.model.id : 0,
@@ -275,10 +277,9 @@ export class EntregaComponent implements OnInit {
     //   Number(this.sucursalLlegada.id),
     //   entrega,
     //   String(this.form.get('guiaRemitenteNroGuia').value),
-    //   Number(this.form.get('guiaRemitenteNroBulto').value)
+    //   String(this.form.get('guiaRemitenteNroBulto').value)
     // );
 
-    // MODELO para grabar en json-server
     const id = 4;
     this.model = new Entrega(
       this.model ? this.model.id : id,
@@ -326,6 +327,7 @@ export class EntregaComponent implements OnInit {
       0, // guiaEntregaId
       null // guiaEntregaNroGuia
     );
+    /*COMENTAR-DESCOMENTAR-FIN*/
   }
 
   regresar() {
