@@ -55,7 +55,7 @@
                         <span class="font-weight-bold">Fecha - Hora Salida:</span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
-                        {{transporte ? transporte.fechaSalida : ''}}
+                        {{transporte ? (transporte.fechaSalida | date:'dd/MM/yyyy hh:mm') : ''}}
                     </div>
                 </div>
                 <div class="row pt-2">
@@ -69,7 +69,7 @@
                         <span class="font-weight-bold">Fecha - Hora Llegada:</span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
-                        {{transporte ? transporte.fechaLlegada : ''}}
+                        {{transporte ? (transporte.fechaLlegada | date:'dd/MM/yyyy hh:mm') : ''}}
                     </div>
                 </div>
                 <div class="row pt-2">
@@ -133,13 +133,25 @@
                         </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12 mb-3">
-                        <label for="llegada">Sucursal Destino</label>
+                        <div style="margin-top: 2rem">
+                            <input type="text" formControlName="sucursalSalidaDescripcion" id="sucursalSalidaDescripcion" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <label for="llegada">Sucursal Origen</label>
                         <pm-auto-complete class="auto-complete"
                                           id="llegada"
                                           [config]="configSucursalLlegada"
                                           (selected)="setSucursalLlegada($event)"
                                           (filteredInput)="getSucursalesLlegada($event)">
                         </pm-auto-complete>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <div style="margin-top: 2rem">
+                            <input type="text" formControlName="sucursalLlegadaDescripcion" class="form-control">
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -169,13 +181,15 @@
                         <input type="text"
                                formControlName="guiaRemitenteNroGuia"
                                id="numeroGuia"
+                               class="form-control"
                                [ngClass]="{'is-invalid': formValidation('guiaRemitenteNroGuia')}">
                     </div>
-                    <div class="col-md-6 col-sm-12 mb-3">
+                    <div class="col-md-3 col-sm-12 mb-3">
                         <label for="numeroBulto">Nro. de Bultos</label>
                         <input type="text"
                                formControlName="guiaRemitenteNroBulto"
                                id="numeroBulto"
+                               class="form-control"
                                [ngClass]="{'is-invalid': formValidation('guiaRemitenteNroBulto')}">
                     </div>
                 </div>
@@ -183,8 +197,7 @@
         </div>
     </div>
 
-    <div class="row"
-         *ngIf="mostrarMensajeExito">
+    <div class="row" *ngIf="mostrarMensajeExito">
         <div class="col-md-12 col-sm-12 mb-3">
             <alert type="success">
                 <div [innerHTML]="mensajeExito"></div>
@@ -192,8 +205,7 @@
         </div>
     </div>
 
-    <div class="row"
-         *ngIf="mostrarMensajeError">
+    <div class="row" *ngIf="mostrarMensajeError">
         <div class="col-md-12 col-sm-12 mb-3">
             <alert type="danger">
                 <div [innerHTML]="mensajeError"></div>
@@ -202,17 +214,11 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 col-sm-12 mb-3">
-            <button type="button" class="btn btn-dark">Eliminar</button>
-        </div>
-        <div class="col-md-2 col-sm-12 mb-3">
-            <button type="button" class="btn btn-primary" *ngIf="mostrarRegresar" (click)="regresar()">Regresar</button>
-        </div>
-        <div class="col-md-2 col-sm-12 mb-3">
-            <button type="button" class="btn btn-primary" *ngIf="mostrarVerEntregas" (click)="verEntregas()">Ver Entregas</button>
-        </div>
-        <div class="col-md-2 col-sm-12 mb-3">
-            <button type="button" class="btn btn-primary" (click)="save()" [attr.disabled]="mostrarMensajeExito">Grabar</button>
+        <div class="col-md-12 col-sm-12 mb-3">
+            <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="save()" [attr.disabled]="mostrarMensajeExito">Grabar</button>
+            <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarVerEntregas" (click)="verEntregas()">Ver Entregas</button>
+            <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarRegresar" (click)="regresar()">Regresar</button>
+            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarEliminar">Eliminar</button>
         </div>
     </div>
 </div>

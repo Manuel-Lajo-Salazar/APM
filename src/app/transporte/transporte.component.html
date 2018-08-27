@@ -163,11 +163,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-9 col-sm-12 mb-3">
-            <button type="button" class="btn btn-dark">Eliminar</button>
-        </div>
-        <div class="col-md-3 col-sm-12 mb-3">
-            <button type="button" class="btn btn-primary" (click)="save()" [attr.disabled]="mostrarMensajeExito">Grabar</button>
+        <div class="col-md-12 col-sm-12 mb-3">
+            <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="save()" [attr.disabled]="mostrarMensajeExito">Grabar</button>
+            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarEliminar">Eliminar</button>
         </div>
     </div>
 </div>

@@ -30,6 +30,8 @@ export class TransporteComponent implements OnInit {
   mostrarMensajeError: boolean;
   mensajeError: string;
 
+  mostrarEliminar: boolean;
+
   loadIcon: boolean;
 
   configVehiculo: AutoComplete;
@@ -71,7 +73,10 @@ export class TransporteComponent implements OnInit {
     this.setConfigAuxiliar();
     this.getTiposTransporte();
     const id: Number = Number(this._route.snapshot.paramMap.get('id'));
-    if (id) { this.getTransporte(id); }
+    if (id) {
+      this.getTransporte(id);      
+      this.mostrarEliminar = true;
+    }
   }
 
   createForm() {

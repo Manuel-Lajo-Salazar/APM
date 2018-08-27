@@ -9,7 +9,7 @@
                         <div class="col-md-4 col-sm-12 mb-3">
                             <label for="numero">Nro. de Entrega</label>
                             <div>
-                                <input type="text" formControlName="numero" id="numero">
+                                <input type="text" formControlName="numero" id="numero" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -17,7 +17,7 @@
                         <div class="col-md-4 col-sm-12 mb-3">
                             <label for="numeroTransporte">Nro. de Transporte</label>
                             <div>
-                                <input type="text" formControlName="numeroTransporte" id="numeroTransporte">
+                                <input type="text" formControlName="numeroTransporte" id="numeroTransporte" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12 mb-3">
@@ -53,8 +53,8 @@
                             </pm-auto-complete>
                         </div>
                         <div class="col-md-8 col-sm-12 mb-3">
-                            <div style="margin-top: 1.5rem">
-                                <input type="text" formControlName="sucursalSalidaDescripcion">
+                            <div style="margin-top: 2rem">
+                                <input type="text" formControlName="sucursalSalidaDescripcion" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -70,8 +70,8 @@
                             </pm-auto-complete>
                         </div>
                         <div class="col-md-8 col-sm-12 mb-3">
-                            <div style="margin-top: 1.5rem">
-                                <input type="text" formControlName="sucursalLlegadaDescripcion">
+                            <div style="margin-top: 2rem">
+                                <input type="text" formControlName="sucursalLlegadaDescripcion" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -94,10 +94,8 @@
                                             (filteredInput)="getDestinatarios($event)">
                             </pm-auto-complete>
                         </div>
-                        <div class="col-md-2 col-sm-6 mb-3">
-                            <button type="button" class="btn btn-primary" style="margin-top: 1.5rem" (click)="search()">Buscar</button>
-                        </div>
-                        <div class="col-md-2 col-sm-6 mb-3">
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <button type="button" class="btn btn-primary mr-3" style="margin-top: 1.5rem" (click)="search()">Buscar</button>
                             <button type="button" class="btn btn-primary" style="margin-top: 1.5rem" (click)="reset()">Limpiar</button>
                         </div>
                     </div>

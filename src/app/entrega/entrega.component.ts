@@ -6,7 +6,7 @@ import { TransporteMockService as TransporteService } from '../_services/transpo
 /*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Entrega } from '../_models/Entrega';
 import { EntregaForCreate } from '../_models/EntregaForCreate';
 import { Transporte } from '../_models/Transporte';
@@ -33,6 +33,7 @@ export class EntregaComponent implements OnInit {
 
   mostrarRegresar: boolean;
   mostrarVerEntregas: boolean;
+  mostrarEliminar: boolean;
 
   loadIcon: boolean;
 
@@ -79,6 +80,7 @@ export class EntregaComponent implements OnInit {
         this.mostrarRegresar = true;
       } else {
         this.getEntrega(Number(param));
+        this.mostrarEliminar = true;
       }
       this.mostrarVerEntregas = true;
     }
@@ -89,14 +91,32 @@ export class EntregaComponent implements OnInit {
       transporte: ['', Validators.required],
       remitente: ['', Validators.required],
       destinatario: ['', Validators.required],
-      sucursalSalida: ['', Validators.required],
+      sucursalSalida: ['', []],
+      sucursalSalidaDescripcion: ['', []],
       sucursalLlegada: ['', Validators.required],
+      sucursalLlegadaDescripcion: ['', []],
       fechaEntrega: [new Date(), Validators.required],
       horaEntrega: [new Date(), Validators.required],
       guiaRemitenteNroGuia: ['', Validators.required],
       guiaRemitenteNroBulto: ['', Validators.required],
     });
   }
+
+  // private validSucursalSalida(): ValidatorFn {
+  //   return (control: AbstractControl): { validSucursal: boolean } => {
+  //     if (!control.value && !jQuery("#sucursalSalidaDescripcion").val()) {
+  //       return { validSucursal: true };
+  //     }
+  //     return null;
+  //   }
+  // }
+
+  // private validSucursalSalida(control: AbstractControl) {
+  //   if (!control.value && !jQuery("#sucursalSalidaDescripcion").val()) {
+  //     return { validSucursal: true };
+  //   }
+  //   return null;
+  // }
 
   loadTransporte(numero: string) {
     /*COMENTAR-DESCOMENTAR-INICIO*/

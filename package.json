@@ -30,7 +30,6 @@
     "jquery-sparkline": "2.4.0",
     "jquery-ui": "git://github.com/jquery/jquery-ui.git#1.11.4",
     "jquery.animate-number": "0.0.14",
-    "moment": "^2.22.2",
     "ngx-bootstrap": "^3.0.1",
     "npm": "^6.2.0",
     "popper.js": "^1.14.3",
