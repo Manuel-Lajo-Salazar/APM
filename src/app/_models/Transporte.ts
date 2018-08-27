@@ -1,9 +1,9 @@
 export class Transporte {
     constructor(
         public id: number = null,
-        public numero: string = null,
+        public nroTransporte: string = null,
         public activo: boolean = true,
-        public vigente: boolean = true,
+        public estado: boolean = true,
 
         public fechaSalida: Date = null,
         public fechaLlegada: Date = null,

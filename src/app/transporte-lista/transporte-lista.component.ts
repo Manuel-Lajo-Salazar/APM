@@ -1,6 +1,6 @@
 /*COMENTAR-DESCOMENTAR-INICIO*/
-// import { TransporteService } from '../_services/transporte.service';
-import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+import { TransporteService } from '../_services/transporte.service';
+// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 /*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit } from '@angular/core';
@@ -52,14 +52,14 @@ export class TransporteListaComponent implements OnInit {
     this.setConfigSucursalLlegada();
     const param: string = this._route.snapshot.paramMap.get('numero');
     if (param) {
-      this.form.get('numero').setValue(param);
+      this.form.get('nroTransporte').setValue(param);
       this.search();
     }
   }
 
   createForm() {
     this.form = this.formBuilder.group({
-      numero: ['', []],
+      nroTransporte: ['', []],
       vehiculo: ['', []],
       sucursalSalida: ['', []],
       sucursalLlegada: ['', []],
@@ -70,7 +70,7 @@ export class TransporteListaComponent implements OnInit {
 
   search() {
     this.model = new TransporteCriteria(
-      this.form.get('numero').value ? this.form.get('numero').value : null,
+      this.form.get('nroTransporte').value ? this.form.get('nroTransporte').value : null,
       this.form.get('fechaSalida').value ? <Date>this.form.get('fechaSalida').value : null,
       this.form.get('fechaLlegada').value ? <Date>this.form.get('fechaLlegada').value : null,
       this.sucursalSalida ? this.sucursalSalida.id : null,

@@ -1,8 +1,8 @@
 /*COMENTAR-DESCOMENTAR-INICIO*/
-// import { EntregaService } from '../_services/entrega.service';
-// import { TransporteService } from '../_services/transporte.service';
-import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
-import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+import { EntregaService } from '../_services/entrega.service';
+import { TransporteService } from '../_services/transporte.service';
+// import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
+// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 /*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit } from '@angular/core';
@@ -120,14 +120,14 @@ export class EntregaComponent implements OnInit {
 
   loadTransporte(numero: string) {
     /*COMENTAR-DESCOMENTAR-INICIO*/
-    const id = numero.substring(4, 5);
-    this.transporteService.getTransporte(Number(id))
-    // this.transporteService.getTransportebyNumero(numero)
+    // const id = numero.substring(4, 5);
+    // this.transporteService.getTransporte(Number(id))
+    this.transporteService.getTransportebyNumero(numero)
     /*COMENTAR-DESCOMENTAR-FIN*/
       .subscribe(response => {
         console.log(response);
         this.transporte = response;
-        this.form.get('transporte').setValue(response.numero);
+        this.form.get('transporte').setValue(response.nroTransporte);
       }, error => {
         console.log(error);
       });
@@ -147,9 +147,9 @@ export class EntregaComponent implements OnInit {
     this.model = entrega;
     this.transporte = {
       id: entrega.transporteId,
-      numero: entrega.transporteNumero,
+      nroTransporte: entrega.transporteNumero,
       activo: true,
-      vigente: true,
+      estado: true,
       fechaSalida: entrega.transporteFechaSalida,
       fechaLlegada: entrega.transporteFechaLlegada,
       tipo: null,
@@ -224,27 +224,27 @@ export class EntregaComponent implements OnInit {
     } else {
       this.loadEntregaModelForSave();
       /*COMENTAR-DESCOMENTAR-INICIO*/
-      this.create();
-      // if (this.model) {
-      //   this.update();
-      // } else {
-      //   this.create();
-      // }
+      // this.create();
+      if (this.model) {
+        this.update();
+      } else {
+        this.create();
+      }
       /*COMENTAR-DESCOMENTAR-FIN*/
     }
   }
 
   create() {
     /*COMENTAR-DESCOMENTAR-INICIO*/
-    this.entregaService.createEntrega(this.model)
-    // this.entregaService.createEntrega(this.modelForCreate)
+    // this.entregaService.createEntrega(this.model)
+    this.entregaService.createEntrega(this.modelForCreate)
     /*COMENTAR-DESCOMENTAR-FIN*/
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
         this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Entrega ${response.numero}.</span>` +
           `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.id}">Ver/Actualizar</a>` +
-          `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega">Grabar otra</a>`;
+          `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.transporteNumero}">Grabar otra</a>`;
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
@@ -287,75 +287,75 @@ export class EntregaComponent implements OnInit {
 
     /*COMENTAR-DESCOMENTAR-INICIO*/
 
-    // this.modelForCreate = new EntregaForCreate(
-    //   this.model ? this.model.id : 0,
-    //   null,                                            // el número de entrega se creará en el backend
-    //   Number(this.transporte.id),
-    //   Number(this.remitente.id),
-    //   Number(this.destinatario.id),
-    //   Number(this.sucursalSalida.id),
-    //   Number(this.sucursalLlegada.id),
-    //   entrega,
-    //   String(this.form.get('guiaRemitenteNroGuia').value),
-    //   String(this.form.get('guiaRemitenteNroBulto').value)
-    // );
-
-    const id = 4;
-    this.model = new Entrega(
-      this.model ? this.model.id : id,
-      this.model ? this.model.numero : `E-00${id}`,
-      null, // codBarraEntrega
-      new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes()),
+    this.modelForCreate = new EntregaForCreate(
+      this.model ? this.model.id : 0,
+      null,                                            // el número de entrega se creará en el backend
       Number(this.transporte.id),
-      this.transporte.numero,
-      this.transporte.fechaSalida,
-      this.transporte.fechaLlegada,
-      this.transporte.sucursalSalidaId,
-      this.transporte.sucursalSalidaNombre,
-      this.transporte.sucursalSalidaDepartamento,
-      this.transporte.sucursalLlegadaId,
-      this.transporte.sucursalLlegadaNombre,
-      this.transporte.sucursalLlegadaDepartamento,
-      this.transporte.colaboradorChoferId,
-      this.transporte.colaboradorChoferNombre,
-      this.transporte.colaboradorAuxiliarId,
-      this.transporte.colaboradorAuxiliarNombre,
-      this.transporte.vehiculoId,
-      this.transporte.vehiculoPlaca,
-      this.transporte.vehiculoCarga,
-      this.transporte.vehiculoVolumetria,
       Number(this.remitente.id),
-      this.remitente.razonSocial,
-      this.remitente.ruc,
-      this.remitente.direccion,
       Number(this.destinatario.id),
-      this.destinatario.razonSocial,
-      this.destinatario.ruc,
-      this.destinatario.direccion,
       Number(this.sucursalSalida.id),
-      this.sucursalSalida.nombre,
-      this.sucursalSalida.departamento,
-      this.sucursalSalida.direccion,
       Number(this.sucursalLlegada.id),
-      this.sucursalLlegada.nombre,
-      this.sucursalLlegada.departamento,
-      this.sucursalLlegada.direccion,
-      0, // guiaRemitenteId
-      null, // guiaRemitenteRutaGuia
+      entrega,
       String(this.form.get('guiaRemitenteNroGuia').value),
-      String(this.form.get('guiaRemitenteNroBulto').value),
-      0, // guiaEntregaId
-      null // guiaEntregaNroGuia
+      String(this.form.get('guiaRemitenteNroBulto').value)
     );
+
+    // const id = 4;
+    // this.model = new Entrega(
+    //   this.model ? this.model.id : id,
+    //   this.model ? this.model.numero : `E-00${id}`,
+    //   null, // codBarraEntrega
+    //   new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes()),
+    //   Number(this.transporte.id),
+    //   this.transporte.nroTransporte,
+    //   this.transporte.fechaSalida,
+    //   this.transporte.fechaLlegada,
+    //   this.transporte.sucursalSalidaId,
+    //   this.transporte.sucursalSalidaNombre,
+    //   this.transporte.sucursalSalidaDepartamento,
+    //   this.transporte.sucursalLlegadaId,
+    //   this.transporte.sucursalLlegadaNombre,
+    //   this.transporte.sucursalLlegadaDepartamento,
+    //   this.transporte.colaboradorChoferId,
+    //   this.transporte.colaboradorChoferNombre,
+    //   this.transporte.colaboradorAuxiliarId,
+    //   this.transporte.colaboradorAuxiliarNombre,
+    //   this.transporte.vehiculoId,
+    //   this.transporte.vehiculoPlaca,
+    //   this.transporte.vehiculoCarga,
+    //   this.transporte.vehiculoVolumetria,
+    //   Number(this.remitente.id),
+    //   this.remitente.razonSocial,
+    //   this.remitente.ruc,
+    //   this.remitente.direccion,
+    //   Number(this.destinatario.id),
+    //   this.destinatario.razonSocial,
+    //   this.destinatario.ruc,
+    //   this.destinatario.direccion,
+    //   Number(this.sucursalSalida.id),
+    //   this.sucursalSalida.nombre,
+    //   this.sucursalSalida.departamento,
+    //   this.sucursalSalida.direccion,
+    //   Number(this.sucursalLlegada.id),
+    //   this.sucursalLlegada.nombre,
+    //   this.sucursalLlegada.departamento,
+    //   this.sucursalLlegada.direccion,
+    //   0, // guiaRemitenteId
+    //   null, // guiaRemitenteRutaGuia
+    //   String(this.form.get('guiaRemitenteNroGuia').value),
+    //   String(this.form.get('guiaRemitenteNroBulto').value),
+    //   0, // guiaEntregaId
+    //   null // guiaEntregaNroGuia
+    // );
     /*COMENTAR-DESCOMENTAR-FIN*/
   }
 
   regresar() {
-    this._router.navigate(['/transporteLista', this.transporte.numero]);
+    this._router.navigate(['/transporteLista', this.transporte.nroTransporte]);
   }
 
   verEntregas() {
-    this._router.navigate(['/entregaLista', this.transporte.numero]);
+    this._router.navigate(['/entregaLista', this.transporte.nroTransporte]);
   }
 
 
@@ -366,13 +366,13 @@ export class EntregaComponent implements OnInit {
     this.configTransporte = new AutoComplete(
       'transporte',
       this.form,
-      ['numero'],
+      ['nroTransporte'],
       this.transportes,
       false,
       this.loadIcon,
       'Buscar Transporte',
       'id',
-      ['numero'],
+      ['nroTransporte'],
       []
     );
   }

@@ -86,4 +86,9 @@ export class TransporteService {
     return this._http.get<any[]>(`${this.testUrlApi}/transportes/criterio/` + filter);
   }
 
+  // para recuperar un Transporte específico según su id
+  getTransportebyNumero(numero: string): Observable<any> {
+    return this._http.get<any>(`${this.testUrlApi}/transportes/${numero}`);
+  }
+
 }
