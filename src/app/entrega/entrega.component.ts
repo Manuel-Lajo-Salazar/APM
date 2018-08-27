@@ -118,11 +118,11 @@ export class EntregaComponent implements OnInit {
   //   return null;
   // }
 
-  loadTransporte(numero: string) {
+  loadTransporte(nroTransporte: string) {
     /*COMENTAR-DESCOMENTAR-INICIO*/
-    // const id = numero.substring(4, 5);
+    // const id = nroTransporte.substring(4, 5);
     // this.transporteService.getTransporte(Number(id))
-    this.transporteService.getTransportebyNumero(numero)
+    this.transporteService.getTransportebyNumero(nroTransporte)
     /*COMENTAR-DESCOMENTAR-FIN*/
       .subscribe(response => {
         console.log(response);
@@ -242,7 +242,7 @@ export class EntregaComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Entrega ${response.numero}.</span>` +
+        this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Entrega ${response.nroEntrega}.</span>` +
           `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.id}">Ver/Actualizar</a>` +
           `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.transporteNumero}">Grabar otra</a>`;
       }, error => {
@@ -285,69 +285,66 @@ export class EntregaComponent implements OnInit {
     const entrega = new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes());
     entrega.setHours(entrega.getHours() - 5);
 
-    /*COMENTAR-DESCOMENTAR-INICIO*/
-
     this.modelForCreate = new EntregaForCreate(
       this.model ? this.model.id : 0,
-      null,                                            // el número de entrega se creará en el backend
       Number(this.transporte.id),
       Number(this.remitente.id),
       Number(this.destinatario.id),
       Number(this.sucursalSalida.id),
       Number(this.sucursalLlegada.id),
       entrega,
+      null,
       String(this.form.get('guiaRemitenteNroGuia').value),
-      String(this.form.get('guiaRemitenteNroBulto').value)
+      Number(this.form.get('guiaRemitenteNroBulto').value)
     );
 
-    // const id = 4;
-    // this.model = new Entrega(
-    //   this.model ? this.model.id : id,
-    //   this.model ? this.model.numero : `E-00${id}`,
-    //   null, // codBarraEntrega
-    //   new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes()),
-    //   Number(this.transporte.id),
-    //   this.transporte.nroTransporte,
-    //   this.transporte.fechaSalida,
-    //   this.transporte.fechaLlegada,
-    //   this.transporte.sucursalSalidaId,
-    //   this.transporte.sucursalSalidaNombre,
-    //   this.transporte.sucursalSalidaDepartamento,
-    //   this.transporte.sucursalLlegadaId,
-    //   this.transporte.sucursalLlegadaNombre,
-    //   this.transporte.sucursalLlegadaDepartamento,
-    //   this.transporte.colaboradorChoferId,
-    //   this.transporte.colaboradorChoferNombre,
-    //   this.transporte.colaboradorAuxiliarId,
-    //   this.transporte.colaboradorAuxiliarNombre,
-    //   this.transporte.vehiculoId,
-    //   this.transporte.vehiculoPlaca,
-    //   this.transporte.vehiculoCarga,
-    //   this.transporte.vehiculoVolumetria,
-    //   Number(this.remitente.id),
-    //   this.remitente.razonSocial,
-    //   this.remitente.ruc,
-    //   this.remitente.direccion,
-    //   Number(this.destinatario.id),
-    //   this.destinatario.razonSocial,
-    //   this.destinatario.ruc,
-    //   this.destinatario.direccion,
-    //   Number(this.sucursalSalida.id),
-    //   this.sucursalSalida.nombre,
-    //   this.sucursalSalida.departamento,
-    //   this.sucursalSalida.direccion,
-    //   Number(this.sucursalLlegada.id),
-    //   this.sucursalLlegada.nombre,
-    //   this.sucursalLlegada.departamento,
-    //   this.sucursalLlegada.direccion,
-    //   0, // guiaRemitenteId
-    //   null, // guiaRemitenteRutaGuia
-    //   String(this.form.get('guiaRemitenteNroGuia').value),
-    //   String(this.form.get('guiaRemitenteNroBulto').value),
-    //   0, // guiaEntregaId
-    //   null // guiaEntregaNroGuia
-    // );
-    /*COMENTAR-DESCOMENTAR-FIN*/
+    const id = 4;
+    this.model = new Entrega(
+      this.model ? this.model.id : id,
+      this.model ? this.model.nroEntrega : `E-00${id}`,
+      null, // codBarraEntrega
+      new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes()),
+      Number(this.transporte.id),
+      this.transporte.nroTransporte,
+      this.transporte.fechaSalida,
+      this.transporte.fechaLlegada,
+      this.transporte.sucursalSalidaId,
+      this.transporte.sucursalSalidaNombre,
+      this.transporte.sucursalSalidaDepartamento,
+      this.transporte.sucursalLlegadaId,
+      this.transporte.sucursalLlegadaNombre,
+      this.transporte.sucursalLlegadaDepartamento,
+      this.transporte.colaboradorChoferId,
+      this.transporte.colaboradorChoferNombre,
+      this.transporte.colaboradorAuxiliarId,
+      this.transporte.colaboradorAuxiliarNombre,
+      this.transporte.vehiculoId,
+      this.transporte.vehiculoPlaca,
+      this.transporte.vehiculoCarga,
+      this.transporte.vehiculoVolumetria,
+      Number(this.remitente.id),
+      this.remitente.razonSocial,
+      this.remitente.ruc,
+      this.remitente.direccion,
+      Number(this.destinatario.id),
+      this.destinatario.razonSocial,
+      this.destinatario.ruc,
+      this.destinatario.direccion,
+      Number(this.sucursalSalida.id),
+      this.sucursalSalida.nombre,
+      this.sucursalSalida.departamento,
+      this.sucursalSalida.direccion,
+      Number(this.sucursalLlegada.id),
+      this.sucursalLlegada.nombre,
+      this.sucursalLlegada.departamento,
+      this.sucursalLlegada.direccion,
+      0, // guiaRemitenteId
+      null, // guiaRemitenteRutaGuia
+      String(this.form.get('guiaRemitenteNroGuia').value),
+      String(this.form.get('guiaRemitenteNroBulto').value),
+      0, // guiaEntregaId
+      null // guiaEntregaNroGuia
+    );
   }
 
   regresar() {

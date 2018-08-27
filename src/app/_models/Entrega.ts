@@ -1,7 +1,7 @@
 export class Entrega {
     constructor(
         public id: number = null,
-        public numero: string = null,
+        public nroEntrega: string = null,
         public codBarraEntrega: string = null,
         public fechaEntrega: Date = null,
 

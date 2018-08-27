@@ -1,6 +1,6 @@
 export class TransporteCriteria {
     constructor(
-        public numero: string = null,
+        public nroTransporte: string = null,
         public fechaSalida: Date = null,
         public fechaLlegada: Date = null,
         public sucursalSalidaId: number = null,

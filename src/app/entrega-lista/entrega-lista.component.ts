@@ -60,15 +60,15 @@ export class EntregaListaComponent implements OnInit {
     this.setConfigSucursalLlegada();
     const param: string = this._route.snapshot.paramMap.get('numero');
     if (param) {
-      this.form.get('numeroTransporte').setValue(param);
+      this.form.get('nroTransporte').setValue(param);
       this.search();
     }
   }
 
   createForm() {
     this.form = this.formBuilder.group({
-      numero: ['', []],
-      numeroTransporte: ['', []],
+      nroEntrega: ['', []],
+      nroTransporte: ['', []],
       fechaSalida: ['', []],
       fechaLlegada: ['', []],
       sucursalSalida: ['', []],
@@ -82,8 +82,8 @@ export class EntregaListaComponent implements OnInit {
 
   search() {
     this.model = new EntregaCriteria(
-      this.form.get('numero').value ? this.form.get('numero').value : null,
-      this.form.get('numeroTransporte').value ? this.form.get('numeroTransporte').value : null,
+      this.form.get('nroEntrega').value ? this.form.get('nroEntrega').value : null,
+      this.form.get('nroTransporte').value ? this.form.get('nroTransporte').value : null,
       this.form.get('fechaSalida').value ? <Date>this.form.get('fechaSalida').value : null,
       this.form.get('fechaLlegada').value ? <Date>this.form.get('fechaLlegada').value : null,
       this.sucursalSalida ? this.sucursalSalida.id : null,

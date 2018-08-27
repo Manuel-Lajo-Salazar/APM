@@ -1,7 +1,6 @@
 export class EntregaForCreate {
     constructor(
         public id: number = null,
-        public numero: string = null,
         public transporteId: number = null,
         public remitenteId: number = null,
         public destinatarioId: number = null,
@@ -11,8 +10,6 @@ export class EntregaForCreate {
         // Guia Remitente
         public rutaGuiaRemitente: string = null,
         public nroGuiaRemitente: string = null,
-        public nroBultoRemitente: number = null,
-
-        public nroGuiaEntrega: string = null
+        public nroBultoRemitente: number = null
     ) {}
 }
