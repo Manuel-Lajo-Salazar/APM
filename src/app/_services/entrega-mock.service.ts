@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Cliente } from '../_models/Cliente';
+import { Remitente } from '../_models/Remitente';
+import { Destinatario } from '../_models/Destinatario';
 
 @Injectable()
 export class EntregaMockService {
@@ -9,12 +10,12 @@ export class EntregaMockService {
 
     constructor(private _http: HttpClient) { }
 
-    getRemitentes(filter: string): Observable<Cliente[]> {
-        return this._http.get<Cliente[]>(`${this.testUrlApi}/remitentes`);
+    getRemitentes(filter: string): Observable<Remitente[]> {
+        return this._http.get<Remitente[]>(`${this.testUrlApi}/remitentes`);
     }
 
-    getDestinatarios(filter: string): Observable<Cliente[]> {
-        return this._http.get<Cliente[]>(`${this.testUrlApi}/destinatarios`);
+    getDestinatarios(filter: string): Observable<Destinatario[]> {
+        return this._http.get<Destinatario[]>(`${this.testUrlApi}/destinatarios`);
     }
 
     // requests para Entrega (pendiente mapear al modelo específico de entrega)

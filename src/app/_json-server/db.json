@@ -80,13 +80,13 @@
       "id": 1,
       "razonSocial": "Remitente 1",
       "ruc": "45251587895",
-      "tipo": "1"
+      "direccion": "Av Primavera 111"
     },
     {
       "id": 2,
       "razonSocial": "Remitente 2",
       "ruc": "78954525158",
-      "tipo": "1"
+      "direccion": "Av Primavera 222"
     }
   ],
   "destinatarios": [
@@ -94,13 +94,13 @@
       "id": 1,
       "razonSocial": "Destinatario A",
       "ruc": "25158789545",
-      "tipo": "2"
+      "direccion": "Av Primavera 333"
     },
     {
       "id": 2,
       "razonSocial": "Destinatario B",
       "ruc": "89545251587",
-      "tipo": "2"
+      "direccion": "Av Primavera 444"
     }
   ],
   "transportes": [

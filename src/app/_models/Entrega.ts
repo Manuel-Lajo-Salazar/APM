@@ -61,8 +61,6 @@ export class Entrega {
         public guiaEntregaId: number = null,
         public guiaEntregaNroGuia: string = null,
 
-        // public guiaRemitente: ByteString = null, // revisar
-
         // Rotulo
         // public rotulo: Array<any> = null
     ) {}

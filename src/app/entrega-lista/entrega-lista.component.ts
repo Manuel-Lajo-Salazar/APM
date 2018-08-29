@@ -10,7 +10,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { EntregaForListDto } from '../_models/EntregaForListDto';
 import { AutoComplete } from '../_models/AutoComplete';
 import { Sucursal } from '../_models/Sucursal';
-import { Cliente } from '../_models/Cliente';
+import { Remitente } from '../_models/Remitente';
+import { Destinatario } from '../_models/Destinatario';
 import { EntregaCriteria } from '../_models/EntregaCriteria';
 import { ActivatedRoute } from '@angular/router';
 
@@ -37,12 +38,12 @@ export class EntregaListaComponent implements OnInit {
   sucursalesLlegada: Sucursal[] = [];
 
   configRemitente: AutoComplete;
-  remitente: Cliente;
-  remitentes: Cliente[] = [];
+  remitente: Remitente;
+  remitentes: Remitente[] = [];
 
   configDestinatario: AutoComplete;
-  destinatario: Cliente;
-  destinatarios: Cliente[] = [];
+  destinatario: Destinatario;
+  destinatarios: Destinatario[] = [];
 
   constructor(
     private entregaService: EntregaService,
@@ -133,7 +134,7 @@ export class EntregaListaComponent implements OnInit {
       });
   }
 
-  setRemitente(selectedItem: Cliente) {
+  setRemitente(selectedItem: Remitente) {
     this.remitente = selectedItem;
   }
 
@@ -162,7 +163,7 @@ export class EntregaListaComponent implements OnInit {
       });
   }
 
-  setDestinatario(selectedItem: Cliente) {
+  setDestinatario(selectedItem: Destinatario) {
     this.destinatario = selectedItem;
   }
 

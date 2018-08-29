@@ -74,7 +74,7 @@ export class TransporteComponent implements OnInit {
     this.getTiposTransporte();
     const id: Number = Number(this._route.snapshot.paramMap.get('id'));
     if (id) {
-      this.getTransporte(id);      
+      this.getTransporte(id);
       this.mostrarEliminar = true;
     }
   }
@@ -234,7 +234,9 @@ export class TransporteComponent implements OnInit {
     const llegada = new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes());
     salida.setHours(salida.getHours() - 5);
     llegada.setHours(llegada.getHours() - 5);
-    
+
+    /*COMENTAR-DESCOMENTAR-INICIO*/
+
     this.modelForCreate = new TransporteForCreate(
       this.model ? this.model.id : 0,
       Boolean(this.form.get('activo').value),
@@ -248,41 +250,43 @@ export class TransporteComponent implements OnInit {
       Number(this.vehiculo.id)
     );
 
-    const id = 4;
-    this.model = new Transporte(
-      this.model ? this.model.id : id,
-      this.model ? this.model.nroTransporte : `T-00${id}`,
-      Boolean(this.form.get('activo').value),
-      true,
-      new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
-      new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
-      Number(this.form.get('tipoTransporte').value),
-      Number(this.sucursalSalida.id),
-      this.sucursalSalida.nombre,
-      this.sucursalSalida.departamento,
-      this.sucursalSalida.direccion,
-      Number(this.sucursalLlegada.id),
-      this.sucursalLlegada.nombre,
-      this.sucursalLlegada.departamento,
-      this.sucursalLlegada.direccion,
-      Number(this.chofer.id),
-      this.chofer.nombre,
-      this.chofer.tipoDocumento,
-      this.chofer.nroDocumento,
-      this.chofer.nroLicencia,
-      Number(this.auxiliar.id),
-      this.auxiliar.nombre,
-      this.auxiliar.tipoDocumento,
-      this.auxiliar.nroDocumento,
-      this.auxiliar.nroLicencia,
-      Number(this.vehiculo.id),
-      this.vehiculo.placa,
-      this.vehiculo.carga,
-      this.vehiculo.volumetria,
-      this.vehiculo.codConfiguracion,
-      this.vehiculo.nroInscripcion,
-      this.vehiculo.marca
-    );
+    // const id = 4;
+    // this.model = new Transporte(
+    //   this.model ? this.model.id : id,
+    //   this.model ? this.model.nroTransporte : `T-00${id}`,
+    //   Boolean(this.form.get('activo').value),
+    //   true,
+    //   new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
+    //   new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
+    //   Number(this.form.get('tipoTransporte').value),
+    //   Number(this.sucursalSalida.id),
+    //   this.sucursalSalida.nombre,
+    //   this.sucursalSalida.departamento,
+    //   this.sucursalSalida.direccion,
+    //   Number(this.sucursalLlegada.id),
+    //   this.sucursalLlegada.nombre,
+    //   this.sucursalLlegada.departamento,
+    //   this.sucursalLlegada.direccion,
+    //   Number(this.chofer.id),
+    //   this.chofer.nombre,
+    //   this.chofer.tipoDocumento,
+    //   this.chofer.nroDocumento,
+    //   this.chofer.nroLicencia,
+    //   Number(this.auxiliar.id),
+    //   this.auxiliar.nombre,
+    //   this.auxiliar.tipoDocumento,
+    //   this.auxiliar.nroDocumento,
+    //   this.auxiliar.nroLicencia,
+    //   Number(this.vehiculo.id),
+    //   this.vehiculo.placa,
+    //   this.vehiculo.carga,
+    //   this.vehiculo.volumetria,
+    //   this.vehiculo.codConfiguracion,
+    //   this.vehiculo.nroInscripcion,
+    //   this.vehiculo.marca
+    // );
+
+    /*COMENTAR-DESCOMENTAR-FIN*/
   }
 
 

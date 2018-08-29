@@ -11,7 +11,8 @@ import { Entrega } from '../_models/Entrega';
 import { EntregaForCreate } from '../_models/EntregaForCreate';
 import { Transporte } from '../_models/Transporte';
 import { Sucursal } from '../_models/Sucursal';
-import { Cliente } from '../_models/Cliente';
+import { Remitente } from '../_models/Remitente';
+import { Destinatario } from '../_models/Destinatario';
 import { AutoComplete } from '../_models/AutoComplete';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -42,12 +43,12 @@ export class EntregaComponent implements OnInit {
   transportes: Transporte[] = [];
 
   configRemitente: AutoComplete;
-  remitente: Cliente;
-  remitentes: Cliente[] = [];
+  remitente: Remitente;
+  remitentes: Remitente[] = [];
 
   configDestinatario: AutoComplete;
-  destinatario: Cliente;
-  destinatarios: Cliente[] = [];
+  destinatario: Destinatario;
+  destinatarios: Destinatario[] = [];
 
   configSucursalSalida: AutoComplete;
   sucursalSalida: Sucursal;
@@ -56,6 +57,8 @@ export class EntregaComponent implements OnInit {
   configSucursalLlegada: AutoComplete;
   sucursalLlegada: Sucursal;
   ucursalesLlegada: Sucursal[] = [];
+
+  guiaRemitenteFile: File;
 
   constructor(
     private entregaService: EntregaService,
@@ -145,53 +148,18 @@ export class EntregaComponent implements OnInit {
 
   loadEntregaForDisplay(entrega: Entrega) {
     this.model = entrega;
-    this.transporte = {
-      id: entrega.transporteId,
-      nroTransporte: entrega.transporteNumero,
-      activo: true,
-      estado: true,
-      fechaSalida: entrega.transporteFechaSalida,
-      fechaLlegada: entrega.transporteFechaLlegada,
-      tipo: null,
-      sucursalSalidaId: entrega.transporteSucursalSalidaId,
-      sucursalSalidaNombre: entrega.transporteSucursalSalidaNombre,
-      sucursalSalidaDepartamento: entrega.transporteSucursalSalidaDepartamento,
-      sucursalSalidaDireccion: null,
-      sucursalLlegadaId: entrega.transporteSucursalLlegadaId,
-      sucursalLlegadaNombre: entrega.transporteSucursalLlegadaNombre,
-      sucursalLlegadaDepartamento: entrega.transporteSucursalLlegadaDepartamento,
-      sucursalLlegadaDireccion: null,
-      colaboradorChoferId: entrega.transporteColaboradorChoferId,
-      colaboradorChoferNombre: entrega.transporteColaboradorChoferNombre,
-      colaboradorChoferTipoDocumento: null,
-      colaboradorChoferNroDocumento: null,
-      colaboradorChoferNroLicencia: null,
-      colaboradorAuxiliarId: entrega.tranpsorteColaboradorAuxiliarId,
-      colaboradorAuxiliarNombre: entrega.tranpsorteColaboradorAuxiliarNombre,
-      colaboradorAuxiliarTipoDocumento: null,
-      colaboradorAuxiliarNroDocumento: null,
-      colaboradorAuxiliarNroLicencia: null,
-      vehiculoId: entrega.transporteVehiculoId,
-      vehiculoPlaca: entrega.transporteVehiculoPlaca,
-      vehiculoCarga: entrega.transporteVehiculoCarga,
-      vehiculoVolumetria: entrega.transporteVehiculoVolumetria,
-      vehiculoCodConfiguracion: null,
-      vehiculoNroInscripcion: null,
-      vehiculoMarca: null
-    };
+    this.loadTransporte(entrega.transporteNumero);
     this.remitente = {
       id: entrega.remitenteId,
       razonSocial: entrega.remitenteRazonSocial,
       ruc: entrega.remitenteRuc,
-      direccion: entrega.remitenteDireccion,
-      tipo: null // verificar si es necesario tener este valor
+      direccion: entrega.remitenteDireccion
     };
     this.destinatario = {
       id: entrega.destinatarioId,
       razonSocial: entrega.destinatarioRazonSocial,
       ruc: entrega.destinatarioRuc,
-      direccion: entrega.destinatarioDireccion,
-      tipo: null // verificar si es necesario tener este valor
+      direccion: entrega.destinatarioDireccion
     };
     this.sucursalSalida = {
       id: entrega.sucursalSalidaId,
@@ -205,6 +173,8 @@ export class EntregaComponent implements OnInit {
       departamento: entrega.sucursalLlegadaDepartamento,
       direccion: entrega.sucursalLlegadaDireccion
     };
+    // revisar como setear el valor de la guiaRemitente, si es posible,
+    // o si solo debe colocarse un link de descarga de documento o algo equivalente.
     this.form.get('transporte').setValue(entrega.transporteNumero);
     this.form.get('remitente').setValue(entrega.remitenteRazonSocial + ', ' + entrega.remitenteRuc);
     this.form.get('destinatario').setValue(entrega.destinatarioRazonSocial + ', ' + entrega.destinatarioRuc);
@@ -216,6 +186,26 @@ export class EntregaComponent implements OnInit {
     this.form.get('horaEntrega').setValue(new Date(entrega.fechaEntrega));
     this.form.get('guiaRemitenteNroGuia').setValue(entrega.guiaRemitenteNroGuia);
     this.form.get('guiaRemitenteNroBulto').setValue(entrega.guiaRemitenteNroBulto);
+  }
+
+  saveWithAttachment(): any {
+    if (!this.form.valid) {
+      this.markInputsAsDirty();
+    } else {
+      this.loadEntregaModelForSave();
+      this.entregaService.createEntregaWithAttachment(this.modelForCreate, this.guiaRemitenteFile)
+        .subscribe(response => {
+          console.log(response);
+          this.mostrarMensajeExito = true;
+          this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Entrega ${response.nroEntrega}.</span>` +
+            `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.id}">Ver/Actualizar</a>` +
+            `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.transporteNumero}">Grabar otra</a>`;
+        }, error => {
+          console.log(error);
+          this.mostrarMensajeError = true;
+          this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+        });
+    }
   }
 
   save(): any {
@@ -285,6 +275,8 @@ export class EntregaComponent implements OnInit {
     const entrega = new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes());
     entrega.setHours(entrega.getHours() - 5);
 
+    /*COMENTAR-DESCOMENTAR-INICIO*/
+
     this.modelForCreate = new EntregaForCreate(
       this.model ? this.model.id : 0,
       Number(this.transporte.id),
@@ -298,53 +290,55 @@ export class EntregaComponent implements OnInit {
       Number(this.form.get('guiaRemitenteNroBulto').value)
     );
 
-    const id = 4;
-    this.model = new Entrega(
-      this.model ? this.model.id : id,
-      this.model ? this.model.nroEntrega : `E-00${id}`,
-      null, // codBarraEntrega
-      new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes()),
-      Number(this.transporte.id),
-      this.transporte.nroTransporte,
-      this.transporte.fechaSalida,
-      this.transporte.fechaLlegada,
-      this.transporte.sucursalSalidaId,
-      this.transporte.sucursalSalidaNombre,
-      this.transporte.sucursalSalidaDepartamento,
-      this.transporte.sucursalLlegadaId,
-      this.transporte.sucursalLlegadaNombre,
-      this.transporte.sucursalLlegadaDepartamento,
-      this.transporte.colaboradorChoferId,
-      this.transporte.colaboradorChoferNombre,
-      this.transporte.colaboradorAuxiliarId,
-      this.transporte.colaboradorAuxiliarNombre,
-      this.transporte.vehiculoId,
-      this.transporte.vehiculoPlaca,
-      this.transporte.vehiculoCarga,
-      this.transporte.vehiculoVolumetria,
-      Number(this.remitente.id),
-      this.remitente.razonSocial,
-      this.remitente.ruc,
-      this.remitente.direccion,
-      Number(this.destinatario.id),
-      this.destinatario.razonSocial,
-      this.destinatario.ruc,
-      this.destinatario.direccion,
-      Number(this.sucursalSalida.id),
-      this.sucursalSalida.nombre,
-      this.sucursalSalida.departamento,
-      this.sucursalSalida.direccion,
-      Number(this.sucursalLlegada.id),
-      this.sucursalLlegada.nombre,
-      this.sucursalLlegada.departamento,
-      this.sucursalLlegada.direccion,
-      0, // guiaRemitenteId
-      null, // guiaRemitenteRutaGuia
-      String(this.form.get('guiaRemitenteNroGuia').value),
-      String(this.form.get('guiaRemitenteNroBulto').value),
-      0, // guiaEntregaId
-      null // guiaEntregaNroGuia
-    );
+    // const id = 4;
+    // this.model = new Entrega(
+    //   this.model ? this.model.id : id,
+    //   this.model ? this.model.nroEntrega : `E-00${id}`,
+    //   null, // codBarraEntrega
+    //   new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes()),
+    //   Number(this.transporte.id),
+    //   this.transporte.nroTransporte,
+    //   this.transporte.fechaSalida,
+    //   this.transporte.fechaLlegada,
+    //   this.transporte.sucursalSalidaId,
+    //   this.transporte.sucursalSalidaNombre,
+    //   this.transporte.sucursalSalidaDepartamento,
+    //   this.transporte.sucursalLlegadaId,
+    //   this.transporte.sucursalLlegadaNombre,
+    //   this.transporte.sucursalLlegadaDepartamento,
+    //   this.transporte.colaboradorChoferId,
+    //   this.transporte.colaboradorChoferNombre,
+    //   this.transporte.colaboradorAuxiliarId,
+    //   this.transporte.colaboradorAuxiliarNombre,
+    //   this.transporte.vehiculoId,
+    //   this.transporte.vehiculoPlaca,
+    //   this.transporte.vehiculoCarga,
+    //   this.transporte.vehiculoVolumetria,
+    //   Number(this.remitente.id),
+    //   this.remitente.razonSocial,
+    //   this.remitente.ruc,
+    //   this.remitente.direccion,
+    //   Number(this.destinatario.id),
+    //   this.destinatario.razonSocial,
+    //   this.destinatario.ruc,
+    //   this.destinatario.direccion,
+    //   Number(this.sucursalSalida.id),
+    //   this.sucursalSalida.nombre,
+    //   this.sucursalSalida.departamento,
+    //   this.sucursalSalida.direccion,
+    //   Number(this.sucursalLlegada.id),
+    //   this.sucursalLlegada.nombre,
+    //   this.sucursalLlegada.departamento,
+    //   this.sucursalLlegada.direccion,
+    //   0, // guiaRemitenteId
+    //   null, // guiaRemitenteRutaGuia
+    //   String(this.form.get('guiaRemitenteNroGuia').value),
+    //   String(this.form.get('guiaRemitenteNroBulto').value),
+    //   0, // guiaEntregaId
+    //   null // guiaEntregaNroGuia
+    // );
+
+    /*COMENTAR-DESCOMENTAR-FIN*/
   }
 
   regresar() {
@@ -353,6 +347,10 @@ export class EntregaComponent implements OnInit {
 
   verEntregas() {
     this._router.navigate(['/entregaLista', this.transporte.nroTransporte]);
+  }
+
+  handleFileInput(files: FileList) {
+    this.guiaRemitenteFile = files.item(0);
   }
 
 
@@ -412,7 +410,7 @@ export class EntregaComponent implements OnInit {
       });
   }
 
-  setRemitente(selectedItem: Cliente) {
+  setRemitente(selectedItem: Remitente) {
     this.remitente = selectedItem;
   }
 
@@ -441,7 +439,7 @@ export class EntregaComponent implements OnInit {
       });
   }
 
-  setDestinatario(selectedItem: Cliente) {
+  setDestinatario(selectedItem: Destinatario) {
     this.destinatario = selectedItem;
   }
 
