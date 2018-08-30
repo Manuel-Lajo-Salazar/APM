@@ -189,7 +189,7 @@
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="saveWithAttachment()" [attr.disabled]="mostrarMensajeExito">Grabar con Adjunto</button>
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarVerEntregas" (click)="verEntregas()">Ver Entregas</button>
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarRegresar" (click)="regresar()">Regresar</button>
-            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarEliminar">Eliminar</button>
+            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarEliminar" (click)="delete()">Eliminar</button>
         </div>
     </div>
 </div>

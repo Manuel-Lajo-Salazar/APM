@@ -64,6 +64,10 @@ export class TransporteService {
     return this._http.put<any>(`${this.testUrlApi}/transportes/update`, transporte, httpOptions);
   }
 
+  deleteTransporte(id: any): Observable<any> {
+    return this._http.delete<any>(`${this.testUrlApi}/transportes/delete`, id);
+  }
+
   // para recuperar un Transporte específico según su id
   getTransporte(id: Number): Observable<any> {
     return this._http.get<any>(`${this.testUrlApi}/transportes/${id}`);

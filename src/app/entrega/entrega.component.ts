@@ -241,6 +241,20 @@ export class EntregaComponent implements OnInit {
       });
   }
 
+
+  delete() {
+    this.entregaService.deleteEntrega(this.model.id)
+      .subscribe(response => {
+        console.log(response);
+        this.mostrarMensajeExito = true;
+        this.mensajeExito = `<span class="fw-semi-bold">Se eliminó exitosamente el Nro de Entrega ${this.model.nroEntrega}.</span>`;
+      }, error => {
+        console.log(error);
+        this.mostrarMensajeError = true;
+        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+      });
+  }
+
   markInputsAsDirty() {
     this.form.get('transporte').markAsDirty();
     this.form.get('remitente').markAsDirty();

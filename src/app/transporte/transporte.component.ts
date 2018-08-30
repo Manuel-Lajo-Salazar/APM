@@ -212,6 +212,19 @@ export class TransporteComponent implements OnInit {
       });
   }
 
+  delete() {
+    this.transporteService.deleteTransporte(this.model.id)
+      .subscribe(response => {
+        console.log(response);
+        this.mostrarMensajeExito = true;
+        this.mensajeExito = `<span class="fw-semi-bold">Se eliminó exitosamente el Nro de Transporte ${this.model.nroTransporte}.</span>`;
+      }, error => {
+        console.log(error);
+        this.mostrarMensajeError = true;
+        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+      });
+  }
+
   markInputsAsDirty() {
     this.form.get('vehiculo').markAsDirty();
     this.form.get('sucursalSalida').markAsDirty();
