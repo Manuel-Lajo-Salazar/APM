@@ -29,6 +29,20 @@ export class EntregaMockService {
         return this._http.post<any>(`${this.testUrlApi}/entregas`, entrega, httpOptions);
     }
 
+    createEntregaWithAttachment(entrega: any, file: File): Observable<any> {
+        const formData = new FormData();
+        formData.append('entrega', entrega);
+        formData.append('file', file);
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+
+        return this._http.post<any>(`${this.testUrlApi}/entregas`, formData, httpOptions);
+    }
+
     // no funciona con json-server
     updateEntrega(entrega: any): Observable<any> {
         const httpOptions = {

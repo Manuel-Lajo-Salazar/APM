@@ -153,15 +153,21 @@ export class EntregaComponent implements OnInit {
       departamento: entrega.sucursalLlegadaDepartamento,
       direccion: entrega.sucursalLlegadaDireccion
     };
-    // revisar como setear el valor de la guiaRemitente, si es posible,
-    // o si solo debe colocarse un link de descarga de documento o algo equivalente.
     this.form.get('transporte').setValue(entrega.transporteNumero);
     this.form.get('remitente').setValue(entrega.remitenteRazonSocial + ', ' + entrega.remitenteRuc);
     this.form.get('destinatario').setValue(entrega.destinatarioRazonSocial + ', ' + entrega.destinatarioRuc);
-    this.form.get('sucursalSalida').setValue(entrega.sucursalSalidaNombre + ', ' + entrega.sucursalSalidaDepartamento
-    + ', ' + entrega.sucursalSalidaDireccion);
-    this.form.get('sucursalLlegada').setValue(entrega.sucursalLlegadaNombre + ', ' + entrega.sucursalLlegadaDepartamento
-    + ', ' + entrega.sucursalLlegadaDireccion);
+    if (entrega.sucursalSalidaId !== 1) {
+      this.form.get('sucursalSalida').setValue(entrega.sucursalSalidaNombre + ', ' + entrega.sucursalSalidaDepartamento
+        + ', ' + entrega.sucursalSalidaDireccion);
+    } else {
+      this.form.get('sucursalSalidaDescripcion').setValue(entrega.sucursalSalidaDescripcion);
+    }
+    if (entrega.sucursalSalidaId !== 1) {
+      this.form.get('sucursalLlegada').setValue(entrega.sucursalLlegadaNombre + ', ' + entrega.sucursalLlegadaDepartamento
+        + ', ' + entrega.sucursalLlegadaDireccion);
+    } else {
+      this.form.get('sucursalLlegadaDescripcion').setValue(entrega.sucursalLlegadaDescripcion);
+    }
     this.form.get('fechaEntrega').setValue(new Date(entrega.fechaEntrega));
     this.form.get('horaEntrega').setValue(new Date(entrega.fechaEntrega));
     this.form.get('guiaRemitenteNroGuia').setValue(entrega.guiaRemitenteNroGuia);
@@ -263,7 +269,9 @@ export class EntregaComponent implements OnInit {
       Number(this.remitente.id),
       Number(this.destinatario.id),
       Number(this.sucursalSalida.id),
+      String(this.form.get('sucursalSalidaDescripcion').value),
       Number(this.sucursalLlegada.id),
+      String(this.form.get('sucursalLlegadaDescripcion').value),
       entrega,
       null,
       String(this.form.get('guiaRemitenteNroGuia').value),
@@ -306,10 +314,12 @@ export class EntregaComponent implements OnInit {
     //   this.sucursalSalida.nombre,
     //   this.sucursalSalida.departamento,
     //   this.sucursalSalida.direccion,
+    //   String(this.form.get('sucursalSalidaDescripcion').value),
     //   Number(this.sucursalLlegada.id),
     //   this.sucursalLlegada.nombre,
     //   this.sucursalLlegada.departamento,
     //   this.sucursalLlegada.direccion,
+    //   String(this.form.get('sucursalLlegadaDescripcion').value),
     //   0, // guiaRemitenteId
     //   null, // guiaRemitenteRutaGuia
     //   String(this.form.get('guiaRemitenteNroGuia').value),

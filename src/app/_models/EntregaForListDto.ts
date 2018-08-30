@@ -39,11 +39,13 @@ export class EntregaForListDto {
         public sucursalSalidaNombre: string = null,
         public sucursalSalidaDepartamento: string = null,
         public sucursalSalidaDireccion: string = null,
+        public sucursalSalidaDescripcion: string = null,
         // Sucursal Destino
         public sucursalLlegadaId: number = null,
         public sucursalLlegadaNombre: string = null,
         public sucursalLlegadaDepartamento: string = null,
         public sucursalLlegadaDireccion: string = null,
+        public sucursalLlegadaDescripcion: string = null,
         // GuiaRemitente
         public guiaRemitenteId: number = null,
         public guiaRemitenteRutaGuia: string = null,
