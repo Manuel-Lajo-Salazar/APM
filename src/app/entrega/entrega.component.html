@@ -48,7 +48,7 @@
                         <span class="font-weight-bold">Fecha - Hora Salida:</span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
-                        {{transporte ? (transporte.fechaSalida | date:'dd/MM/yyyy hh:mm') : ''}}
+                        {{transporte ? (transporte.fechaSalida | date:'dd/MM/yyyy hh:mm a') : ''}}
                     </div>
                 </div>
                 <div class="row pt-2">
@@ -62,7 +62,7 @@
                         <span class="font-weight-bold">Fecha - Hora Llegada:</span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
-                        {{transporte ? (transporte.fechaLlegada | date:'dd/MM/yyyy hh:mm') : ''}}
+                        {{transporte ? (transporte.fechaLlegada | date:'dd/MM/yyyy hh:mm a') : ''}}
                     </div>
                 </div>
                 <div class="row pt-2">
