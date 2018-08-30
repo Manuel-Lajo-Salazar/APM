@@ -126,7 +126,7 @@
                 <div class="row pt-2">
                     <div class="col-xs-12 col-md-12 pt-2" style="font-size: 24px;">
                         <button type="button" class="btn btn-primary mr-3" [routerLink]="['/entregaLista', transporte.nroTransporte]">Ver Entregas</button>
-                        <button type="button" class="btn btn-primary" [routerLink]="['/entrega', transporte.nroTransporte]">Registrar Entrega</button>
+                        <button type="button" class="btn btn-primary" [routerLink]="['/entrega', 'T-' + transporte.id]">Registrar Entrega</button>
                     </div>
                 </div>
             </div>

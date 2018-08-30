@@ -1,11 +1,12 @@
 export class EntregaForListDto {
     constructor(
         public id: number = null,
-        public numero: string = null,
+        public nroEntrega: string = null,
         public codBarraEntrega: string = null,
         public fechaEntrega: Date = null,
         // Transporte
         public transporteId: number = null,
+        public transporteNroTransporte: number = null,
         public transporteFechaSalida: Date = null,
         public transporteFechaLlegada: Date = null,
         // pendientes de añadir en el backend

@@ -15,16 +15,16 @@ export class EntregaService {
 
   getRemitentes(filter: string): Observable<Cliente[]> {
     if (filter == null || filter === '') {
-      return this._http.get<Cliente[]>(`${this.testUrlApi}/clientes/tipo/1`);
+      return this._http.get<Cliente[]>(`${this.testUrlApi}/Remitentes`);
     }
-    return this._http.get<Cliente[]>(`${this.testUrlApi}/clientes/criterio/` + filter);
+    return this._http.get<Cliente[]>(`${this.testUrlApi}/Remitentes/criterio/` + filter);
   }
 
   getDestinatarios(filter: string): Observable<Cliente[]> {
     if (filter == null || filter === '') {
-      return this._http.get<Cliente[]>(`${this.testUrlApi}/clientes/tipo/2`);
+      return this._http.get<Cliente[]>(`${this.testUrlApi}/Destinatarios`);
     }
-    return this._http.get<Cliente[]>(`${this.testUrlApi}/clientes/criterio/` + filter);
+    return this._http.get<Cliente[]>(`${this.testUrlApi}/Destinatarios/criterio/` + filter);
   }
 
 

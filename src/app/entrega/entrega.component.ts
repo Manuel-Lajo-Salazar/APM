@@ -79,7 +79,7 @@ export class EntregaComponent implements OnInit {
     const param: string = this._route.snapshot.paramMap.get('id');
     if (param) {
       if (param.indexOf('T-') > -1) {
-        this.loadTransporte(param);
+        this.loadTransporte(Number(param.substring(2)));
         this.mostrarRegresar = true;
       } else {
         this.getEntrega(Number(param));
@@ -105,28 +105,8 @@ export class EntregaComponent implements OnInit {
     });
   }
 
-  // private validSucursalSalida(): ValidatorFn {
-  //   return (control: AbstractControl): { validSucursal: boolean } => {
-  //     if (!control.value && !jQuery("#sucursalSalidaDescripcion").val()) {
-  //       return { validSucursal: true };
-  //     }
-  //     return null;
-  //   }
-  // }
-
-  // private validSucursalSalida(control: AbstractControl) {
-  //   if (!control.value && !jQuery("#sucursalSalidaDescripcion").val()) {
-  //     return { validSucursal: true };
-  //   }
-  //   return null;
-  // }
-
-  loadTransporte(nroTransporte: string) {
-    /*COMENTAR-DESCOMENTAR-INICIO*/
-    // const id = nroTransporte.substring(4, 5);
-    // this.transporteService.getTransporte(Number(id))
-    this.transporteService.getTransportebyNumero(nroTransporte)
-    /*COMENTAR-DESCOMENTAR-FIN*/
+  loadTransporte(id: Number) {
+    this.transporteService.getTransporte(Number(id))
       .subscribe(response => {
         console.log(response);
         this.transporte = response;
@@ -148,7 +128,7 @@ export class EntregaComponent implements OnInit {
 
   loadEntregaForDisplay(entrega: Entrega) {
     this.model = entrega;
-    this.loadTransporte(entrega.transporteNumero);
+    this.loadTransporte(entrega.transporteId);
     this.remitente = {
       id: entrega.remitenteId,
       razonSocial: entrega.remitenteRazonSocial,
