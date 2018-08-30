@@ -159,15 +159,13 @@ export class EntregaComponent implements OnInit {
     if (entrega.sucursalSalidaId !== 1) {
       this.form.get('sucursalSalida').setValue(entrega.sucursalSalidaNombre + ', ' + entrega.sucursalSalidaDepartamento
         + ', ' + entrega.sucursalSalidaDireccion);
-    } else {
-      this.form.get('sucursalSalidaDescripcion').setValue(entrega.sucursalSalidaDescripcion);
     }
+    this.form.get('sucursalSalidaDescripcion').setValue(entrega.sucursalSalidaDescripcion);
     if (entrega.sucursalSalidaId !== 1) {
       this.form.get('sucursalLlegada').setValue(entrega.sucursalLlegadaNombre + ', ' + entrega.sucursalLlegadaDepartamento
         + ', ' + entrega.sucursalLlegadaDireccion);
-    } else {
-      this.form.get('sucursalLlegadaDescripcion').setValue(entrega.sucursalLlegadaDescripcion);
     }
+    this.form.get('sucursalLlegadaDescripcion').setValue(entrega.sucursalLlegadaDescripcion);
     this.form.get('fechaEntrega').setValue(new Date(entrega.fechaEntrega));
     this.form.get('horaEntrega').setValue(new Date(entrega.fechaEntrega));
     this.form.get('guiaRemitenteNroGuia').setValue(entrega.guiaRemitenteNroGuia);

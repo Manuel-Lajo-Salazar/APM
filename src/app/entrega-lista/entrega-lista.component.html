@@ -118,7 +118,7 @@
                         <span class="font-weight-bold">Sucursal de Salida:</span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
-                        {{entrega.sucursalSalidaId !== 1 ? entrega.sucursalSalidaNombre : entrega.sucursalSalidaDescripcion}}
+                        {{entrega.sucursalSalidaId !== 1 ? entrega.sucursalSalidaNombre + ', ' + entrega.sucursalSalidaDescripcion : entrega.sucursalSalidaDescripcion}}
                     </div>
                     <div class="col-xs-5 col-md-3 pt-2">
                         <span class="font-weight-bold">Fecha de Salida:</span>
@@ -130,7 +130,7 @@
                         <span class="font-weight-bold">Sucursal de Llegada:</span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
-                        {{entrega.sucursalLlegadaId !== 1 ? entrega.sucursalLlegadaNombre : entrega.sucursalLlegadaDescripcion}}
+                        {{entrega.sucursalLlegadaId !== 1 ? entrega.sucursalLlegadaNombre + ', ' + entrega.sucursalLlegadaDescripcion : entrega.sucursalLlegadaDescripcion}}
                     </div>
                     <div class="col-xs-5 col-md-3 pt-2">
                         <span class="font-weight-bold">Fecha de Llegada:</span>
