@@ -75,7 +75,7 @@ export class EntregaService {
         'Content-Type': 'application/json'
       })
     };
-    return this._http.delete<any>(`${this.testUrlApi}/entregas/delete${id}`, httpOptions);
+    return this._http.put<any>(`${this.testUrlApi}/entregas/delete`, id, httpOptions);
   }
 
   // para recuperar una Entrega específica según su id
