@@ -1,6 +1,6 @@
 export class EntregaCriteria {
     constructor(
-        public numero: string = null,
+        public nroEntrega: string = null,
         public nroTransporte: string = null,
         public fechaSalida: Date = null,
         public fechaLlegada: Date = null,
