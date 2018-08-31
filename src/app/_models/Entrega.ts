@@ -58,6 +58,7 @@ export class Entrega {
         public guiaRemitenteRutaGuia: string = null,
         public guiaRemitenteNroGuia: string = null,
         public guiaRemitenteNroBulto: string = null,
+        public guiaRemitenteVolumen: string = null,
 
         // GuiaEntrega
         public guiaEntregaId: number = null,

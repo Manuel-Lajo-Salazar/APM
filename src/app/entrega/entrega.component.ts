@@ -102,6 +102,7 @@ export class EntregaComponent implements OnInit {
       horaEntrega: [new Date(), Validators.required],
       guiaRemitenteNroGuia: ['', Validators.required],
       guiaRemitenteNroBulto: ['', Validators.required],
+      guiaRemitenteVolumen: ['', Validators.required],
     });
   }
 
@@ -170,6 +171,7 @@ export class EntregaComponent implements OnInit {
     this.form.get('horaEntrega').setValue(new Date(entrega.fechaEntrega));
     this.form.get('guiaRemitenteNroGuia').setValue(entrega.guiaRemitenteNroGuia);
     this.form.get('guiaRemitenteNroBulto').setValue(entrega.guiaRemitenteNroBulto);
+    this.form.get('guiaRemitenteVolumen').setValue(entrega.guiaRemitenteVolumen);
   }
 
   saveWithAttachment(): any {
@@ -265,6 +267,7 @@ export class EntregaComponent implements OnInit {
     this.form.get('horaEntrega').markAsDirty();
     this.form.get('guiaRemitenteNroGuia').markAsDirty();
     this.form.get('guiaRemitenteNroBulto').markAsDirty();
+    this.form.get('guiaRemitenteVolumen').markAsDirty();
   }
 
   loadEntregaModelForSave() {
@@ -287,7 +290,8 @@ export class EntregaComponent implements OnInit {
       entrega,
       null,
       String(this.form.get('guiaRemitenteNroGuia').value),
-      Number(this.form.get('guiaRemitenteNroBulto').value)
+      Number(this.form.get('guiaRemitenteNroBulto').value),
+      String(this.form.get('guiaRemitenteVolumen').value)
     );
 
     // const id = 4;

@@ -12,6 +12,7 @@ export class EntregaForCreate {
         // Guia Remitente
         public rutaGuiaRemitente: string = null,
         public nroGuiaRemitente: string = null,
-        public nroBultoRemitente: number = null
+        public nroBultoRemitente: number = null,
+        public volumenRemitente: string = null
     ) {}
 }
