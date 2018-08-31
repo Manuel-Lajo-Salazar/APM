@@ -97,10 +97,33 @@
                         {{entrega.transporteNroTransporte}}
                     </div>
                     <div class="col-xs-5 col-md-3 pt-2">
-                        <span class="font-weight-bold">Nro. Bultos:</span>
+                        <span class="font-weight-bold"></span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
-                        {{entrega.guiaRemitenteNroBulto}}
+                    </div>
+                    <div class="col-xs-5 col-md-3 pt-2">
+                        <span class="font-weight-bold">Sucursal de Salida:</span>
+                    </div>
+                    <div class="col-xs-6 col-md-3 pt-2">
+                        {{entrega.transporteSucursalSalidaId !== 1 ? entrega.sucursalSalidaNombre :  '' }}
+                    </div>
+                    <div class="col-xs-5 col-md-3 pt-2">
+                        <span class="font-weight-bold">Fecha de Salida:</span>
+                    </div>
+                    <div class="col-xs-6 col-md-3 pt-2">
+                        {{entrega.transporteFechaSalida | date:'dd/MM/yyyy hh:mm a'}}
+                    </div>
+                    <div class="col-xs-5 col-md-3 pt-2">
+                        <span class="font-weight-bold">Sucursal de Llegada:</span>
+                    </div>
+                    <div class="col-xs-6 col-md-3 pt-2">
+                        {{entrega.transporteSucursalLlegadaId !== 1 ? entrega.sucursalLlegadaNombre :  '' }}
+                    </div>
+                    <div class="col-xs-5 col-md-3 pt-2">
+                        <span class="font-weight-bold">Fecha de Llegada:</span>
+                    </div>
+                    <div class="col-xs-6 col-md-3 pt-2">
+                        {{entrega.transporteFechaLlegada | date:'dd/MM/yyyy hh:mm a'}}
                     </div>
                     <div class="col-xs-5 col-md-3 pt-2">
                         <span class="font-weight-bold">Remitente:</span>
@@ -115,30 +138,41 @@
                         {{entrega.destinatarioRazonSocial}}
                     </div>
                     <div class="col-xs-5 col-md-3 pt-2">
-                        <span class="font-weight-bold">Sucursal de Salida:</span>
+                        <span class="font-weight-bold">Sucursal de Origen:</span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
                         {{entrega.sucursalSalidaId !== 1 ? entrega.sucursalSalidaNombre + 
                             ( entrega.sucursalSalidaDescripcion !== null ? ', ' + entrega.sucursalSalidaDescripcion : '') :  entrega.sucursalSalidaDescripcion }}
                     </div>
                     <div class="col-xs-5 col-md-3 pt-2">
-                        <span class="font-weight-bold">Fecha de Salida:</span>
+                        <span class="font-weight-bold">Fecha de Entrega:</span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
-                        {{entrega.transporteFechaSalida | date:'dd/MM/yyyy hh:mm a'}}
+                        {{entrega.fechaEntrega | date:'dd/MM/yyyy hh:mm a'}}
                     </div>
                     <div class="col-xs-5 col-md-3 pt-2">
-                        <span class="font-weight-bold">Sucursal de Llegada:</span>
+                        <span class="font-weight-bold">Sucursal de Destino:</span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
                         {{entrega.sucursalLlegadaId !== 1 ? entrega.sucursalLlegadaNombre + 
                             ( entrega.sucursalLlegadaDescripcion !== null ? ', ' + entrega.sucursalLlegadaDescripcion : '') :  entrega.sucursalLlegadaDescripcion }}
                     </div>
                     <div class="col-xs-5 col-md-3 pt-2">
-                        <span class="font-weight-bold">Fecha de Llegada:</span>
+                        <span class="font-weight-bold"></span>
                     </div>
                     <div class="col-xs-6 col-md-3 pt-2">
-                        {{entrega.transporteFechaLlegada | date:'dd/MM/yyyy hh:mm a'}}
+                    </div>
+                    <div class="col-xs-5 col-md-3 pt-2">
+                        <span class="font-weight-bold">Nro. Guía Remitente:</span>
+                    </div>
+                    <div class="col-xs-6 col-md-3 pt-2">
+                        {{entrega.guiaRemitenteNroGuia}}
+                    </div>
+                    <div class="col-xs-5 col-md-3 pt-2">
+                        <span class="font-weight-bold">Nro. Bultos:</span>
+                    </div>
+                    <div class="col-xs-6 col-md-3 pt-2">
+                        {{entrega.guiaRemitenteNroBulto}}
                     </div>
                 </div>
             </div>

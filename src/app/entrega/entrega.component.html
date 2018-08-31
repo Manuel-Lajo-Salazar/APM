@@ -155,11 +155,15 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-12 mb-3">
-                        <label for="numeroGuia">Nro. de Guía</label>
+                        <label for="numeroGuia">Nro. de Guía Remitente</label>
                         <input type="text" formControlName="guiaRemitenteNroGuia" id="numeroGuia" class="form-control" [ngClass]="{'is-invalid': formValidation('guiaRemitenteNroGuia')}">
                     </div>
                     <div class="col-md-3 col-sm-12 mb-3">
                         <label for="numeroBulto">Nro. de Bultos</label>
+                        <input type="text" formControlName="guiaRemitenteNroBulto" id="numeroBulto" class="form-control" [ngClass]="{'is-invalid': formValidation('guiaRemitenteNroBulto')}">
+                    </div>
+                    <div class="col-md-3 col-sm-12 mb-3">
+                        <label for="numeroBulto">Volumen</label>
                         <input type="text" formControlName="guiaRemitenteNroBulto" id="numeroBulto" class="form-control" [ngClass]="{'is-invalid': formValidation('guiaRemitenteNroBulto')}">
                     </div>
                 </div>
