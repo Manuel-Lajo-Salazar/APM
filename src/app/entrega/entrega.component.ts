@@ -197,6 +197,8 @@ export class EntregaComponent implements OnInit {
   save(): any {
     if (!this.form.valid) {
       this.markInputsAsDirty();
+    } else if (this.validarFechas()) {
+      return;
     } else {
       this.loadEntregaModelForSave();
       /*COMENTAR-DESCOMENTAR-INICIO*/
@@ -340,6 +342,7 @@ export class EntregaComponent implements OnInit {
     //   null, // guiaRemitenteRutaGuia
     //   String(this.form.get('guiaRemitenteNroGuia').value),
     //   String(this.form.get('guiaRemitenteNroBulto').value),
+    //   String(this.form.get('guiaRemitenteVolumen').value),
     //   0, // guiaEntregaId
     //   null // guiaEntregaNroGuia
     // );
@@ -511,6 +514,21 @@ export class EntregaComponent implements OnInit {
   formValidation(controlName: string): boolean {
     const control = this.form.get(controlName);
     return (control.dirty && control.errors) ? true : false;
+  }
+
+  validarFechas(): boolean {
+    const salida = this.transporte ? new Date(this.transporte.fechaSalida) : null;
+    const llegada = this.transporte ? new Date(this.transporte.fechaLlegada) : null;
+    const fEntrega: Date = this.form.get('fechaEntrega').value;
+    const hEntrega: Date = this.form.get('horaEntrega').value;
+
+    if (!salida || !llegada|| !fEntrega || !hEntrega) {
+      return false;
+    }
+
+    const entrega = new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes());
+
+    return (entrega > llegada || entrega < salida);
   }
 
 }

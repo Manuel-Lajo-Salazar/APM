@@ -92,7 +92,7 @@ export class AutoCompleteComponent implements OnInit {
     } else if (event.keyCode === 38 && this.selectedIndex > 0) {
       this.selectedIndex--;
     } else if (event.keyCode === 13) {
-      this.select(this.config.searchList[this.selectedIndex]);
+      this.select(this.selectedIndex !== -1 ? this.config.searchList[this.selectedIndex] : this.config.searchList[0]);
       return;
     } else {
       if (!this.controlPressed && (event.key.length === 1 || event.keyCode === 8 || event.keyCode === 46)) {

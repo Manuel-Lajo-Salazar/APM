@@ -53,6 +53,15 @@ export class TransporteMockService {
         return this._http.post<any>(`${this.testUrlApi}/transportes`, transporte, httpOptions);
     }
 
+    deleteTransporte(id: any): Observable<any> {
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+          })
+        };
+        return this._http.put<any>(`${this.testUrlApi}/transportes/delete`, id, httpOptions);
+      }
+    
     // para recuperar un Transporte específico según su id
     getTransporte(id: Number): Observable<any> {
         return this._http.get<any>(`${this.testUrlApi}/transportes/${id}`);

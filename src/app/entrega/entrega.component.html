@@ -138,6 +138,9 @@
                             <p-calendar formControlName="fechaEntrega" dateFormat="dd/mm/yy" showIcon="true">
                             </p-calendar>
                         </div>
+                        <div style="color: red;" *ngIf="validarFechas()">
+                            La fecha de entrega debe estar entre la fecha de salida y la de llegada
+                        </div>
                     </div>
                     <div class="col-md-3 col-sm-12 mb-3">
                         <label>Hora Entrega</label>
