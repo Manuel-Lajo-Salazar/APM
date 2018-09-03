@@ -193,7 +193,7 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 mb-3">
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="save()" [attr.disabled]="mostrarMensajeExito">Grabar</button>
-            <!-- <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="saveWithAttachment()" [attr.disabled]="mostrarMensajeExito">Grabar con Adjunto</button> -->
+            <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="saveWithAttachment()" [attr.disabled]="mostrarMensajeExito">Grabar con Adjunto</button>
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarVerEntregas" (click)="verEntregas()">Ver Entregas</button>
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarRegresar" (click)="regresar()">Regresar</button>
             <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarEliminar" (click)="delete()">Eliminar</button>

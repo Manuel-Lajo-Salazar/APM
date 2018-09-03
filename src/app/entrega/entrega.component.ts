@@ -522,7 +522,7 @@ export class EntregaComponent implements OnInit {
     const fEntrega: Date = this.form.get('fechaEntrega').value;
     const hEntrega: Date = this.form.get('horaEntrega').value;
 
-    if (!salida || !llegada|| !fEntrega || !hEntrega) {
+    if (!salida || !llegada || !fEntrega || !hEntrega) {
       return false;
     }
 
