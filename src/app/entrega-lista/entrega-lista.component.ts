@@ -28,6 +28,7 @@ export class EntregaListaComponent implements OnInit {
   form: FormGroup;
 
   loadIcon: boolean;
+  resultsLoadIcon: boolean;
 
   configSucursalSalida: AutoComplete;
   sucursalSalida: Sucursal;
@@ -94,10 +95,12 @@ export class EntregaListaComponent implements OnInit {
       this.form.get('remitente').value ? this.form.get('remitente').value : null,
       this.form.get('destinatario').value ? this.form.get('destinatario').value : null,
     );
+    this.resultsLoadIcon = true;
     this.entregaService.searchEntregas(this.model)
       .subscribe(response => {
         console.log(response);
         this.resultados = response;
+        this.resultsLoadIcon = false;
       }, error => {
         console.log(error);
       });

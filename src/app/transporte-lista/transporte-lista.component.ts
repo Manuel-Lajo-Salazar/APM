@@ -25,6 +25,7 @@ export class TransporteListaComponent implements OnInit {
   form: FormGroup;
 
   loadIcon: boolean;
+  resultsLoadIcon: boolean;
 
   configVehiculo: AutoComplete;
   vehiculo: Vehiculo;
@@ -77,10 +78,12 @@ export class TransporteListaComponent implements OnInit {
       this.sucursalLlegada ? this.sucursalLlegada.id : null,
       this.vehiculo ? this.vehiculo.placa : null,
     );
+    this.resultsLoadIcon = true;
     this.transporteService.searchTransportes(this.model)
       .subscribe(response => {
         console.log(response);
         this.resultados = response;
+        this.resultsLoadIcon = false;
       }, error => {
         console.log(error);
       });

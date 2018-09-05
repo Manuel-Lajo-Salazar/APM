@@ -203,7 +203,7 @@ export class TransporteComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se actualizó exitosamente el Nro de Transporte T-00${response.id}.</span>` +
+        this.mensajeExito = `<span class="fw-semi-bold">Se actualizó exitosamente el Nro de Transporte ${response.nroTransporte}.</span>` +
           `<a class="btn btn-default btn-xs float-right mr-5" href="/transporte">Grabar otro</a>`;
       }, error => {
         console.log(error);
@@ -212,12 +212,18 @@ export class TransporteComponent implements OnInit {
       });
   }
 
+  confirmDelete() {
+    const answer = confirm('¿Confirmar eliminación de Transporte?');
+    if (answer) {
+      this.delete();
+    }
+  }
+
   delete() {
     this.transporteService.deleteTransporte(this.model.id)
       .subscribe(response => {
         console.log(response);
-        this.mostrarMensajeExito = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se eliminó exitosamente el Nro de Transporte ${this.model.nroTransporte}.</span>`;
+        this._router.navigate(['/transporte']);
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
@@ -243,18 +249,20 @@ export class TransporteComponent implements OnInit {
     const hSalida: Date = this.form.get('horaSalida').value;
     const fLlegada: Date = this.form.get('fechaLlegada').value;
     const hLlegada: Date = this.form.get('horaLlegada').value;
-    const salida = new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes());
-    const llegada = new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes());
-    salida.setHours(salida.getHours() - 5);
-    llegada.setHours(llegada.getHours() - 5);
+    const fechaSalida =
+      new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes());
+    const fechaLlegada =
+      new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes());
+    fechaSalida.setHours(fechaSalida.getHours() - 5);
+    fechaLlegada.setHours(fechaLlegada.getHours() - 5);
 
     /*COMENTAR-DESCOMENTAR-INICIO*/
 
     this.modelForCreate = new TransporteForCreate(
       this.model ? this.model.id : 0,
       Boolean(this.form.get('activo').value),
-      salida,
-      llegada,
+      fechaSalida,
+      fechaLlegada,
       Number(this.form.get('tipoTransporte').value),
       Number(this.sucursalSalida.id),
       Number(this.sucursalLlegada.id),
@@ -264,13 +272,15 @@ export class TransporteComponent implements OnInit {
     );
 
     // const id = 4;
+    // fechaSalida.setHours(fechaSalida.getHours() + 5);
+    // fechaLlegada.setHours(fechaLlegada.getHours() + 5);
     // this.model = new Transporte(
     //   this.model ? this.model.id : id,
     //   this.model ? this.model.nroTransporte : `T-00${id}`,
     //   Boolean(this.form.get('activo').value),
     //   true,
-    //   new Date(fSalida.getFullYear(), fSalida.getMonth(), fSalida.getDate(), hSalida.getHours(), hSalida.getMinutes()),
-    //   new Date(fLlegada.getFullYear(), fLlegada.getMonth(), fLlegada.getDate(), hLlegada.getHours(), hLlegada.getMinutes()),
+    //   fechaSalida,
+    //   fechaLlegada,
     //   Number(this.form.get('tipoTransporte').value),
     //   Number(this.sucursalSalida.id),
     //   this.sucursalSalida.nombre,

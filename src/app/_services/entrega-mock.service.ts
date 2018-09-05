@@ -61,7 +61,7 @@ export class EntregaMockService {
         };
         return this._http.put<any>(`${this.testUrlApi}/entregas/delete`, id, httpOptions);
     }
-    
+
     // para recuperar una Entrega específica según su id
     getEntrega(id: Number): Observable<any> {
         return this._http.get<any>(`${this.testUrlApi}/entregas/${id}`);

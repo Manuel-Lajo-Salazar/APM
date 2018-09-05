@@ -10,7 +10,7 @@ export class EntregaForCreate {
         public sucursalLlegadaDescripcion: string = null,
         public fechaEntrega: Date = null,
         // Guia Remitente
-        public rutaGuiaRemitente: string = null,
+        public nombreGuiaRemitente: string = null,
         public nroGuiaRemitente: string = null,
         public nroBultoRemitente: number = null,
         public volumenRemitente: string = null

@@ -5,9 +5,9 @@ export class EntregaCriteria {
         public fechaSalida: Date = null,
         public fechaLlegada: Date = null,
         public sucursalSalidaId: number = null,
-        public sucursalSalida: string = null,
+        public SucursalSalidaDescripcion: string = null,
         public sucursalLlegadaId: number = null,
-        public sucursalLlegada: string = null,
+        public sucursalLlegadaDescripcion: string = null,
         public remitente: string = null,
         public destinatario: string = null
     ) {}

@@ -44,21 +44,8 @@ export class EntregaService {
     formData.append('entrega', JSON.stringify(entrega));
     formData.append('file', file);
 
-    // const httpOptions = {
-    //     headers: new HttpHeaders({
-    //         'Content-Type': 'application/json'
-    //     })
-    // };
-    // return this._http.post<any>(`${this.testUrlApi}/entregas/upload`, formData, { responseType: 'text' });
     return this._http.post(`${this.testUrlApi}/entregas/upload`, formData, { responseType: 'text' });
 }
-
-// create(cdsLicense: CdsLicense, licenseFile: File): Observable<string> {
-//     const formData = new FormData();
-//     formData.append('providerCdsLicense', JSON.stringify(cdsLicense));
-//     formData.append('file', licenseFile);
-//     return this.http.post(this.cdsLicenseApiUrl, formData, { responseType: 'text' });
-// }
 
   updateEntrega(entrega: any): Observable<any> {
     const httpOptions = {

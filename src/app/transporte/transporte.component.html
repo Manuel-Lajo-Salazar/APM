@@ -1,9 +1,9 @@
-<div class="container pt-3 transporte-titulo">
+<div class="container pt-3">
     <h3 class="font-weight-bold">Registrar Transporte</h3>
 </div>
 <div class="container" [formGroup]="form">
     <div class="card-deck pt-3 pb-3">
-        <div class="card transporte-card">
+        <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -37,7 +37,7 @@
     </div>
 
     <div class="card-deck pt-3 pb-3">
-        <div class="card transporte-card">
+        <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-12 mb-3">
@@ -165,7 +165,7 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 mb-3">
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="save()" [attr.disabled]="mostrarMensajeExito">Grabar</button>
-            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarEliminar" (click)="delete()">Eliminar</button>
+            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarEliminar" (click)="confirmDelete()">Eliminar</button>
         </div>
     </div>
 </div>

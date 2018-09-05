@@ -100,14 +100,15 @@ export class EntregaComponent implements OnInit {
       sucursalLlegadaDescripcion: ['', []],
       fechaEntrega: [new Date(), Validators.required],
       horaEntrega: [new Date(), Validators.required],
-      guiaRemitenteNroGuia: ['', Validators.required],
-      guiaRemitenteNroBulto: ['', Validators.required],
-      guiaRemitenteVolumen: ['', Validators.required],
+      nombreGuiaRemitente: ['', []],
+      nroGuiaRemitente: ['', Validators.required],
+      nroBultoRemitente: ['', Validators.required],
+      volumenRemitente: ['', Validators.required],
     });
   }
 
   loadTransporte(id: Number) {
-    this.transporteService.getTransporte(Number(id))
+    this.transporteService.getTransporte(id)
       .subscribe(response => {
         console.log(response);
         this.transporte = response;
@@ -154,7 +155,7 @@ export class EntregaComponent implements OnInit {
       departamento: entrega.sucursalLlegadaDepartamento,
       direccion: entrega.sucursalLlegadaDireccion
     };
-    this.form.get('transporte').setValue(entrega.transporteNumero);
+    this.form.get('transporte').setValue(entrega.transporteNroTransporte);
     this.form.get('remitente').setValue(entrega.remitenteRazonSocial + ', ' + entrega.remitenteRuc);
     this.form.get('destinatario').setValue(entrega.destinatarioRazonSocial + ', ' + entrega.destinatarioRuc);
     if (entrega.sucursalSalidaId !== 1) {
@@ -169,9 +170,9 @@ export class EntregaComponent implements OnInit {
     this.form.get('sucursalLlegadaDescripcion').setValue(entrega.sucursalLlegadaDescripcion);
     this.form.get('fechaEntrega').setValue(new Date(entrega.fechaEntrega));
     this.form.get('horaEntrega').setValue(new Date(entrega.fechaEntrega));
-    this.form.get('guiaRemitenteNroGuia').setValue(entrega.guiaRemitenteNroGuia);
-    this.form.get('guiaRemitenteNroBulto').setValue(entrega.guiaRemitenteNroBulto);
-    this.form.get('guiaRemitenteVolumen').setValue(entrega.guiaRemitenteVolumen);
+    this.form.get('nroGuiaRemitente').setValue(entrega.guiaRemitenteNroGuia);
+    this.form.get('nroBultoRemitente').setValue(entrega.guiaRemitenteNroBulto);
+    this.form.get('volumenRemitente').setValue(entrega.guiaRemitenteVolumen);
   }
 
   saveWithAttachment(): any {
@@ -222,7 +223,7 @@ export class EntregaComponent implements OnInit {
         this.mostrarMensajeExito = true;
         this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Entrega ${response.nroEntrega}.</span>` +
           `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.id}">Ver/Actualizar</a>` +
-          `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.transporteNumero}">Grabar otra</a>`;
+          `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/T-${response.transporteId}">Grabar otra</a>`;
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
@@ -236,8 +237,8 @@ export class EntregaComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se actualizó exitosamente el Nro de Entrega T-00${response.id}.</span>` +
-          `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega">Grabar otra</a>`;
+        this.mensajeExito = `<span class="fw-semi-bold">Se actualizó exitosamente el Nro de Entrega ${response.nroEntrega}.</span>` +
+          `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.transporteNumero}">Grabar otra</a>`;
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
@@ -245,13 +246,18 @@ export class EntregaComponent implements OnInit {
       });
   }
 
+  confirmDelete() {
+    const answer = confirm('¿Confirmar eliminación de Entrega?');
+    if (answer) {
+      this.delete();
+    }
+  }
 
   delete() {
     this.entregaService.deleteEntrega(this.model.id)
       .subscribe(response => {
         console.log(response);
-        this.mostrarMensajeExito = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se eliminó exitosamente el Nro de Entrega ${this.model.nroEntrega}.</span>`;
+        this._router.navigate(['/entrega']);
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
@@ -267,16 +273,17 @@ export class EntregaComponent implements OnInit {
     this.form.get('sucursalLlegada').markAsDirty();
     this.form.get('fechaEntrega').markAsDirty();
     this.form.get('horaEntrega').markAsDirty();
-    this.form.get('guiaRemitenteNroGuia').markAsDirty();
-    this.form.get('guiaRemitenteNroBulto').markAsDirty();
-    this.form.get('guiaRemitenteVolumen').markAsDirty();
+    this.form.get('nroGuiaRemitente').markAsDirty();
+    this.form.get('nroBultoRemitente').markAsDirty();
+    this.form.get('volumenRemitente').markAsDirty();
   }
 
   loadEntregaModelForSave() {
     const fEntrega: Date = this.form.get('fechaEntrega').value;
     const hEntrega: Date = this.form.get('horaEntrega').value;
-    const entrega = new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes());
-    entrega.setHours(entrega.getHours() - 5);
+    const fechaEntrega =
+      new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes());
+    fechaEntrega.setHours(fechaEntrega.getHours() - 5);
 
     /*COMENTAR-DESCOMENTAR-INICIO*/
 
@@ -289,37 +296,27 @@ export class EntregaComponent implements OnInit {
       String(this.form.get('sucursalSalidaDescripcion').value),
       Number(this.sucursalLlegada.id),
       String(this.form.get('sucursalLlegadaDescripcion').value),
-      entrega,
-      null,
-      String(this.form.get('guiaRemitenteNroGuia').value),
-      Number(this.form.get('guiaRemitenteNroBulto').value),
-      String(this.form.get('guiaRemitenteVolumen').value)
+      fechaEntrega,
+      this.guiaRemitenteFile ? this.guiaRemitenteFile.name : '',
+      String(this.form.get('nroGuiaRemitente').value),
+      Number(this.form.get('nroBultoRemitente').value),
+      String(this.form.get('volumenRemitente').value)
     );
 
     // const id = 4;
+    // fechaEntrega.setHours(fechaEntrega.getHours() + 5);
     // this.model = new Entrega(
     //   this.model ? this.model.id : id,
-    //   this.model ? this.model.nroEntrega : `E-00${id}`,
     //   null, // codBarraEntrega
-    //   new Date(fEntrega.getFullYear(), fEntrega.getMonth(), fEntrega.getDate(), hEntrega.getHours(), hEntrega.getMinutes()),
+    //   fechaEntrega,
+    //   true,
+    //   this.model ? this.model.nroEntrega : `E-00${id}`,
     //   Number(this.transporte.id),
     //   this.transporte.nroTransporte,
     //   this.transporte.fechaSalida,
     //   this.transporte.fechaLlegada,
     //   this.transporte.sucursalSalidaId,
-    //   this.transporte.sucursalSalidaNombre,
-    //   this.transporte.sucursalSalidaDepartamento,
     //   this.transporte.sucursalLlegadaId,
-    //   this.transporte.sucursalLlegadaNombre,
-    //   this.transporte.sucursalLlegadaDepartamento,
-    //   this.transporte.colaboradorChoferId,
-    //   this.transporte.colaboradorChoferNombre,
-    //   this.transporte.colaboradorAuxiliarId,
-    //   this.transporte.colaboradorAuxiliarNombre,
-    //   this.transporte.vehiculoId,
-    //   this.transporte.vehiculoPlaca,
-    //   this.transporte.vehiculoCarga,
-    //   this.transporte.vehiculoVolumetria,
     //   Number(this.remitente.id),
     //   this.remitente.razonSocial,
     //   this.remitente.ruc,
@@ -339,10 +336,10 @@ export class EntregaComponent implements OnInit {
     //   this.sucursalLlegada.direccion,
     //   String(this.form.get('sucursalLlegadaDescripcion').value),
     //   0, // guiaRemitenteId
-    //   null, // guiaRemitenteRutaGuia
-    //   String(this.form.get('guiaRemitenteNroGuia').value),
-    //   String(this.form.get('guiaRemitenteNroBulto').value),
-    //   String(this.form.get('guiaRemitenteVolumen').value),
+    //   this.guiaRemitenteFile ? this.guiaRemitenteFile.name : '',
+    //   String(this.form.get('nroGuiaRemitente').value),
+    //   String(this.form.get('nroBultoRemitente').value),
+    //   String(this.form.get('volumenRemitente').value),
     //   0, // guiaEntregaId
     //   null // guiaEntregaNroGuia
     // );
