@@ -16,6 +16,8 @@ import { Destinatario } from '../_models/Destinatario';
 import { AutoComplete } from '../_models/AutoComplete';
 import { Router, ActivatedRoute } from '@angular/router';
 
+const JsBarcode = require('jsbarcode');
+
 declare let jQuery: any;
 
 @Component({
@@ -60,12 +62,32 @@ export class EntregaComponent implements OnInit {
 
   guiaRemitenteFile: File;
 
+  barCodes: any[];
+  showBarcodes: boolean;
+
   constructor(
     private entregaService: EntregaService,
     private transporteService: TransporteService,
     private formBuilder: FormBuilder,
     private _route: ActivatedRoute,
     private _router: Router) { }
+
+  getBarcodes() {
+    return [
+      {
+        id: 'id-1',
+        code: '1234567890',
+      },
+      {
+        id: 'id-2',
+        code: '0987654321',
+      },
+      {
+        id: 'id-3',
+        code: '7890123456',
+      }
+    ];
+  }
 
   ngOnInit() {
     jQuery('.prime-sidebar').show();
@@ -87,6 +109,15 @@ export class EntregaComponent implements OnInit {
       }
       this.mostrarVerEntregas = true;
     }
+    this.barCodes = this.getBarcodes();
+  }
+
+  showCodes() {
+    this.barCodes.forEach(function(item) {
+      // JsBarcode('#' + item.id, item.code);
+      JsBarcode('#' + item.id).init();
+    });
+    this.showBarcodes = true;
   }
 
   createForm() {

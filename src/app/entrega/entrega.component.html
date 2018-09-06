@@ -184,6 +184,17 @@
             </div>
         </div>
     </div>
+    
+    <div class="card-deck pt-2 mb-3" [class.hide]="!showBarcodes">
+        <div class="card">
+            <div class="card-body">
+                <div *ngFor="let barCode of barCodes">
+                    <!-- <svg id="{{barCode.id}}"></svg> -->
+                    <svg id="{{barCode.id}}" [attr.jsbarcode-value]="barCode.code"></svg>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row" *ngIf="mostrarMensajeExito">
         <div class="col-md-12 col-sm-12 mb-3">
@@ -208,6 +219,7 @@
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarVerEntregas" (click)="verEntregas()">Ver Entregas</button>
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarRegresar" (click)="regresar()">Regresar</button>
             <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarEliminar" (click)="confirmDelete()">Eliminar</button>
+            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" (click)="showCodes()">Show Codes</button>
         </div>
     </div>
 </div>
