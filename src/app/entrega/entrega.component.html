@@ -197,7 +197,7 @@
         <div class="card">
             <div class="card-body">
                 <div *ngFor="let barCode of model.rotulo">
-                    <svg id="{{barCode.id}}" jsbarcode-format="EAN8" [attr.jsbarcode-value]="barCode.codigo"></svg>
+                    <svg id="{{'barcode-' + barCode.id}}" jsbarcode-format="EAN8" [attr.jsbarcode-value]="barCode.codigo"></svg>
                 </div>
             </div>
         </div>

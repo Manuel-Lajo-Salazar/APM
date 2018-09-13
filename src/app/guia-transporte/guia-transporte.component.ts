@@ -62,7 +62,7 @@ export class GuiaTransporteComponent implements OnInit {
         console.log(response);
         this.entrega = response;    
         this.loadTransporte(response.transporteId);
-        this.guiasCliente = response.guiasCliente;
+        this.guiasCliente = response.guiasCliente ? response.guiasCliente : [];
       }, error => {
         console.log(error);
       });

@@ -256,7 +256,7 @@
       "guiaEntregaId": 0,
       "guiaEntregaNroGuia": null,
       "rotulo": [
-        { "id": "id-1", "codigo": "9638507" }, { "id": "id-2", "codigo": "4532131" }, { "id": "id-3", "codigo": "6892482" }
+        { "id": "26", "codigo": "9638507" }, { "id": "id-2", "codigo": "4532131" }, { "id": "id-3", "codigo": "6892482" }
       ],
       "guiasCliente": [
         { "nombreGuia": "Nombre4", "nroGuia": "GC0004" }, { "nombreGuia": "Nombre5", "nroGuia": "GC0005" }, { "nombreGuia": "Nombre6", "nroGuia": "GC0006" }

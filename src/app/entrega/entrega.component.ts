@@ -101,7 +101,7 @@ export class EntregaComponent implements OnInit {
   showCodes() {
     JsBarcode('#mainCode').init();
     this.model.rotulo.forEach(function(item) {
-      JsBarcode('#' + item.id).init();
+      JsBarcode('#barCode-' + item.id).init();
     });
     this.showBarcodes = true;
   }
