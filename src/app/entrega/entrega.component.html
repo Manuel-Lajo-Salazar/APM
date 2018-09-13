@@ -185,12 +185,19 @@
         </div>
     </div>
     
-    <div class="card-deck pt-2 mb-3" [class.hide]="!showBarcodes">
+    <div class="card-deck pt-2 mb-3" [class.hide]="!showBarcodes" *ngIf="model">
         <div class="card">
             <div class="card-body">
-                <div *ngFor="let barCode of barCodes">
-                    <!-- <svg id="{{barCode.id}}"></svg> -->
-                    <svg id="{{barCode.id}}" [attr.jsbarcode-value]="barCode.code"></svg>
+                <svg id="mainCode" jsbarcode-format="EAN13" [attr.jsbarcode-value]="125698342105"></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-deck pt-2 mb-3" [class.hide]="!showBarcodes" *ngIf="model">
+        <div class="card">
+            <div class="card-body">
+                <div *ngFor="let barCode of model.rotulo">
+                    <svg id="{{barCode.id}}" jsbarcode-format="EAN8" [attr.jsbarcode-value]="barCode.codigo"></svg>
                 </div>
             </div>
         </div>
@@ -215,11 +222,11 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 mb-3">
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="save()" [attr.disabled]="mostrarMensajeExito">Grabar</button>
-            <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="saveWithAttachment()" [attr.disabled]="mostrarMensajeExito">Grabar con Adjunto</button>
+            <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarVerGuiaTransporte" (click)="verGuiaTransporte()">Ver Guía de Transporte</button>
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarVerEntregas" (click)="verEntregas()">Ver Entregas</button>
             <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" *ngIf="mostrarRegresar" (click)="regresar()">Regresar</button>
             <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarEliminar" (click)="confirmDelete()">Eliminar</button>
-            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" (click)="showCodes()">Show Codes</button>
+            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarCodigos" (click)="showCodes()">Ver Códigos de Barra</button>
         </div>
     </div>
 </div>

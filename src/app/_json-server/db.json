@@ -254,7 +254,13 @@
       "nroGuiaRemitente": "123123",
       "nroBultoRemitente": 12,
       "guiaEntregaId": 0,
-      "guiaEntregaNroGuia": null
+      "guiaEntregaNroGuia": null,
+      "rotulo": [
+        { "id": "id-1", "codigo": "9638507" }, { "id": "id-2", "codigo": "4532131" }, { "id": "id-3", "codigo": "6892482" }
+      ],
+      "guiasCliente": [
+        { "nombreGuia": "Nombre4", "nroGuia": "GC0004" }, { "nombreGuia": "Nombre5", "nroGuia": "GC0005" }, { "nombreGuia": "Nombre6", "nroGuia": "GC0006" }
+      ]
     },
     {
       "id": 2,
@@ -301,7 +307,13 @@
       "nroGuiaRemitente": "45645",
       "nroBultoRemitente": 2,
       "guiaEntregaId": 0,
-      "guiaEntregaNroGuia": null
+      "guiaEntregaNroGuia": null,
+      "rotulo": [
+        { "id": "id-1", "codigo": "9638507" }, { "id": "id-2", "codigo": "4532131" }
+      ],
+      "guiasCliente": [
+        { "nombreGuia": "Nombre4", "nroGuia": "GC0004" }, { "nombreGuia": "Nombre5", "nroGuia": "GC0005" }
+      ]
     },
     {
       "id": 3,
@@ -348,7 +360,13 @@
       "nroGuiaRemitente": "345345",
       "nroBultoRemitente": 2,
       "guiaEntregaId": 0,
-      "guiaEntregaNroGuia": null
+      "guiaEntregaNroGuia": null,
+      "rotulo": [
+        { "id": "id-1", "codigo": "9638507" }
+      ],
+      "guiasCliente": [
+        { "nombreGuia": "Nombre4", "nroGuia": "GC0004" }
+      ]
     }
   ]
 }

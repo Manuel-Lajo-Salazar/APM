@@ -16,6 +16,7 @@ import { Destinatario } from '../_models/Destinatario';
 import { AutoComplete } from '../_models/AutoComplete';
 import { Router, ActivatedRoute } from '@angular/router';
 
+declare var require: any
 const JsBarcode = require('jsbarcode');
 
 declare let jQuery: any;
@@ -36,7 +37,9 @@ export class EntregaComponent implements OnInit {
 
   mostrarRegresar: boolean;
   mostrarVerEntregas: boolean;
+  mostrarVerGuiaTransporte: boolean;
   mostrarEliminar: boolean;
+  mostrarCodigos: boolean;
 
   loadIcon: boolean;
 
@@ -62,7 +65,6 @@ export class EntregaComponent implements OnInit {
 
   guiaRemitenteFile: File;
 
-  barCodes: any[];
   showBarcodes: boolean;
 
   constructor(
@@ -71,23 +73,6 @@ export class EntregaComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _route: ActivatedRoute,
     private _router: Router) { }
-
-  getBarcodes() {
-    return [
-      {
-        id: 'id-1',
-        code: '1234567890',
-      },
-      {
-        id: 'id-2',
-        code: '0987654321',
-      },
-      {
-        id: 'id-3',
-        code: '7890123456',
-      }
-    ];
-  }
 
   ngOnInit() {
     jQuery('.prime-sidebar').show();
@@ -105,16 +90,17 @@ export class EntregaComponent implements OnInit {
         this.mostrarRegresar = true;
       } else {
         this.getEntrega(Number(param));
+        this.mostrarVerGuiaTransporte = true;
         this.mostrarEliminar = true;
+        this.mostrarCodigos = true;
       }
       this.mostrarVerEntregas = true;
     }
-    this.barCodes = this.getBarcodes();
   }
 
   showCodes() {
-    this.barCodes.forEach(function(item) {
-      // JsBarcode('#' + item.id, item.code);
+    JsBarcode('#mainCode').init();
+    this.model.rotulo.forEach(function(item) {
       JsBarcode('#' + item.id).init();
     });
     this.showBarcodes = true;
@@ -194,7 +180,7 @@ export class EntregaComponent implements OnInit {
         + ', ' + entrega.sucursalSalidaDireccion);
     }
     this.form.get('sucursalSalidaDescripcion').setValue(entrega.sucursalSalidaDescripcion);
-    if (entrega.sucursalSalidaId !== 1) {
+    if (entrega.sucursalLlegadaId !== 1) {
       this.form.get('sucursalLlegada').setValue(entrega.sucursalLlegadaNombre + ', ' + entrega.sucursalLlegadaDepartamento
         + ', ' + entrega.sucursalLlegadaDireccion);
     }
@@ -204,26 +190,6 @@ export class EntregaComponent implements OnInit {
     this.form.get('nroGuiaRemitente').setValue(entrega.guiaRemitenteNroGuia);
     this.form.get('nroBultoRemitente').setValue(entrega.guiaRemitenteNroBulto);
     this.form.get('volumenRemitente').setValue(entrega.guiaRemitenteVolumen);
-  }
-
-  saveWithAttachment(): any {
-    if (!this.form.valid) {
-      this.markInputsAsDirty();
-    } else {
-      this.loadEntregaModelForSave();
-      this.entregaService.createEntregaWithAttachment(this.modelForCreate, this.guiaRemitenteFile)
-        .subscribe(response => {
-          console.log(response);
-          this.mostrarMensajeExito = true;
-          this.mensajeExito = `<span class="fw-semi-bold">Se grabó exitosamente el Nro de Entrega ${response.nroEntrega}.</span>` +
-            `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.id}">Ver/Actualizar</a>` +
-            `<a class="btn btn-default btn-xs float-right mr-5" href="/entrega/${response.transporteNumero}">Grabar otra</a>`;
-        }, error => {
-          console.log(error);
-          this.mostrarMensajeError = true;
-          this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
-        });
-    }
   }
 
   save(): any {
@@ -258,7 +224,14 @@ export class EntregaComponent implements OnInit {
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+        this.mensajeError = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+      });
+
+    this.entregaService.saveAttachment(this.guiaRemitenteFile)
+      .subscribe(response => {
+        console.log(response);
+      }, error => {
+        console.log(error);
       });
   }
 
@@ -273,7 +246,14 @@ export class EntregaComponent implements OnInit {
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+        this.mensajeError = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+      });
+    
+    this.entregaService.saveAttachment(this.guiaRemitenteFile)
+      .subscribe(response => {
+        console.log(response);
+      }, error => {
+        console.log(error);
       });
   }
 
@@ -292,7 +272,7 @@ export class EntregaComponent implements OnInit {
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+        this.mensajeError = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
       });
   }
 
@@ -331,7 +311,8 @@ export class EntregaComponent implements OnInit {
       this.guiaRemitenteFile ? this.guiaRemitenteFile.name : '',
       String(this.form.get('nroGuiaRemitente').value),
       Number(this.form.get('nroBultoRemitente').value),
-      String(this.form.get('volumenRemitente').value)
+      String(this.form.get('volumenRemitente').value),
+      null  // revisar si se debe enviar null, [] o qué valor
     );
 
     // const id = 4;
@@ -372,18 +353,23 @@ export class EntregaComponent implements OnInit {
     //   String(this.form.get('nroBultoRemitente').value),
     //   String(this.form.get('volumenRemitente').value),
     //   0, // guiaEntregaId
-    //   null // guiaEntregaNroGuia
+    //   null, // guiaEntregaNroGuia
+    //   [{ id: "id-1", codigo: '9638507' }, { id: "id-2", codigo: '4532131' }, { id: "id-3", codigo: '6892482' }, { id: "id-4", codigo: '2345423' }]
     // );
 
     /*COMENTAR-DESCOMENTAR-FIN*/
   }
-
+  
   regresar() {
     this._router.navigate(['/transporteLista', this.transporte.nroTransporte]);
   }
 
   verEntregas() {
     this._router.navigate(['/entregaLista', this.transporte.nroTransporte]);
+  }
+
+  verGuiaTransporte() {
+    this._router.navigate(['/guiaTransporte', this.model.id]);
   }
 
   handleFileInput(files: FileList) {

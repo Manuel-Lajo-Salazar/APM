@@ -1,3 +1,6 @@
+import { Rotulo } from './Rotulo';
+import { GuiaCliente } from './GuiaCliente';
+
 export class Entrega {
     constructor(
         public id: number = null,
@@ -52,6 +55,7 @@ export class Entrega {
         public guiaEntregaNroGuia: string = null,
 
         // Rotulo
-        // public rotulo: Array<Rotulo> = null
+        public rotulo: Array<Rotulo> = null,
+        public guiasCliente: Array<GuiaCliente> = null
     ) {}
 }

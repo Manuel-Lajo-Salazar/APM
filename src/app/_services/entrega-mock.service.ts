@@ -29,20 +29,13 @@ export class EntregaMockService {
         return this._http.post<any>(`${this.testUrlApi}/entregas`, entrega, httpOptions);
     }
 
-    createEntregaWithAttachment(entrega: any, file: File): Observable<any> {
+    saveAttachment(file: File): Observable<any> {
         const formData = new FormData();
-        formData.append('entrega', entrega);
         formData.append('file', file);
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            })
-        };
-
-        return this._http.post<any>(`${this.testUrlApi}/entregas`, formData, httpOptions);
+    
+        return this._http.post(`${this.testUrlApi}/entregas/upload`, formData, { responseType: 'text' });
     }
-
+    
     // no funciona con json-server
     updateEntrega(entrega: any): Observable<any> {
         const httpOptions = {
@@ -72,4 +65,23 @@ export class EntregaMockService {
         return this._http.get<any[]>(`${this.testUrlApi}/entregas`);
     }
 
+    // no funciona con json-server
+    updateGuiaCliente(guiaTransporte: any): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this._http.post<any>(`${this.testUrlApi}/update/guiacliente`, guiaTransporte, httpOptions);
+    }
+
+    saveGuiaClienteAttachments(files: Array<File>): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this._http.post(`${this.testUrlApi}/entregas/uploads`, files, httpOptions);
+    }
+    
 }

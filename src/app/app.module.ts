@@ -31,6 +31,7 @@ import { AlertModule } from 'ngx-bootstrap';
 
 
 import 'jquery-slimscroll';
+import { GuiaTransporteComponent } from './guia-transporte/guia-transporte.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import 'jquery-slimscroll';
     TransporteComponent,
     TransporteListaComponent,
     EntregaComponent,
-    EntregaListaComponent
+    EntregaListaComponent,
+    GuiaTransporteComponent
 ],
   imports: [
     BrowserModule,

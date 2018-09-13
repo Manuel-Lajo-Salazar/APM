@@ -193,7 +193,7 @@ export class TransporteComponent implements OnInit {
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+        this.mensajeError = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
       });
   }
 
@@ -208,7 +208,7 @@ export class TransporteComponent implements OnInit {
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+        this.mensajeError = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
       });
   }
 
@@ -227,7 +227,7 @@ export class TransporteComponent implements OnInit {
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
+        this.mensajeError = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
       });
   }
 

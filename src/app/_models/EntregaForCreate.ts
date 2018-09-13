@@ -1,3 +1,5 @@
+import { GuiaCliente } from './GuiaCliente';
+
 export class EntregaForCreate {
     constructor(
         public id: number = null,
@@ -13,6 +15,7 @@ export class EntregaForCreate {
         public nombreGuiaRemitente: string = null,
         public nroGuiaRemitente: string = null,
         public nroBultoRemitente: number = null,
-        public volumenRemitente: string = null
+        public volumenRemitente: string = null,
+        public guiasCliente: Array<GuiaCliente> = null
     ) {}
 }

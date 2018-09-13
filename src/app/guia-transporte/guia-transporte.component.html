@@ -1,0 +1,165 @@
+<div class="container pt-3">
+  <h3 class="font-weight-bold">Guía de Transporte</h3>
+</div>
+<div class="container" [formGroup]="form">
+  <div class="card-deck pt-3 pb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row pt-2">
+          <div class="col-xs-5 col-md-3 pt-2">
+            <span class="font-weight-bold">Sucursal Salida:</span>
+          </div>
+          <div class="col-xs-6 col-md-3 pt-2">
+            {{transporte ? transporte.sucursalSalidaNombre + ' - ' + transporte.sucursalSalidaDepartamento : ''}}
+          </div>
+          <div class="col-xs-5 col-md-3 pt-2">
+            <span class="font-weight-bold">Sucursal Llegada:</span>
+          </div>
+          <div class="col-xs-6 col-md-3 pt-2">
+            {{transporte ? transporte.sucursalLlegadaNombre + ' - ' + transporte.sucursalLlegadaDepartamento : ''}}
+          </div>
+        </div>
+        <div class="row pt-2">
+          <div class="col-xs-5 col-md-3 pt-2">
+            <span class="font-weight-bold">Remitente:</span>
+          </div>
+          <div class="col-xs-6 col-md-3 pt-2">
+            {{entrega ? entrega.remitenteRazonSocial : ''}}
+          </div>
+          <div class="col-xs-5 col-md-3 pt-2">
+            <span class="font-weight-bold">Destinatario:</span>
+          </div>
+          <div class="col-xs-6 col-md-3 pt-2">
+            {{entrega ? entrega.destinatarioRazonSocial : ''}}
+          </div>
+        </div>
+        <div class="row pt-2">
+          <div class="col-xs-5 col-md-3 pt-2">
+            <span class="font-weight-bold">Fecha de Inicio de Traslado:</span>
+          </div>
+          <div class="col-xs-6 col-md-3 pt-2">
+            {{entrega ? (entrega.transporteFechaSalida | date:'dd/MM/yyyy hh:mm a') : ''}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5 class="font-weight-bold">Unidad de Transporte y Conductor</h5>
+  <div class="card-deck pt-3 pb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row pt-2">
+          <div class="col-xs-5 col-md-4 pt-2">
+            <span class="font-weight-bold">Marca y Nro. de Placa:</span>
+          </div>
+          <div class="col-xs-6 col-md-2 pt-2">
+              {{transporte ? transporte.vehiculoMarca + ' - ' + transporte.vehiculoPlaca : ''}}
+          </div>
+          <div class="col-xs-5 col-md-4 pt-2">
+            <span class="font-weight-bold">Nro. de Constancia de Inscripción:</span>
+          </div>
+          <div class="col-xs-6 col-md-2 pt-2">
+              {{transporte ? transporte.vehiculoNroInscripcion : ''}}
+          </div>
+        </div>
+        <div class="row pt-2">
+          <div class="col-xs-5 col-md-4 pt-2">
+            <span class="font-weight-bold">Código de Configuración Vehicular:</span>
+          </div>
+          <div class="col-xs-6 col-md-2 pt-2">
+              {{transporte ? transporte.vehiculoCodConfiguracion : ''}}
+          </div>
+          <div class="col-xs-5 col-md-4 pt-2">
+            <span class="font-weight-bold">Nro. de Licencia de Conducir:</span>
+          </div>
+          <div class="col-xs-6 col-md-2 pt-2">
+              {{transporte ? transporte.colaboradorChoferNroLicencia : ''}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5 class="font-weight-bold">Items</h5>
+  <div class="card-deck pt-3 pb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 col-sm-12 mb-3">
+            <label for="nroTransporte">Guía</label>
+            <div>
+              <input #attachInput type="file" (change)="handleFileInput($event.target.files)" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12 mb-3">
+            <label for="nroTransporte">Nro. de Guía</label>
+            <div>
+              <input type="text" formControlName="nroGuia" id="nroGuia" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 mb-3">
+            <div style="color: red;" *ngIf="invalidDatosGuiaCliente">
+              Adjunte un archivo e ingrese un Nro. para la Guía.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 mb-3">
+            <button type="button" class="btn btn-primary float-md-right mr-3" (click)="addGuiaCliente()">Agregar Guía</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card-deck pt-2" *ngFor="let guiaCliente of guiasCliente; index as i">
+    <div class="card">
+      <div class="card-body">
+        <div class="row pt-2">
+            <div class="col-xs-5 col-md-3 pt-2">
+                <span class="font-weight-bold">Nombre de Guía:</span>
+            </div>
+            <div class="col-xs-6 col-md-3 pt-2">
+                {{guiaCliente.nombreGuia}}
+            </div>
+            <div class="col-xs-5 col-md-3 pt-2">
+                <span class="font-weight-bold">Nro. de Guía:</span>
+            </div>
+            <div class="col-xs-6 col-md-3 pt-2">
+                {{guiaCliente.nroGuia}}
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-xs-12 col-md-12 pt-2" style="font-size: 24px;">
+                <button type="button" class="btn btn-primary" (click)="deleteGuiaCliente(i)">Eliminar</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row" *ngIf="mostrarMensajeExito">
+      <div class="col-md-12 col-sm-12 pt-3 mb-3">
+          <alert type="success">
+              <div [innerHTML]="mensajeExito"></div>
+          </alert>
+      </div>
+  </div>
+
+  <div class="row" *ngIf="mostrarMensajeError">
+      <div class="col-md-12 col-sm-12 pt-3 mb-3">
+          <alert type="danger">
+              <div [innerHTML]="mensajeError"></div>
+          </alert>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-12 col-sm-12 pt-3 mb-3">
+          <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="update()" [attr.disabled]="mostrarMensajeExito">Actualizar Entrega</button>
+      </div>
+  </div>
+</div>

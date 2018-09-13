@@ -39,13 +39,12 @@ export class EntregaService {
     return this._http.post<any>(`${this.testUrlApi}/entregas/create`, entrega, httpOptions);
   }
 
-  createEntregaWithAttachment(entrega: any, file: File): Observable<any> {
+  saveAttachment(file: File): Observable<any> {
     const formData = new FormData();
-    formData.append('entrega', JSON.stringify(entrega));
     formData.append('file', file);
 
     return this._http.post(`${this.testUrlApi}/entregas/upload`, formData, { responseType: 'text' });
-}
+  }
 
   updateEntrega(entrega: any): Observable<any> {
     const httpOptions = {
@@ -79,5 +78,23 @@ export class EntregaService {
     };
     return this._http.post<any[]>(`${this.testUrlApi}/entregas/criterio`, entregaCriteria, httpOptions);
   }
+
+  updateGuiaCliente(guiaTransporte: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this._http.put<any>(`${this.testUrlApi}/update/guiacliente`, guiaTransporte, httpOptions);
+  }
+
+  saveGuiaClienteAttachments(files: Array<File>): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this._http.post(`${this.testUrlApi}/entregas/uploads`, files, httpOptions);
+}
 
 }

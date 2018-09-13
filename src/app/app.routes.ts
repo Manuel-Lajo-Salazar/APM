@@ -4,6 +4,7 @@ import { TransporteListaComponent } from './transporte-lista/transporte-lista.co
 import { LoginComponent } from './login/login.component';
 import { EntregaComponent } from './entrega/entrega.component';
 import { EntregaListaComponent } from './entrega-lista/entrega-lista.component';
+import { GuiaTransporteComponent } from './guia-transporte/guia-transporte.component';
 
 
  const APP_ROUTES: Routes = [
@@ -16,6 +17,7 @@ import { EntregaListaComponent } from './entrega-lista/entrega-lista.component';
   { path: 'entrega', component: EntregaComponent },
   { path: 'entregaLista/:numero', component: EntregaListaComponent },
   { path: 'entregaLista', component: EntregaListaComponent },
+  { path: 'guiaTransporte/:id', component: GuiaTransporteComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
 
