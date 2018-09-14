@@ -33,14 +33,14 @@ export class TransporteService {
     if (filter == null || filter === '') {
       return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/tipo/1`);
     }
-    return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/criterio/` + filter);
+    return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/criterio/1/` + filter);
   }
 
   getAuxiliares(filter: string): Observable<Colaborador[]> {
     if (filter == null || filter === '') {
       return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/tipo/2`);
     }
-    return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/criterio/` + filter);
+    return this._http.get<Colaborador[]>(`${this.testUrlApi}/colaboradores/criterio/2/` + filter);
   }
 
 
