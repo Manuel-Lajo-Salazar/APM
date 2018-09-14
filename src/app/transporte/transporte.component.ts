@@ -1,6 +1,6 @@
 /*COMENTAR-DESCOMENTAR-INICIO*/
-import { TransporteService } from '../_services/transporte.service';
-// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+// import { TransporteService } from '../_services/transporte.service';
+import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 /*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit } from '@angular/core';
@@ -169,20 +169,20 @@ export class TransporteComponent implements OnInit {
     } else {
       this.loadTransporteModelForSave();
       /*COMENTAR-DESCOMENTAR-INICIO*/
-      // this.create();
-      if (this.model) {
-        this.update();
-      } else {
-        this.create();
-      }
+      this.create();
+      // if (this.model) {
+      //   this.update();
+      // } else {
+      //   this.create();
+      // }
       /*COMENTAR-DESCOMENTAR-FIN*/
     }
   }
 
   create() {
     /*COMENTAR-DESCOMENTAR-INICIO*/
-    // this.transporteService.createTransporte(this.model)
-    this.transporteService.createTransporte(this.modelForCreate)
+    this.transporteService.createTransporte(this.model)
+    // this.transporteService.createTransporte(this.modelForCreate)
     /*COMENTAR-DESCOMENTAR-FIN*/
       .subscribe(response => {
         console.log(response);
@@ -198,7 +198,6 @@ export class TransporteComponent implements OnInit {
   }
 
   update() {
-    // this.transporteService.updateTransporte(this.model)
     this.transporteService.updateTransporte(this.modelForCreate)
       .subscribe(response => {
         console.log(response);
@@ -258,56 +257,56 @@ export class TransporteComponent implements OnInit {
 
     /*COMENTAR-DESCOMENTAR-INICIO*/
 
-    this.modelForCreate = new TransporteForCreate(
-      this.model ? this.model.id : 0,
-      Boolean(this.form.get('activo').value),
-      fechaSalida,
-      fechaLlegada,
-      Number(this.form.get('tipoTransporte').value),
-      Number(this.sucursalSalida.id),
-      Number(this.sucursalLlegada.id),
-      Number(this.chofer.id),
-      Number(this.auxiliar.id),
-      Number(this.vehiculo.id)
-    );
-
-    // const id = 4;
-    // fechaSalida.setHours(fechaSalida.getHours() + 5);
-    // fechaLlegada.setHours(fechaLlegada.getHours() + 5);
-    // this.model = new Transporte(
-    //   this.model ? this.model.id : id,
-    //   this.model ? this.model.nroTransporte : `T-00${id}`,
+    // this.modelForCreate = new TransporteForCreate(
+    //   this.model ? this.model.id : 0,
     //   Boolean(this.form.get('activo').value),
-    //   true,
     //   fechaSalida,
     //   fechaLlegada,
     //   Number(this.form.get('tipoTransporte').value),
     //   Number(this.sucursalSalida.id),
-    //   this.sucursalSalida.nombre,
-    //   this.sucursalSalida.departamento,
-    //   this.sucursalSalida.direccion,
     //   Number(this.sucursalLlegada.id),
-    //   this.sucursalLlegada.nombre,
-    //   this.sucursalLlegada.departamento,
-    //   this.sucursalLlegada.direccion,
     //   Number(this.chofer.id),
-    //   this.chofer.nombre,
-    //   this.chofer.tipoDocumento,
-    //   this.chofer.nroDocumento,
-    //   this.chofer.nroLicencia,
     //   Number(this.auxiliar.id),
-    //   this.auxiliar.nombre,
-    //   this.auxiliar.tipoDocumento,
-    //   this.auxiliar.nroDocumento,
-    //   this.auxiliar.nroLicencia,
-    //   Number(this.vehiculo.id),
-    //   this.vehiculo.placa,
-    //   this.vehiculo.carga,
-    //   this.vehiculo.volumetria,
-    //   this.vehiculo.codConfiguracion,
-    //   this.vehiculo.nroInscripcion,
-    //   this.vehiculo.marca
+    //   Number(this.vehiculo.id)
     // );
+
+    const id = 4;
+    fechaSalida.setHours(fechaSalida.getHours() + 5);
+    fechaLlegada.setHours(fechaLlegada.getHours() + 5);
+    this.model = new Transporte(
+      this.model ? this.model.id : id,
+      this.model ? this.model.nroTransporte : `T-00${id}`,
+      Boolean(this.form.get('activo').value),
+      true,
+      fechaSalida,
+      fechaLlegada,
+      Number(this.form.get('tipoTransporte').value),
+      Number(this.sucursalSalida.id),
+      this.sucursalSalida.nombre,
+      this.sucursalSalida.departamento,
+      this.sucursalSalida.direccion,
+      Number(this.sucursalLlegada.id),
+      this.sucursalLlegada.nombre,
+      this.sucursalLlegada.departamento,
+      this.sucursalLlegada.direccion,
+      Number(this.chofer.id),
+      this.chofer.nombre,
+      this.chofer.tipoDocumento,
+      this.chofer.nroDocumento,
+      this.chofer.nroLicencia,
+      Number(this.auxiliar.id),
+      this.auxiliar.nombre,
+      this.auxiliar.tipoDocumento,
+      this.auxiliar.nroDocumento,
+      this.auxiliar.nroLicencia,
+      Number(this.vehiculo.id),
+      this.vehiculo.placa,
+      this.vehiculo.carga,
+      this.vehiculo.volumetria,
+      this.vehiculo.codConfiguracion,
+      this.vehiculo.nroInscripcion,
+      this.vehiculo.marca
+    );
 
     /*COMENTAR-DESCOMENTAR-FIN*/
   }
