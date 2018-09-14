@@ -56,6 +56,6 @@ export class Entrega {
 
         // Rotulo
         public rotulo: Array<Rotulo> = null,
-        public guiasCliente: Array<GuiaCliente> = null
+        public guiaCliente: Array<GuiaCliente> = null
     ) {}
 }

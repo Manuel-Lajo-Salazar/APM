@@ -188,7 +188,7 @@
     <div class="card-deck pt-2 mb-3" [class.hide]="!showBarcodes" *ngIf="model">
         <div class="card">
             <div class="card-body">
-                <svg id="mainCode" jsbarcode-format="EAN13" [attr.jsbarcode-value]="125698342105"></svg>
+                <svg id="mainCode" jsbarcode-format="EAN13" [attr.jsbarcode-value]="model.codBarraEntrega"></svg>
             </div>
         </div>
     </div>
@@ -197,7 +197,7 @@
         <div class="card">
             <div class="card-body">
                 <div *ngFor="let barCode of model.rotulo">
-                    <svg id="{{'barcode-' + barCode.id}}" jsbarcode-format="EAN8" [attr.jsbarcode-value]="barCode.codigo"></svg>
+                    <svg id="{{'barCode-' + barCode.id}}" jsbarcode-format="EAN8" [attr.jsbarcode-value]="barCode.codBarraRotulo"></svg>
                 </div>
             </div>
         </div>

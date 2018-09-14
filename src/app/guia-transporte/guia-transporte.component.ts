@@ -60,9 +60,9 @@ export class GuiaTransporteComponent implements OnInit {
     this.entregaService.getEntrega(id)
       .subscribe(response => {
         console.log(response);
-        this.entrega = response;    
+        this.entrega = response;
         this.loadTransporte(response.transporteId);
-        this.guiasCliente = response.guiasCliente ? response.guiasCliente : [];
+        this.guiasCliente = response.guiaCliente ? response.guiaCliente : [];
       }, error => {
         console.log(error);
       });
@@ -82,14 +82,14 @@ export class GuiaTransporteComponent implements OnInit {
     const modelForUpdate = {
       id: this.entrega.id,
       guiasCliente: this.guiasCliente
-    }
+    };
     console.log(modelForUpdate);
-    
     this.entregaService.updateGuiaCliente(modelForUpdate)
       .subscribe(response => {
         console.log(response);
         this.mostrarMensajeExito = true;
-        this.mensajeExito = `<span class="fw-semi-bold">Se actualizó exitosamente el Nro de Entrega ${this.entrega.nroEntrega} según la Guía de Transporte.</span>`;
+        this.mensajeExito = `<span class="fw-semi-bold">Se actualizó exitosamente el Nro de Entrega
+          ${this.entrega.nroEntrega} según la Guía de Transporte.</span>`;
       }, error => {
         console.log(error);
         this.mostrarMensajeError = true;

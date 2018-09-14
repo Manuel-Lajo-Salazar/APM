@@ -85,7 +85,7 @@ export class EntregaService {
         'Content-Type': 'application/json'
       })
     };
-    return this._http.put<any>(`${this.testUrlApi}/update/guiacliente`, guiaTransporte, httpOptions);
+    return this._http.put<any>(`${this.testUrlApi}/entregas/update/guiacliente`, guiaTransporte, httpOptions);
   }
 
   saveGuiaClienteAttachments(files: Array<File>): Observable<any> {
