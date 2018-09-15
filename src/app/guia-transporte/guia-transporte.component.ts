@@ -1,8 +1,8 @@
 /*COMENTAR-DESCOMENTAR-INICIO*/
-// import { EntregaService } from '../_services/entrega.service';
-// import { TransporteService } from '../_services/transporte.service';
-import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
-import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+import { EntregaService } from '../_services/entrega.service';
+import { TransporteService } from '../_services/transporte.service';
+// import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
+// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 /*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -52,6 +52,7 @@ export class GuiaTransporteComponent implements OnInit {
 
   createForm() {
     this.form = this.formBuilder.group({
+      guiaEntregaNroGuia: ['', Validators.required],
       nroGuia: ['', []]
     });
   }
@@ -61,6 +62,7 @@ export class GuiaTransporteComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.entrega = response;
+        this.form.get('guiaEntregaNroGuia').setValue(response.guiaEntregaNroGuia);
         this.loadTransporte(response.transporteId);
         this.guiasCliente = response.guiaCliente ? response.guiaCliente : [];
       }, error => {
@@ -78,9 +80,18 @@ export class GuiaTransporteComponent implements OnInit {
       });
   }
 
+  save(): any {
+    if (!this.form.valid) {
+      this.form.get('guiaEntregaNroGuia').markAsDirty();
+    } else {
+      this.update();
+    }
+  }
+
   update() {
     const modelForUpdate = {
       id: this.entrega.id,
+      guiaEntregaNroGuia: this.form.get('guiaEntregaNroGuia').value,
       guiasCliente: this.guiasCliente
     };
     console.log(modelForUpdate);
@@ -122,8 +133,13 @@ export class GuiaTransporteComponent implements OnInit {
   }
 
   deleteGuiaCliente(index: number) {
-    //
     this.guiasCliente.splice(index, 1);
+  }
+
+
+  formValidation(controlName: string): boolean {
+    const control = this.form.get(controlName);
+    return (control.dirty && control.errors) ? true : false;
   }
 
 }

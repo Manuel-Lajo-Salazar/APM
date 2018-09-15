@@ -1,8 +1,8 @@
 /*COMENTAR-DESCOMENTAR-INICIO*/
-// import { EntregaService } from '../_services/entrega.service';
-// import { TransporteService } from '../_services/transporte.service';
-import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
-import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+import { EntregaService } from '../_services/entrega.service';
+import { TransporteService } from '../_services/transporte.service';
+// import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
+// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 /*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -207,20 +207,20 @@ export class EntregaComponent implements OnInit {
     } else {
       this.loadEntregaModelForSave();
       /*COMENTAR-DESCOMENTAR-INICIO*/
-      this.create();
-      // if (this.model) {
-      //   this.update();
-      // } else {
-      //   this.create();
-      // }
+      // this.create();
+      if (this.model) {
+        this.update();
+      } else {
+        this.create();
+      }
       /*COMENTAR-DESCOMENTAR-FIN*/
     }
   }
 
   create() {
     /*COMENTAR-DESCOMENTAR-INICIO*/
-    this.entregaService.createEntrega(this.model)
-    // this.entregaService.createEntrega(this.modelForCreate)
+    // this.entregaService.createEntrega(this.model)
+    this.entregaService.createEntrega(this.modelForCreate)
     /*COMENTAR-DESCOMENTAR-FIN*/
       .subscribe(response => {
         console.log(response);
@@ -304,64 +304,64 @@ export class EntregaComponent implements OnInit {
 
     /*COMENTAR-DESCOMENTAR-INICIO*/
 
-    // this.modelForCreate = new EntregaForCreate(
-    //   this.model ? this.model.id : 0,
-    //   Number(this.transporte.id),
-    //   Number(this.remitente.id),
-    //   Number(this.destinatario.id),
-    //   Number(this.sucursalSalida.id),
-    //   String(this.form.get('sucursalSalidaDescripcion').value),
-    //   Number(this.sucursalLlegada.id),
-    //   String(this.form.get('sucursalLlegadaDescripcion').value),
-    //   fechaEntrega,
-    //   this.guiaRemitenteFile ? this.guiaRemitenteFile.name : '',
-    //   String(this.form.get('nroGuiaRemitente').value),
-    //   Number(this.form.get('nroBultoRemitente').value),
-    //   String(this.form.get('volumenRemitente').value),
-    //   null  // revisar si se debe enviar null, [] o qué valor
-    // );
-
-    const id = 4;
-    fechaEntrega.setHours(fechaEntrega.getHours() + 5);
-    this.model = new Entrega(
-      this.model ? this.model.id : id,
-      null, // codBarraEntrega
-      fechaEntrega,
-      true,
-      this.model ? this.model.nroEntrega : `E-00${id}`,
+    this.modelForCreate = new EntregaForCreate(
+      this.model ? this.model.id : 0,
       Number(this.transporte.id),
-      this.transporte.nroTransporte,
-      this.transporte.fechaSalida,
-      this.transporte.fechaLlegada,
-      this.transporte.sucursalSalidaId,
-      this.transporte.sucursalLlegadaId,
       Number(this.remitente.id),
-      this.remitente.razonSocial,
-      this.remitente.ruc,
-      this.remitente.direccion,
       Number(this.destinatario.id),
-      this.destinatario.razonSocial,
-      this.destinatario.ruc,
-      this.destinatario.direccion,
       Number(this.sucursalSalida.id),
-      this.sucursalSalida.nombre,
-      this.sucursalSalida.departamento,
-      this.sucursalSalida.direccion,
       String(this.form.get('sucursalSalidaDescripcion').value),
       Number(this.sucursalLlegada.id),
-      this.sucursalLlegada.nombre,
-      this.sucursalLlegada.departamento,
-      this.sucursalLlegada.direccion,
       String(this.form.get('sucursalLlegadaDescripcion').value),
-      0, // guiaRemitenteId
+      fechaEntrega,
       this.guiaRemitenteFile ? this.guiaRemitenteFile.name : '',
       String(this.form.get('nroGuiaRemitente').value),
-      String(this.form.get('nroBultoRemitente').value),
+      Number(this.form.get('nroBultoRemitente').value),
       String(this.form.get('volumenRemitente').value),
-      0, // guiaEntregaId
-      null, // guiaEntregaNroGuia
-      [new Rotulo('id-1', '9638507'), new Rotulo('id-2', '4532131'), new Rotulo('id-3', '6892482'), new Rotulo('id-4', '2345423')]
+      null  // revisar si se debe enviar null, [] o qué valor
     );
+
+    // const id = 4;
+    // fechaEntrega.setHours(fechaEntrega.getHours() + 5);
+    // this.model = new Entrega(
+    //   this.model ? this.model.id : id,
+    //   null, // codBarraEntrega
+    //   fechaEntrega,
+    //   true,
+    //   this.model ? this.model.nroEntrega : `E-00${id}`,
+    //   Number(this.transporte.id),
+    //   this.transporte.nroTransporte,
+    //   this.transporte.fechaSalida,
+    //   this.transporte.fechaLlegada,
+    //   this.transporte.sucursalSalidaId,
+    //   this.transporte.sucursalLlegadaId,
+    //   Number(this.remitente.id),
+    //   this.remitente.razonSocial,
+    //   this.remitente.ruc,
+    //   this.remitente.direccion,
+    //   Number(this.destinatario.id),
+    //   this.destinatario.razonSocial,
+    //   this.destinatario.ruc,
+    //   this.destinatario.direccion,
+    //   Number(this.sucursalSalida.id),
+    //   this.sucursalSalida.nombre,
+    //   this.sucursalSalida.departamento,
+    //   this.sucursalSalida.direccion,
+    //   String(this.form.get('sucursalSalidaDescripcion').value),
+    //   Number(this.sucursalLlegada.id),
+    //   this.sucursalLlegada.nombre,
+    //   this.sucursalLlegada.departamento,
+    //   this.sucursalLlegada.direccion,
+    //   String(this.form.get('sucursalLlegadaDescripcion').value),
+    //   0, // guiaRemitenteId
+    //   this.guiaRemitenteFile ? this.guiaRemitenteFile.name : '',
+    //   String(this.form.get('nroGuiaRemitente').value),
+    //   String(this.form.get('nroBultoRemitente').value),
+    //   String(this.form.get('volumenRemitente').value),
+    //   0, // guiaEntregaId
+    //   null, // guiaEntregaNroGuia
+    //   [new Rotulo('id-1', '9638507'), new Rotulo('id-2', '4532131'), new Rotulo('id-3', '6892482'), new Rotulo('id-4', '2345423')]
+    // );
 
     /*COMENTAR-DESCOMENTAR-FIN*/
   }

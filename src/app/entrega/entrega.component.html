@@ -170,7 +170,7 @@
                         Debe adjuntar un archivo
                     </div>
                     <div style="padding-top: 1rem;" class="col-md-6 col-sm-12 mb-3">
-                        {{model ? model.guiaRemitenteNombreGuia : ''}}
+                        <b>{{guiaRemitenteFile ? guiaRemitenteFile.name : model ? model.guiaRemitenteNombreGuia : ''}}</b>
                     </div>
                 </div>
                 <div class="row">
