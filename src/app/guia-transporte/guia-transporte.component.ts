@@ -14,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 
 declare let jQuery: any;
 
+import * as jsPDF from 'jspdf';
+
 @Component({
   templateUrl: './guia-transporte.component.html',
   styleUrls: ['./guia-transporte.component.scss']
@@ -32,6 +34,8 @@ export class GuiaTransporteComponent implements OnInit {
 
   tempFile: File;
   files: Array<File>;
+
+  doc: any;
 
   @ViewChild('attachInput') attachInput: ElementRef;
 
@@ -80,6 +84,35 @@ export class GuiaTransporteComponent implements OnInit {
       });
   }
 
+  createPdf() {
+    var doc = new jsPDF();
+
+    doc.setFontSize(15);
+    doc.text(this.form.get('guiaEntregaNroGuia').value, 160, 42);
+
+    doc.setFontSize(7);
+    doc.text(`${this.transporte.sucursalSalidaNombre} - ${this.transporte.sucursalSalidaDepartamento}`, 5, 55);
+    doc.text(`${this.transporte.sucursalLlegadaNombre} - ${this.transporte.sucursalLlegadaDepartamento}`, 105, 55);
+    doc.text(this.entrega.remitenteRazonSocial, 5, 65);
+    doc.text(this.entrega.destinatarioRazonSocial, 105, 65);
+    doc.text(`${this.transporte.vehiculoMarca} - ${this.transporte.vehiculoPlaca}`, 50, 75);
+    doc.text(this.transporte.vehiculoNroInscripcion, 150, 75);
+    doc.text(this.transporte.vehiculoCodConfiguracion, 50, 80);
+    doc.text(this.transporte.colaboradorChoferNroLicencia, 150, 80);
+
+    // const fE: Date = this.entrega.transporteFechaSalida;
+    // const strfechaEntrega: string = `${fE.getFullYear()}/${fE.getMonth()}/${fE.getDate()}  ${fE.getHours()}-${fE.getMinutes()}`;
+    doc.text(this.entrega.transporteFechaSalida, 45, 85);
+
+    let xOffset: number = 100;
+    this.guiasCliente.forEach(function(item, index) {
+      doc.text((index + 1).toString(), 10, xOffset + (index * 5));
+      doc.text(item.nombreGuia, 25, xOffset + (index * 5));
+    });
+
+    doc.save(`Guía-${this.form.get('guiaEntregaNroGuia').value}.pdf`);
+  }
+  
   save(): any {
     if (!this.form.valid) {
       this.form.get('guiaEntregaNroGuia').markAsDirty();

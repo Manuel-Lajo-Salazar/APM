@@ -17,7 +17,7 @@ import { AutoComplete } from '../_models/AutoComplete';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Rotulo } from '../_models/Rotulo';
 
-declare var require: any
+declare var require: any;
 const JsBarcode = require('jsbarcode');
 
 declare let jQuery: any;

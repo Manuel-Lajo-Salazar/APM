@@ -211,7 +211,7 @@
     {
       "id": 1,
       "nroEntrega": "E-007",
-      "codBarraEntrega": null,
+      "codBarraEntrega": "123456789012",
       "fechaEntrega": "2018-08-21T01:54:00.000Z",
       "transporteId": 2,
       "transporteNroTransporte": "T-002",
@@ -257,7 +257,7 @@
       "guiaEntregaId": 0,
       "guiaEntregaNroGuia": "99991111",
       "rotulo": [
-        { "id": "26", "codigo": "9638507" }, { "id": "id-2", "codigo": "4532131" }, { "id": "id-3", "codigo": "6892482" }
+        { "id": "26", "codBarraRotulo": "9638507" }, { "id": "id-2", "codBarraRotulo": "4532131" }, { "id": "id-3", "codBarraRotulo": "6892482" }
       ],
       "guiasCliente": [
         { "nombreGuia": "Nombre4", "nroGuia": "GC0004" }, { "nombreGuia": "Nombre5", "nroGuia": "GC0005" }, { "nombreGuia": "Nombre6", "nroGuia": "GC0006" }
@@ -266,7 +266,7 @@
     {
       "id": 2,
       "nroEntrega": "E-008",
-      "codBarraEntrega": null,
+      "codBarraEntrega": "567401289123",
       "fechaEntrega": "2018-08-22T13:25:00.000Z",
       "transporteId": 3,
       "transporteNroTransporte": "T-003",
@@ -311,7 +311,7 @@
       "guiaEntregaId": 0,
       "guiaEntregaNroGuia": "99992222",
       "rotulo": [
-        { "id": "id-1", "codigo": "9638507" }, { "id": "id-2", "codigo": "4532131" }
+        { "id": "id-1", "codBarraRotulo": "9638507" }, { "id": "id-2", "codBarraRotulo": "4532131" }
       ],
       "guiasCliente": [
         { "nombreGuia": "Nombre4", "nroGuia": "GC0004" }, { "nombreGuia": "Nombre5", "nroGuia": "GC0005" }
@@ -320,7 +320,7 @@
     {
       "id": 3,
       "nroEntrega": "E-009",
-      "codBarraEntrega": null,
+      "codBarraEntrega": "678901212345",
       "fechaEntrega": "2018-08-24T02:31:00.000Z",
       "transporteId": 1,
       "transporteNroTransporte": "T-001",
@@ -365,7 +365,7 @@
       "guiaEntregaId": 0,
       "guiaEntregaNroGuia": "99993333",
       "rotulo": [
-        { "id": "id-1", "codigo": "9638507" }
+        { "id": "id-1", "codBarraRotulo": "9638507" }
       ],
       "guiasCliente": [
         { "nombreGuia": "Nombre4", "nroGuia": "GC0004" }

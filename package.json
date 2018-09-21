@@ -31,6 +31,7 @@
     "jquery-ui": "git://github.com/jquery/jquery-ui.git#1.11.4",
     "jquery.animate-number": "0.0.14",
     "jsbarcode": "^3.11.0",
+    "jspdf": "^1.4.1",
     "ngx-bootstrap": "^3.0.1",
     "npm": "^6.2.0",
     "popper.js": "^1.14.3",

@@ -134,21 +134,19 @@
       <div class="card-body">
         <div class="row pt-2">
             <div class="col-xs-5 col-md-3 pt-2">
-                <span class="font-weight-bold">Nombre de Guía:</span>
+              <span class="font-weight-bold">Nombre de Guía:</span>
             </div>
             <div class="col-xs-6 col-md-3 pt-2">
-                {{guiaCliente.nombreGuia}}
+              {{guiaCliente.nombreGuia}}
             </div>
-            <div class="col-xs-5 col-md-3 pt-2">
+            <div class="col-xs-5 col-md-2 pt-2">
                 <span class="font-weight-bold">Nro. de Guía:</span>
             </div>
-            <div class="col-xs-6 col-md-3 pt-2">
-                {{guiaCliente.nroGuia}}
+            <div class="col-xs-6 col-md-2 pt-2">
+              {{guiaCliente.nroGuia}}
             </div>
-        </div>
-        <div class="row pt-2">
-            <div class="col-xs-12 col-md-12 pt-2" style="font-size: 24px;">
-                <button type="button" class="btn btn-primary" (click)="deleteGuiaCliente(i)">Eliminar</button>
+            <div class="col-xs-6 col-md-2 pt-1">
+              <button type="button" class="btn btn-primary" (click)="deleteGuiaCliente(i)">Eliminar</button>
             </div>
         </div>
       </div>
@@ -174,6 +172,7 @@
   <div class="row">
       <div class="col-md-12 col-sm-12 pt-3 mb-3">
           <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="save()" [attr.disabled]="mostrarMensajeExito">Actualizar Entrega</button>
+          <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="createPdf()">Generar PDF</button>
       </div>
   </div>
 </div>
