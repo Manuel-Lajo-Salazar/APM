@@ -8,7 +8,7 @@ declare let jQuery: any;
   templateUrl: './login.template.html'
 })
 export class LoginComponent implements OnInit {
-  @HostBinding('class') classes = 'login-page app';
+  @HostBinding('class') classes = '';
 
   constructor() {}
 

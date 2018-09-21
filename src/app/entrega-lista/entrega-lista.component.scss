@@ -1,6 +1,29 @@
 
+.card--shadow {
+    box-shadow: -10px 10px 25px grey;
+}
+
 .load-icon {
     position: absolute;
     background-color: white;
     left: 50%;
+}
+
+.pm-title {
+    font-weight: 500;
+}
+
+.pm-label {
+    font-weight: 700;
+    color: #F49D0C;
+}
+
+.pm-input {
+    border-width: 0 0 2px 0;
+    border-color: gray;
+}
+
+.pm-button {
+    background-color: #F49D0C;
+    border-color: #F49D0C;
 }

@@ -1,0 +1,36 @@
+
+.card--shadow {
+    box-shadow: -10px 10px 25px grey;
+}
+
+.test3 input {
+    background-color: black !important;
+    // border-top-width: 0;
+    // border-left-width: 0;
+    // border-right-width: 0;
+    // border-bottom-width: 2px;
+    // border-color: gray;
+}
+
+.pm-title {
+    font-weight: 500;
+}
+
+.pm-label {
+    font-weight: 700;
+    color: #F49D0C;
+}
+
+.pm-input {
+    border-width: 0 0 2px 0;
+    border-color: gray;
+}
+
+.pm-button {
+    background-color: #F49D0C;
+    border-color: #F49D0C;
+}
+
+.is-invalid {
+    border: solid 1px red;
+}

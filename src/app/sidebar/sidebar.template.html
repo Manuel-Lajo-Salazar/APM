@@ -1,23 +1,23 @@
 <div class="js-sidebar-content">
-    <header class="logo d-none d-md-block">
-        <img src="../../assets/images/logo-prime_2.psd" alt="">
+    <header class="logo d-none d-md-block" style="margin-top: 5rem;">
+        <img src="../../assets/images/logo-prime_2_old.png" alt="">
     </header>
     <!-- every .sidebar-nav may have a title -->
-    <h5 class="sidebar-nav-title" style="font-weight: 800; margin-top: 5rem;">Opciones
-    </h5>
+    <h5 class="sidebar-nav-title pl-5" style="font-weight: 500; margin-top: 5rem; text-transform: none; font-size: 20px">Opciones</h5>
     <ul class="sidebar-nav">
         <li class="prime-sidebar__menu-item">
             <a class="collapsed" data-target="#sidebar-dashboard-transporte" data-toggle="collapse" data-parent="#sidebar">
                 <span class="icon">
                     <i class="fa fa-truck"></i>
-                </span> Transportes
+                </span>
+                <span class="font-weight-bold">Transportes</span>
                 <i class="toggle fa fa-angle-down"></i>
             </a>
             <ul id="sidebar-dashboard-transporte" class="collapse prime-sidebar__submenu-item">
-                <li class="">
+                <li class="font-weight-bold">
                     <a [routerLink]="['/transporte']">Registrar</a>
                 </li>
-                <li class="">
+                <li class="font-weight-bold">
                     <a [routerLink]="['/transporteLista']">Buscar</a>
                 </li>
             </ul>
@@ -26,14 +26,15 @@
             <a class="collapsed" data-target="#sidebar-dashboard-entrega" data-toggle="collapse" data-parent="#sidebar">
                 <span class="icon">
                     <i class="fa fa-archive"></i>
-                </span> Entregas
+                </span>
+                <span class="font-weight-bold">Entregas</span>
                 <i class="toggle fa fa-angle-down"></i>
             </a>
             <ul id="sidebar-dashboard-entrega" class="collapse prime-sidebar__submenu-item">
-                <li class="">
+                <li class="font-weight-bold">
                     <a [routerLink]="['/entrega']">Registrar</a>
                 </li>
-                <li class="">
+                <li class="font-weight-bold">
                     <a [routerLink]="['/entregaLista']">Buscar</a>
                 </li>
             </ul>

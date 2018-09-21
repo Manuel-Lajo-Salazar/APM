@@ -1,0 +1,36 @@
+
+.card--shadow {
+    box-shadow: -10px 10px 25px grey;
+}
+
+.pm-title {
+    font-weight: 500;
+}
+
+.pm-input {
+    border-width: 0 0 2px 0;
+    border-color: gray;
+}
+
+.pm-label {
+    font-weight: 700;
+    color: #F49D0C;
+}
+
+.file-input {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.pm-button {
+    background-color: #F49D0C;
+    border-color: #F49D0C;
+}
+
+.is-invalid {
+    border: solid 1px red;
+}

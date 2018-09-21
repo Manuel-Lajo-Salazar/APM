@@ -1,5 +1,5 @@
 .complete-selected{
-    background-color: #707070;
+    background-color: lightgray;
     color: #f1f1f1;
 }
 
@@ -8,14 +8,15 @@
 }
 
 .suggestions{
-    border:solid 1px #f1f1f1;
+    border: solid 1px gray;
+    border-width: 0 2px 2px 2px;
+    border-radius: 0.3rem;
     position:absolute;
-    min-width: 100%;
+    min-width: 94.75%;
     width:auto;
     background: white;
     z-index: 500;
     text-align: left;
-
     color: black;
 }
 
@@ -38,8 +39,7 @@
 }
 
 .suggestions ul :hover{
-    background-color: #707070;
-    color: #f1f1f1;
+    background-color: lightgray;
 }
 
 .suggestions ul li a{
@@ -59,4 +59,13 @@
     background-color: white;
     margin: 7px;
     right: 4%;
+}
+
+.pm-input {
+    border-width: 0 0 2px 0;
+    border-color: gray;
+}
+
+.is-invalid {
+    border: solid 1px red;
 }

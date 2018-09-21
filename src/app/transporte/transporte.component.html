@@ -1,13 +1,13 @@
 <div class="container pt-3">
-    <h3 class="font-weight-bold">Registrar Transporte</h3>
+    <h3 class="pm-title">Registrar Transporte</h3>
 </div>
 <div class="container" [formGroup]="form">
     <div class="card-deck pt-3 pb-3">
-        <div class="card">
+        <div class="card card--shadow">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
-                        <label for="vehiculo">Vehículo</label>
+                        <label class="pm-label" for="vehiculo">Vehículo</label>
                         <pm-auto-complete
                             class="auto-complete"
                             id="vehiculo"
@@ -17,7 +17,7 @@
                         </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12">
-                        <label style="margin-top: 2.5rem; font-weight: 700; width: 200px;">Nº de Transporte:</label>
+                        <label class="pm-label pr-5" style="margin-top: 2.5rem;">Nº de Transporte:</label>
                         <span>{{model ? model.nroTransporte : ''}}</span>
                     </div>
                 </div>
@@ -37,11 +37,11 @@
     </div>
 
     <div class="card-deck pt-3 pb-3">
-        <div class="card">
+        <div class="card card--shadow">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-12 mb-3">
-                        <label for="sucSalida">Sucursal de Salida</label>
+                        <label class="pm-label" for="sucSalida">Sucursal de Salida</label>
                         <pm-auto-complete
                             class="auto-complete"
                             id="sucSalida"
@@ -51,12 +51,13 @@
                         </pm-auto-complete>
                     </div>
                     <div class="col-md-3 col-sm-12 mb-3">
-                        <label>Fecha Salida</label>
+                        <label class="pm-label">Fecha Salida</label>
                         <div>
                             <p-calendar
                                 formControlName="fechaSalida"
                                 dateFormat="dd/mm/yy"
-                                showIcon="true">
+                                showIcon="true"
+                                [locale]="formatoFechas">
                             </p-calendar>
                         </div>
                         <div style="color: red;" *ngIf="validarFechas()">
@@ -64,7 +65,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-12 mb-3">
-                        <label>Hora Salida</label>
+                        <label class="pm-label">Hora Salida</label>
                         <div>
                             <p-calendar
                                 formControlName="horaSalida"
@@ -76,7 +77,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-12 mb-3">
-                        <label for="sucLlegada">Sucursal de Llegada</label>
+                        <label class="pm-label" for="sucLlegada">Sucursal de Llegada</label>
                         <pm-auto-complete
                             class="auto-complete"
                             id="sucLlegada"
@@ -86,17 +87,18 @@
                         </pm-auto-complete>
                     </div>
                     <div class="col-md-3 col-sm-12 mb-3">
-                        <label>Fecha Llegada</label>
-                        <div>
+                        <label class="pm-label">Fecha Llegada</label>
+                        <div class="test3">
                             <p-calendar
                                 formControlName="fechaLlegada"
                                 dateFormat="dd/mm/yy"
-                                showIcon="true">
+                                showIcon="true"
+                                [locale]="formatoFechas">
                             </p-calendar>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-12 mb-3">
-                        <label>Hora Llegada</label>
+                        <label class="pm-label">Hora Llegada</label>
                         <div>
                             <p-calendar
                                 formControlName="horaLlegada"
@@ -108,7 +110,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-12 mb-3">
-                        <label for="chofer">Chofer</label>
+                        <label class="pm-label" for="chofer">Chofer</label>
                         <pm-auto-complete
                             class="auto-complete"
                             id="chofer"
@@ -118,7 +120,7 @@
                         </pm-auto-complete>
                     </div>
                     <div class="col-md-6 col-sm-12 mb-3">
-                        <label for="auxiliar">Auxiliar</label>
+                        <label class="pm-label" for="auxiliar">Auxiliar</label>
                         <pm-auto-complete
                             class="auto-complete"
                             id="auxiliar"
@@ -130,8 +132,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-12 mb-3">
-                        <label for="tipoTransporte">Tipo Transporte</label>
-                        <select class="form-control" formControlName="tipoTransporte" [ngClass]="{'is-invalid': formValidation('tipoTransporte')}">
+                        <label class="pm-label" for="tipoTransporte">Tipo Transporte</label>
+                        <select class="form-control pm-input" formControlName="tipoTransporte" [ngClass]="{'is-invalid': formValidation('tipoTransporte')}">
                             <option *ngFor="let tipoTransporte of tiposTransporte" [value]="tipoTransporte.id">{{tipoTransporte.nombre}}</option>
                         </select>
                     </div>
@@ -164,8 +166,8 @@
 
     <div class="row">
         <div class="col-md-12 col-sm-12 mb-3">
-            <button type="button" class="btn btn-primary float-md-right mr-3 mb-3" (click)="save()" [attr.disabled]="mostrarMensajeExito">Grabar</button>
-            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3" *ngIf="mostrarEliminar" (click)="confirmDelete()">Eliminar</button>
+            <button type="button" class="btn btn-primary float-md-right mr-3 mb-3 pm-button" (click)="save()" [attr.disabled]="mostrarMensajeExito">Grabar</button>
+            <button type="button" class="btn btn-dark float-md-right mr-3 mb-3 pm-button" *ngIf="mostrarEliminar" (click)="confirmDelete()">Eliminar</button>
         </div>
     </div>
 </div>
