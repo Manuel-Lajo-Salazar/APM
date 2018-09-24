@@ -195,7 +195,14 @@
     <div class="card-deck pt-2 mb-3" [class.hide]="!showBarcodes" *ngIf="model">
         <div class="card card--shadow">
             <div class="card-body">
-                <svg id="mainCode" jsbarcode-format="EAN13" [attr.jsbarcode-value]="model.codBarraEntrega"></svg>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <svg id="CodigoBarra" jsbarcode-format="EAN13" [attr.jsbarcode-value]="model.codBarraEntrega"></svg>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mb-3 pt-5">
+                        <button type="button" class="btn pm-button" (click)="saveBarCodePDF('CodigoBarra')">Imprimir</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -203,8 +210,13 @@
     <div class="card-deck pt-2 mb-3" [class.hide]="!showBarcodes" *ngIf="model">
         <div class="card card--shadow">
             <div class="card-body">
-                <div *ngFor="let barCode of model.rotulo">
-                    <svg id="{{'barCode-' + barCode.id}}" jsbarcode-format="EAN8" [attr.jsbarcode-value]="barCode.codBarraRotulo"></svg>
+                <div class="row" *ngFor="let barCode of model.rotulo">
+                    <div class="col-md-6 col-sm-12 mb-3">
+                        <svg id="{{'Rotulo-' + barCode.id}}" jsbarcode-format="EAN8" [attr.jsbarcode-value]="barCode.codBarraRotulo"></svg>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mb-3 pt-5">
+                        <button type="button" class="btn pm-button" (click)="saveBarCodePDF('Rotulo-' + barCode.id)">Imprimir</button>
+                    </div>
                 </div>
             </div>
         </div>

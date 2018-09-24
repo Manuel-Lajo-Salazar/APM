@@ -100,9 +100,12 @@ export class GuiaTransporteComponent implements OnInit {
     doc.text(this.transporte.vehiculoCodConfiguracion, 50, 80);
     doc.text(this.transporte.colaboradorChoferNroLicencia, 150, 80);
 
-    // const fE: Date = this.entrega.transporteFechaSalida;
-    // const strfechaEntrega: string = `${fE.getFullYear()}/${fE.getMonth()}/${fE.getDate()}  ${fE.getHours()}-${fE.getMinutes()}`;
-    doc.text(this.entrega.transporteFechaSalida, 45, 85);
+    const fE: Date = new Date(this.entrega.transporteFechaSalida);
+    console.log(this.entrega.transporteFechaSalida);
+    console.log(fE);
+    const strfechaEntrega: string = `${fE.getDate()}/${fE.getMonth() + 1}/${fE.getFullYear()} ${fE.getHours()}:${fE.getMinutes()}`;
+    doc.text(strfechaEntrega, 45, 85);
+    // doc.text(this.entrega.transporteFechaSalida, 45, 85);
 
     let xOffset: number = 100;
     this.guiasCliente.forEach(function(item, index) {
@@ -110,7 +113,7 @@ export class GuiaTransporteComponent implements OnInit {
       doc.text(item.nombreGuia, 25, xOffset + (index * 5));
     });
 
-    doc.save(`Guía-${this.form.get('guiaEntregaNroGuia').value}.pdf`);
+    doc.save(`Guía - ${this.form.get('guiaEntregaNroGuia').value}.pdf`);
   }
 
   save(): any {

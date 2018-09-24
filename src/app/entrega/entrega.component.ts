@@ -116,12 +116,15 @@ export class EntregaComponent implements OnInit {
   }
 
   showCodes() {
-    JsBarcode('#mainCode').init();
+    JsBarcode('#CodigoBarra').init();
     this.model.rotulo.forEach(function(item) {
-      JsBarcode('#barCode-' + item.id).init();
+      JsBarcode('#Rotulo-' + item.id).init();
     });
     this.showBarcodes = true;
-    const svg = document.querySelector('svg');
+  }
+
+  saveBarCodePDF(svgId: string) {
+    const svg = document.querySelector(`#${svgId}`);
     const svgData = new XMLSerializer().serializeToString(svg);
 
     const canvas = document.createElement('canvas');
@@ -137,9 +140,8 @@ export class EntregaComponent implements OnInit {
       const doc = new jsPDF();
       doc.setFontSize(15);
       doc.addImage(pngData, 'PNG', 0, 0, 0, 0);
-      doc.save();
+      doc.save(`Entrega - ${svgId}.pdf`);
     }
-
   }
 
   createForm() {
