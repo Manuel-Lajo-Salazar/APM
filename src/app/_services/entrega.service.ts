@@ -9,7 +9,7 @@ import { Cliente } from '../_models/Cliente';
 })
 export class EntregaService {
   baseUrl = environment.apiUrl;
-  private testUrlApi = `https://localhost:5001/api`;
+  private testUrlApi = `http://ec2-user@ec2-18-224-1-56.us-east-2.compute.amazonaws.com:8080/api`;
 
   constructor(private _http: HttpClient) { }
 
