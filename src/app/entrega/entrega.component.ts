@@ -1,8 +1,8 @@
 /*COMENTAR-DESCOMENTAR-INICIO*/
-import { EntregaService } from '../_services/entrega.service';
-import { TransporteService } from '../_services/transporte.service';
-// import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
-// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+// import { EntregaService } from '../_services/entrega.service';
+// import { TransporteService } from '../_services/transporte.service';
+import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
+import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 /*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -21,6 +21,7 @@ declare var require: any;
 const JsBarcode = require('jsbarcode');
 
 declare let jQuery: any;
+import * as jsPDF from 'jspdf';
 
 @Component({
   templateUrl: './entrega.component.html',
@@ -70,7 +71,7 @@ export class EntregaComponent implements OnInit {
   showBarcodes: boolean;
 
   formatoFechas: any;
-  
+
   @ViewChild('attachInput') attachInput: ElementRef;
 
   constructor(
@@ -120,6 +121,25 @@ export class EntregaComponent implements OnInit {
       JsBarcode('#barCode-' + item.id).init();
     });
     this.showBarcodes = true;
+    const svg = document.querySelector('svg');
+    const svgData = new XMLSerializer().serializeToString(svg);
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const img = document.createElement('img');
+    img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(svgData));
+
+    img.onload = () => {
+      ctx.drawImage(img, 0,0);
+      const pngData = canvas.toDataURL('image/png');
+
+      const doc = new jsPDF();
+      doc.setFontSize(15);
+      doc.addImage(pngData, 'PNG', 0, 0, 0, 0);
+      doc.save();
+    }
+
   }
 
   createForm() {
@@ -266,7 +286,7 @@ export class EntregaComponent implements OnInit {
         this.mostrarMensajeError = true;
         this.mensajeError = `<span class="fw-semi-bold">Se produjo el siguiente error: ${error.message}.</span>`;
       });
-    
+
     this.entregaService.saveAttachment(this.guiaRemitenteFile)
       .subscribe(response => {
         console.log(response);
@@ -377,7 +397,7 @@ export class EntregaComponent implements OnInit {
 
     /*COMENTAR-DESCOMENTAR-FIN*/
   }
-  
+
   regresar() {
     this._router.navigate(['/transporteLista', this.transporte.nroTransporte]);
   }
