@@ -1,6 +1,6 @@
 /*COMENTAR-DESCOMENTAR-INICIO*/
-// import { TransporteService } from '../_services/transporte.service';
-import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+import { TransporteService } from '../_services/transporte.service';
+// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 /*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit } from '@angular/core';

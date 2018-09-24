@@ -1,8 +1,8 @@
 /*COMENTAR-DESCOMENTAR-INICIO*/
-// import { EntregaService } from '../_services/entrega.service';
-// import { TransporteService } from '../_services/transporte.service';
-import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
-import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+import { EntregaService } from '../_services/entrega.service';
+import { TransporteService } from '../_services/transporte.service';
+// import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
+// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 /*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit } from '@angular/core';

@@ -11,7 +11,7 @@ import { Colaborador } from '../_models/Colaborador';
 })
 export class TransporteService {
   baseUrl = environment.apiUrl;
-  private testUrlApi = `http://ec2-user@ec2-18-224-1-56.us-east-2.compute.amazonaws.com:8080/api`;
+  private testUrlApi = `http://ec2-18-218-137-255.us-east-2.compute.amazonaws.com:8080/api`;
 
   constructor(private _http: HttpClient) { }
 

@@ -1,8 +1,8 @@
 /*COMENTAR-DESCOMENTAR-INICIO*/
-// import { EntregaService } from '../_services/entrega.service';
-// import { TransporteService } from '../_services/transporte.service';
-import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
-import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
+import { EntregaService } from '../_services/entrega.service';
+import { TransporteService } from '../_services/transporte.service';
+// import { EntregaMockService as EntregaService } from '../_services/entrega-mock.service';
+// import { TransporteMockService as TransporteService } from '../_services/transporte-mock.service';
 /*COMENTAR-DESCOMENTAR-FIN*/
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -101,11 +101,8 @@ export class GuiaTransporteComponent implements OnInit {
     doc.text(this.transporte.colaboradorChoferNroLicencia, 150, 80);
 
     const fE: Date = new Date(this.entrega.transporteFechaSalida);
-    console.log(this.entrega.transporteFechaSalida);
-    console.log(fE);
     const strfechaEntrega: string = `${fE.getDate()}/${fE.getMonth() + 1}/${fE.getFullYear()} ${fE.getHours()}:${fE.getMinutes()}`;
     doc.text(strfechaEntrega, 45, 85);
-    // doc.text(this.entrega.transporteFechaSalida, 45, 85);
 
     let xOffset: number = 100;
     this.guiasCliente.forEach(function(item, index) {
